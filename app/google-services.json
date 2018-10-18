@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "875958278847",
+    "firebase_url": "https://bibliotecasaosalvador.firebaseio.com",
+    "project_id": "bibliotecasaosalvador",
+    "storage_bucket": "bibliotecasaosalvador.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875958278847:android:e82efb54101e5a7f",
+        "android_client_info": {
+          "package_name": "com.example.rafael_cruz.bibliotecasaosalvador"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875958278847-t3ot0lsoa3bmg10nq8r2jqobl5i68utd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rafael_cruz.bibliotecasaosalvador",
+            "certificate_hash": "436acaf5c0070286b3e47ea6eba327cb7cabe20b"
+          }
+        },
+        {
+          "client_id": "875958278847-5bum6shsl0nvph6cj8hr8icend8edfd1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1HCwiIC0I8p-8eJBp70EI3IekgcJBElU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875958278847-5bum6shsl0nvph6cj8hr8icend8edfd1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875958278847:android:e0651b7a842e0671",
+        "android_client_info": {
+          "package_name": "release.saosalvador.com.administradorbiblioteca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875958278847-oc8mgcrpoo25ib7hvcin02h3dqj18gcl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "release.saosalvador.com.administradorbiblioteca",
+            "certificate_hash": "bb45d626707845c8f0b0837f67d1f9d4e1494898"
+          }
+        },
+        {
+          "client_id": "875958278847-5bum6shsl0nvph6cj8hr8icend8edfd1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1HCwiIC0I8p-8eJBp70EI3IekgcJBElU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875958278847-5bum6shsl0nvph6cj8hr8icend8edfd1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

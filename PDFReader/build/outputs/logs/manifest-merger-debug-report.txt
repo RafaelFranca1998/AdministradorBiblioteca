@@ -1,0 +1,195 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:1-72:12
+INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:1-72:12
+INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:1-72:12
+INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:1-72:12
+MERGED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-15:12
+MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\df3b077e1b6616353715682bc2e3cd2f\AndroidManifest.xml:2:1-13:12
+MERGED from [com.android.databinding:adapters:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\adapters-1.2.1.aar\bae6ef77fe73c5468a2f2b1b45a327ba\AndroidManifest.xml:17:1-26:12
+MERGED from [com.android.databinding:library:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\library-1.2.1.aar\9dba3872e499084245dc689fb573167c\AndroidManifest.xml:17:1-26:12
+MERGED from [com.android.support:support-v4:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.0.aar\3085e1a8854051106f63b2e7ca2fe465\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.0.aar\a4aac9c8f6d862afb48a8d74f02fac39\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.0.aar\7947c97d65a90af408606ed1ac2ed266\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.0.aar\1beb4a5de4baccbcf34d74739cc02fe8\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.0.aar\16b31eb27a457307a15a6b688850ff07\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.0.aar\fc2c3f705052ed62a1bfed8f07edd6a2\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\144e3521bebeac7c31c9f7ca1cdadee0\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\37134f27b94812851ff08598506fb7b2\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\ac75d02629c93f937223b3be566c94eb\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\d4ba007e6841bf3deb0ef2c5c02afd25\AndroidManifest.xml:17:1-22:12
+INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:1-72:12
+INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:1-72:12
+INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:1-72:12
+	package
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:3:5-32
+		INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
+		INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
+	android:versionName
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:5:5-30
+		INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
+		INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:4:5-28
+		INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
+		INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:7:5-81
+MERGED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:10:5-81
+MERGED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:10:5-81
+	android:name
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:7:22-78
+supports-screens
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:9:5-15:40
+	android:largeScreens
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:11:9-36
+	android:smallScreens
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:14:9-36
+	android:normalScreens
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:12:9-37
+	android:xlargeScreens
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:15:9-37
+	android:resizeable
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:13:9-34
+	android:anyDensity
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:10:9-34
+application
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:17:5-70:19
+MERGED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:12:5-13:19
+MERGED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:12:5-13:19
+MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\df3b077e1b6616353715682bc2e3cd2f\AndroidManifest.xml:11:5-20
+MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\df3b077e1b6616353715682bc2e3cd2f\AndroidManifest.xml:11:5-20
+	android:label
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:19:9-41
+	android:allowBackup
+		ADDED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:12:18-44
+	android:icon
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:18:9-45
+activity#com.radaee.reader.PDFReaderAct
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:20:9-28:20
+	android:label
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:23:13-45
+	android:configChanges
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:22:13-74
+	android:name
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:21:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:24:13-27:29
+action#android.intent.action.MAIN
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:25:17-69
+	android:name
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:25:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:26:17-77
+	android:name
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:26:27-74
+activity#com.radaee.reader.PDFTestAct
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:29:9-33:20
+	android:label
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:32:13-45
+	android:configChanges
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:31:13-74
+	android:name
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:30:13-39
+activity#com.radaee.reader.PDFSurfaceViewAct
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:34:9-38:20
+	android:label
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:37:13-45
+	android:configChanges
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:36:13-74
+	android:name
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:35:13-46
+activity#com.radaee.reader.PDFSimpleAct
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:39:9-43:20
+	android:label
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:42:13-45
+	android:configChanges
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:41:13-74
+	android:name
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:40:13-41
+activity#com.radaee.reader.PDFNavAct
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:44:9-48:20
+	android:label
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:47:13-45
+	android:configChanges
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:46:13-74
+	android:name
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:45:13-38
+activity#com.radaee.reader.PDFViewAct
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:49:9-53:20
+	android:configChanges
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:51:13-74
+	android:theme
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:52:13-60
+	android:name
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:50:13-39
+activity#com.radaee.reader.PDFGLViewAct
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:54:9-58:20
+	android:label
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:57:13-61
+	android:configChanges
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:56:13-74
+	android:name
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:55:13-41
+activity#com.radaee.reader.PDFJSTestAct
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:59:9-63:20
+	android:label
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:62:13-45
+	android:configChanges
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:61:13-74
+	android:name
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:60:13-41
+activity#com.radaee.util.PopupEditAct
+ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:64:9-69:20
+	android:label
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:68:13-60
+	android:configChanges
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:66:13-74
+	android:theme
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:67:13-61
+	android:name
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:65:13-56
+uses-sdk
+INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
+MERGED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:7:5-44
+MERGED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:7:5-44
+MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\df3b077e1b6616353715682bc2e3cd2f\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\df3b077e1b6616353715682bc2e3cd2f\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.databinding:adapters:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\adapters-1.2.1.aar\bae6ef77fe73c5468a2f2b1b45a327ba\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.databinding:adapters:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\adapters-1.2.1.aar\bae6ef77fe73c5468a2f2b1b45a327ba\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.databinding:library:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\library-1.2.1.aar\9dba3872e499084245dc689fb573167c\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.databinding:library:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\library-1.2.1.aar\9dba3872e499084245dc689fb573167c\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-v4:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.0.aar\3085e1a8854051106f63b2e7ca2fe465\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.0.aar\3085e1a8854051106f63b2e7ca2fe465\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.0.aar\a4aac9c8f6d862afb48a8d74f02fac39\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.0.aar\a4aac9c8f6d862afb48a8d74f02fac39\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.0.aar\7947c97d65a90af408606ed1ac2ed266\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.0.aar\7947c97d65a90af408606ed1ac2ed266\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.0.aar\1beb4a5de4baccbcf34d74739cc02fe8\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.0.aar\1beb4a5de4baccbcf34d74739cc02fe8\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.0.aar\16b31eb27a457307a15a6b688850ff07\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.0.aar\16b31eb27a457307a15a6b688850ff07\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.0.aar\fc2c3f705052ed62a1bfed8f07edd6a2\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.0.aar\fc2c3f705052ed62a1bfed8f07edd6a2\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\144e3521bebeac7c31c9f7ca1cdadee0\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\144e3521bebeac7c31c9f7ca1cdadee0\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\37134f27b94812851ff08598506fb7b2\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\37134f27b94812851ff08598506fb7b2\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\ac75d02629c93f937223b3be566c94eb\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\ac75d02629c93f937223b3be566c94eb\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\d4ba007e6841bf3deb0ef2c5c02afd25\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\d4ba007e6841bf3deb0ef2c5c02afd25\AndroidManifest.xml:20:5-44
+INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		ADDED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\df3b077e1b6616353715682bc2e3cd2f\AndroidManifest.xml:9:9-38
+	android:minSdkVersion
+		INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
+		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
+		INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:9:5-80
+	android:name
+		ADDED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:9:22-77

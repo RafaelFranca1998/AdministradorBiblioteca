@@ -1,0 +1,66 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v21\\values-v21.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\values-v21\\values-v21.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,13",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,159,223,290,354,470,596,722,850,1022",
+                        "endLines": "2,3,4,5,6,7,8,9,12,17",
+                        "endColumns": "103,63,66,63,115,125,125,127,12,12",
+                        "endOffsets": "154,218,285,349,465,591,717,845,1017,1355"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,10,11,18,22,26,29",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,159,223,290,592,708,1165,1459,1754,1926",
+                        "endLines": "2,3,4,5,10,11,18,22,28,33",
+                        "endColumns": "103,63,66,63,115,125,125,127,12,12",
+                        "endOffsets": "154,218,285,349,703,829,1286,1582,1921,2259"
+                    }
+                },
+                {
+                    "source": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\ViewLib\\build\\intermediates\\packaged_res\\debug\\values-v21\\values-v21.xml",
+                    "from": {
+                        "startLines": "2,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,210",
+                        "endLines": "4,5",
+                        "endColumns": "12,82",
+                        "endOffsets": "205,288"
+                    },
+                    "to": {
+                        "startLines": "6,9",
+                        "startColumns": "4,4",
+                        "startOffsets": "354,509",
+                        "endLines": "8,9",
+                        "endColumns": "12,82",
+                        "endOffsets": "504,587"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\a4aac9c8f6d862afb48a8d74f02fac39\\res\\values-v21\\values-v21.xml",
+                    "from": {
+                        "startLines": "2,5,8,11",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,223,386,554",
+                        "endLines": "4,7,10,13",
+                        "endColumns": "12,12,12,12",
+                        "endOffsets": "218,381,549,716"
+                    },
+                    "to": {
+                        "startLines": "12,15,19,23",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "834,1002,1291,1587",
+                        "endLines": "14,17,21,25",
+                        "endColumns": "12,12,12,12",
+                        "endOffsets": "997,1160,1454,1749"
+                    }
+                }
+            ]
+        }
+    ]
+}

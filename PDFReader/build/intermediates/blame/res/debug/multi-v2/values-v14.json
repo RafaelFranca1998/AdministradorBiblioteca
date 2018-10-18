@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v14\\values-v14.xml",
+            "map": [
+                {
+                    "source": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\ViewLib\\build\\intermediates\\packaged_res\\debug\\values-v14\\values-v14.xml",
+                    "from": {
+                        "startLines": "2,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,206",
+                        "endLines": "4,5",
+                        "endColumns": "12,78",
+                        "endOffsets": "201,280"
+                    }
+                }
+            ]
+        }
+    ]
+}
