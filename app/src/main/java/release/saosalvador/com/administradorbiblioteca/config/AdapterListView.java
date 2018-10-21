@@ -24,9 +24,6 @@ import java.util.List;
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
-/**
- * Classe adaptador Customizada.
- */
 public class AdapterListView extends BaseAdapter {
     private List<Livro> itens;
     private Context context;
@@ -34,9 +31,7 @@ public class AdapterListView extends BaseAdapter {
 
 
     public AdapterListView(Context context, List<Livro> itens ) {
-        //Itens do listview.
         this.itens = itens;
-        //Objeto responsável por pegar o Layout do item.
         this.context =  context;
     }
 
@@ -57,9 +52,7 @@ public class AdapterListView extends BaseAdapter {
     @SuppressLint("InflateParams")
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        //se a view estiver nula (nunca criada), inflamos o layout nela (Singleton).
         if (view == null) {
-            //infla o layout para podermos pegar as views.
             LayoutInflater mInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             try {
@@ -69,30 +62,22 @@ public class AdapterListView extends BaseAdapter {
                 e.printStackTrace();
             }
 
-            //cria um item de suporte para não precisarmos sempre
-            //inflar as mesmas informacoes.
+
             itemHolder = new ItemSuporte();
             assert view != null;
             itemHolder.txtDescricao = (view.findViewById(R.id.text_nome_livro_list));
             itemHolder.txtLocalidade = view.findViewById(R.id.text_categoria);
             itemHolder.imgIcon = (view.findViewById(R.id.imagemview_list));
             itemHolder.progressBar = view.findViewById(R.id.progressBarlistview);
-            //define os itens na view.
             view.setTag(itemHolder);
         } else {
-            //se a view já existe pega os itens.
             itemHolder = (ItemSuporte) view.getTag();
         }
 
-        //pega os dados da lista
-        //e define os valores nos itens.
         Livro item = itens.get(position);
-        //itemHolder.imgIcon.setImageResource(item.getIconeRid());
         itemHolder.txtDescricao.setText(item.getNome());
         itemHolder.txtLocalidade.setText(item.getCategoria());
-        //baixa imagem do datastore
         String url = item.getImgDownload();
-        //TODO ver se tá funcionando.
         if (itemHolder.imgIcon == null){
             itemHolder.imgIcon.setVisibility(View.GONE);
             itemHolder.progressBar.setVisibility(View.VISIBLE);
@@ -107,7 +92,7 @@ public class AdapterListView extends BaseAdapter {
                         public boolean onException(Exception e, StorageReference model, Target<GlideDrawable> target, boolean isFirstResource) {
                             itemHolder.progressBar.setVisibility(View.GONE);
                             itemHolder.imgIcon.setVisibility(View.VISIBLE);
-                            return false; // important to return false so the error placeholder can be placed
+                            return false;
                         }
 
                         @Override
@@ -127,15 +112,9 @@ public class AdapterListView extends BaseAdapter {
                     .into(itemHolder.imgIcon);
             itemHolder.progressBar.setVisibility(View.GONE);
         }
-
-
-        //retorna a view com as informações
         return view;
     }
 
-    /**
-     * Classe de suporte para os itens do layout.
-     */
     private class ItemSuporte {
         ImageView imgIcon;
         TextView txtLocalidade;

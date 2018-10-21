@@ -9,12 +9,17 @@ public class Base64Custom {
         code = code.replace("=","");
         return code;
     }
-
     public static String decodificarBase64(String textoCodificado){
        return new String( Base64.decode(textoCodificado, Base64.DEFAULT));
     }
-
     public static String removeUrl(String textoUrl){
         return textoUrl.replaceAll("https://ecossocial-2c0dc.firebaseio.com/events/","");
     }
+    public static String renoveSpaces(String textoUrl){
+        String text = textoUrl;
+        text = text.replaceAll("\\s","-");
+        text = text.replaceAll("_","-");
+        return text;
+    }
+
 }

@@ -35,24 +35,4 @@ public class DAO {
         }
         return storage;
     }
-
-    //    public void criaEvento(Eventos eventos){
-//        referenciaFirebase.child("eventos").child(String.valueOf(Eventos.getDataCriacao())).child(String.valueOf(Eventos.getSerialNumber())).setValue(eventos);
-//    }
-//
-//    public void selecionarEvento(String codigoEvento){
-//        firebaseReferencia.child("eventos").child(codigoEvento).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Eventos  eventos = dataSnapshot.getValue(Eventos.class);
-//                Log.i("Eventos",eventos.toString());
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.i("Error","The read failed: " + databaseError.getCode());
-//            }
-//        });
-//    }
-
 }

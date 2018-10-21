@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Copyright (c) 2018. all rights are reserved to the authors of this project, unauthorized use of this code in
+ * other projects may result in legal complications.                          *
+ ******************************************************************************/
+
 package release.saosalvador.com.administradorbiblioteca.config.recyclerview;
 
 import android.content.Context;
@@ -20,27 +25,19 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
-import release.saosalvador.com.administradorbiblioteca.MainActivity;
+import release.saosalvador.com.administradorbiblioteca.activity.MainActivity;
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerView.ViewHolder> {
 
-    // Provide a direct reference to each of the views within a data item
-    // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
-        // Your holder should contain a member variable
-        // for any view that will be set as you render a row
         ImageView imgIcon;
         TextView txtCategoria;
         TextView txtNomeLivro;
         ProgressBar progressBar;
 
-        // We also create a constructor that accepts the entire item row
-        // and does the view lookups to find each subview
         public ViewHolder(View itemView) {
-            // Stores the itemView in a public final member variable that can be used
-            // to access the context from any ViewHolder instance.
             super(itemView);
             itemView.setOnCreateContextMenuListener(this);
             imgIcon = itemView.findViewById(R.id.imagemview_list);
@@ -59,40 +56,32 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
         }
     }
 
-    // Store a member variable for the contacts
     private List<Livro> mLivros;
     private Context mContext;
     private String url;
     private ViewHolder mViewHolder;
 
-    // Pass in the contact array into the constructor
     public AdapterRecyclerView(Context context,List<Livro> livro) {
         mLivros = livro;
         mContext = context;
     }
 
-    // Usually involves inflating a layout from XML and returning the holder
     @Override
     public AdapterRecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        // Inflate the custom layout
         View listView = inflater.inflate(R.layout.recycler_cell, parent, false);
         listView.setOnClickListener(new MainActivity.MyOnClickListener());
-        // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(listView);
         return viewHolder;
     }
 
-    // Involves populating data into the item through holder
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        // Get the data model based on position
         Livro livro = mLivros.get(position);
         mViewHolder = viewHolder;
 
-        // Set item views based on your views and data model
         TextView textViewCategoria = mViewHolder.txtCategoria;
         textViewCategoria.setText(livro.getCategoria());
         TextView textViewNome = mViewHolder.txtNomeLivro;
@@ -135,7 +124,6 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
         }
     }
 
-    // Returns the total count of items in the list
     @Override
     public int getItemCount() {
         return mLivros.size();

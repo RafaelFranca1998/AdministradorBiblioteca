@@ -1,4 +1,4 @@
-#Fri Oct 05 20:31:39 BRT 2018
+#Fri Oct 19 00:14:42 BRT 2018
 base.0=D\:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex
