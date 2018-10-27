@@ -19,10 +19,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.UploadTask;
 
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
 import release.saosalvador.com.administradorbiblioteca.config.DAO;
+import release.saosalvador.com.administradorbiblioteca.config.actions.Insert;
+import release.saosalvador.com.administradorbiblioteca.model.Category;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class EditActivity extends AppCompatActivity {
@@ -35,8 +39,11 @@ public class EditActivity extends AppCompatActivity {
     private EditText editTextLivroEditora;
     private EditText editTextLivroAno;
     private DatabaseReference databaseReference;
+    private DatabaseReference categoryReference;
     private Livro livro;
+    private Category category;
     private String idLivro;
+    private String categoryName;
 
 
     @Override
@@ -107,11 +114,27 @@ public class EditActivity extends AppCompatActivity {
                         livro = data.getValue(Livro.class);
                         editTextLivroNome.setText(livro.getNome());
                         editTextLivroAutor.setText(livro.getAutor());
-                        editTextLivroCategoria.setText(livro.getCategoria()); ;
+                        editTextLivroCategoria.setText(livro.getCategoria());
                         editTextLivroEditora.setText(livro.getEditora());
                         editTextLivroAno.setText(livro.getAno());
+                        categoryName = livro.getCategoria();
+                        categoryReference = DAO.getFireBase().child("categorias").child(categoryName);
+                        getDatabase2();
                     }
                 }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getDatabase2(){
+        categoryReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                category = dataSnapshot.getValue(Category.class);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -132,23 +155,29 @@ public class EditActivity extends AppCompatActivity {
             livro.setCategoria(editTextLivroCategoria.getText().toString());
             livro.setEditora(editTextLivroEditora.getText().toString());
             livro.setAno(editTextLivroAno.getText().toString());
-            livro.setIdLivro(Base64Custom.codificarBase64(editTextLivroNome.getText().toString()));
-            saveInfo();
+            livro.setIdLivro(livro.getIdLivro());
+            Insert insert =  new Insert(EditActivity.this);
+            //testa se a categoria existe.
+            try {
+                String s = category.getCategoryName();
+            } catch (NullPointerException e){
+                e.printStackTrace();
+            } finally {
+                category =  new Category();
+                category.setCategoryName(livro.getCategoria());
+                insert.saveCategoryFireStore(category);
+            }
+            insert.saveInfo(livro,category);
+            insert.addOnSuccessListener(new Insert.OnSuccessInsertListener() {
+                @Override
+                public void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot) {
+                    finish();
+                }
+            });
         } catch (IllegalArgumentException e){
             Toast.makeText(this,"Retire os simbolos = '#', '$', '[', or ']'",Toast.LENGTH_LONG).show();
         }catch (Exception e){
             e.printStackTrace();
-        }
-    }
-
-    private void saveInfo(){
-        try {
-            databaseReference = DAO.getFireBase().child("livros").child(livro.getIdLivro());
-            databaseReference.setValue(livro);
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            finish();
         }
     }
 }

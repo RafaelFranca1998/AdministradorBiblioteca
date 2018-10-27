@@ -1,5 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">Administrador Biblioteca</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -16,8 +15,17 @@
     <string name="text_yes">Sim</string>
     <string name="text_no">No</string>
     <string name="error_delete">Erro ao Deletar: </string>
+    <string name="error">Erro: </string>
     <string name="delete_successful">Livro deletado</string>
     <string name="tag_debug">Debug: </string>
     <string name="tag_id">id</string>
+    <string name="child_category">categorias</string>
+    <string name="child_book">livros</string>
+    <string name="deleted_image">Imagem Deletada</string>
+    <string name="invalid_path_error">Selecione um livro.</string>
+    <string name="successful_image_upload">Imagem Enviada.</string>
+    <string name="error_image_upload">Falha ao carregar o livro.</string>
+    <string name="unknow_error">Erro desconhecido! </string>
+
 
 </resources>

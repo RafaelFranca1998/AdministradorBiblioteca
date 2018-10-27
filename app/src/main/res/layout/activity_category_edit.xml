@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (c) 2018. all rights are reserved to the authors of this project, unauthorized use of this code in
+  ~ other projects may result in legal complications.                         ~
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.CategoryEditActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="Nome"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bt_concluir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="148dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="148dp"
+            android:layout_marginBottom="85dp"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_update_category_image" />
+
+        <EditText
+            android:id="@+id/edit_text_category_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="83dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView10"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageview_category_img"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_marginStart="82dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="82dp"
+            android:src="@drawable/common_google_signin_btn_icon_light_normal_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_category_name" />
+
+        <Button
+            android:id="@+id/bt_update_category_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="113dp"
+            android:layout_marginTop="39dp"
+            android:layout_marginEnd="113dp"
+            android:text="Atualizar Imagem"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageview_category_img" />
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

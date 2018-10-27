@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Oct 19 00:14:42 BRT 2018
+#Fri Oct 26 01:09:46 BRST 2018
 2.base=D\:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
 5.set=NATIVE_RESOURCE
 0.path=lib/x86_64/librdpdf.so

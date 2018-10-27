@@ -1,7 +1,7 @@
 [
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_big_media_narrow_custom.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\a4aac9c8f6d862afb48a8d74f02fac39\\res\\layout\\notification_template_big_media_narrow_custom.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\2c39ff6f98c207e843d6f88b1f98a5be\\res\\layout\\notification_template_big_media_narrow_custom.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\raw_amiri_regular.flat",
@@ -9,7 +9,7 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_custom_big.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\layout\\notification_template_custom_big.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\layout\\notification_template_custom_big.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_pdf_fragment.xml.flat",
@@ -25,15 +25,15 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-mdpi-v4\\notify_panel_notification_icon_bg.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-mdpi-v4\\notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-hdpi-v4\\notification_bg_normal.9.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-hdpi-v4\\notification_bg_normal.9.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_btn_redo.png.flat",
@@ -41,7 +41,7 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout-v21_notification_action_tombstone.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\layout-v21\\notification_action_tombstone.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\layout-v21\\notification_action_tombstone.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_item_outline.xml.flat",
@@ -77,19 +77,19 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_big_media.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\a4aac9c8f6d862afb48a8d74f02fac39\\res\\layout\\notification_template_big_media.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\2c39ff6f98c207e843d6f88b1f98a5be\\res\\layout\\notification_template_big_media.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_part_time.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\layout\\notification_template_part_time.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\layout\\notification_template_part_time.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-v21_notification_action_background.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-v21\\notification_action_background.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-v21\\notification_action_background.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-hdpi-v4\\notify_panel_notification_icon_bg.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-hdpi-v4\\notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_btn_back.png.flat",
@@ -97,7 +97,7 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_btn_view_vert.png.flat",
@@ -109,7 +109,7 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_action.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\layout\\notification_action.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\layout\\notification_action.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_btn_cancel.png.flat",
@@ -117,11 +117,11 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout-v16_notification_template_custom_big.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\layout-v16\\notification_template_custom_big.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\layout-v16\\notification_template_custom_big.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_media_custom.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\a4aac9c8f6d862afb48a8d74f02fac39\\res\\layout\\notification_template_media_custom.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\2c39ff6f98c207e843d6f88b1f98a5be\\res\\layout\\notification_template_media_custom.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\raw_arimobi.flat",
@@ -145,7 +145,7 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_part_chronometer.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\layout\\notification_template_part_chronometer.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_pdf_curl.xml.flat",
@@ -161,7 +161,7 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-hdpi-v4\\notification_bg_low_normal.9.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-hdpi-v4\\notification_bg_low_normal.9.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_menu_back.png.flat",
@@ -197,11 +197,11 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_media_action.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\a4aac9c8f6d862afb48a8d74f02fac39\\res\\layout\\notification_media_action.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\2c39ff6f98c207e843d6f88b1f98a5be\\res\\layout\\notification_media_action.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_notification_bg_low.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable\\notification_bg_low.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable\\notification_bg_low.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_btn_annot_rect.png.flat",
@@ -237,15 +237,15 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_notification_icon_background.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable\\notification_icon_background.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable\\notification_icon_background.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout-v21_notification_template_icon_group.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\layout-v21\\notification_template_icon_group.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\layout-v21\\notification_template_icon_group.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\raw_tinosi.flat",
@@ -253,11 +253,11 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_big_media_narrow.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\a4aac9c8f6d862afb48a8d74f02fac39\\res\\layout\\notification_template_big_media_narrow.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\2c39ff6f98c207e843d6f88b1f98a5be\\res\\layout\\notification_template_big_media_narrow.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_lines_media.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\a4aac9c8f6d862afb48a8d74f02fac39\\res\\layout\\notification_template_lines_media.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\2c39ff6f98c207e843d6f88b1f98a5be\\res\\layout\\notification_template_lines_media.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_dlg_pswd.xml.flat",
@@ -269,7 +269,7 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout-v21_notification_action.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\layout-v21\\notification_action.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\layout-v21\\notification_action.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_pt_start.png.flat",
@@ -281,19 +281,19 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_icon_group.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\layout\\notification_template_icon_group.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\layout\\notification_template_icon_group.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_notification_bg.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable\\notification_bg.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable\\notification_bg.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout-v21_notification_template_custom_big.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\layout-v21\\notification_template_custom_big.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\layout-v21\\notification_template_custom_big.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_big_media_custom.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\a4aac9c8f6d862afb48a8d74f02fac39\\res\\layout\\notification_template_big_media_custom.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\2c39ff6f98c207e843d6f88b1f98a5be\\res\\layout\\notification_template_big_media_custom.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_save.png.flat",
@@ -313,11 +313,11 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_low_normal.9.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-mdpi-v4\\notification_bg_low_normal.9.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-mdpi-v4\\notification_bg_low_normal.9.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_media_cancel_action.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\a4aac9c8f6d862afb48a8d74f02fac39\\res\\layout\\notification_media_cancel_action.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\2c39ff6f98c207e843d6f88b1f98a5be\\res\\layout\\notification_media_cancel_action.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_pop_edit.xml.flat",
@@ -345,7 +345,7 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-xhdpi-v4\\notification_bg_normal.9.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-xhdpi-v4\\notification_bg_normal.9.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_btn_done.png.flat",
@@ -373,11 +373,11 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-mdpi-v4\\notification_bg_normal.9.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-mdpi-v4\\notification_bg_normal.9.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_launcher.png.flat",
@@ -417,11 +417,11 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_normal_pressed.9.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-hdpi-v4\\notification_bg_normal_pressed.9.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-hdpi-v4\\notification_bg_normal_pressed.9.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-hdpi-v4\\notification_bg_low_pressed.9.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-hdpi-v4\\notification_bg_low_pressed.9.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_pdf_custom_stamp.png.flat",
@@ -429,7 +429,7 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notify_panel_notification_icon_bg.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_bookmark_row.xml.flat",
@@ -445,11 +445,11 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_action_tombstone.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\layout\\notification_action_tombstone.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\layout\\notification_action_tombstone.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable_notification_tile_bg.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable\\notification_tile_bg.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable\\notification_tile_bg.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_launcher.png.flat",
@@ -477,11 +477,11 @@
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_media.xml.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\a4aac9c8f6d862afb48a8d74f02fac39\\res\\layout\\notification_template_media.xml"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.0.aar\\2c39ff6f98c207e843d6f88b1f98a5be\\res\\layout\\notification_template_media.xml"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\fc2c3f705052ed62a1bfed8f07edd6a2\\res\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png"
+        "source": "C:\\Users\\Rafael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\a986c5a6651c6e2b2b568ac7e31781b7\\res\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png"
     },
     {
         "merged": "D:\\WorkspaceAndroidStudio\\AdministradorBiblioteca\\PDFReader\\build\\intermediates\\res\\merged\\debug\\layout_pdf_layout.xml.flat",

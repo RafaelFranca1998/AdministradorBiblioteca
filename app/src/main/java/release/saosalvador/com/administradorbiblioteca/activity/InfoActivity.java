@@ -3,7 +3,6 @@ package release.saosalvador.com.administradorbiblioteca.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.icu.text.IDNA;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,19 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import release.saosalvador.com.administradorbiblioteca.R;
-import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
 import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Delete;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
@@ -62,12 +55,11 @@ public class InfoActivity extends AppCompatActivity {
         txtAno = findViewById(R.id.tv_ano);
         txtCurso = findViewById(R.id.tv_curso);
 
-
         Bundle extra = getIntent().getExtras();
         if (extra!= null){
             Log.e(TAG,"Não está null");
             idLivro = extra.getString(KEY);
-            databaseReference = DAO.getFireBase().child("livros");
+            databaseReference = DAO.getFireBase().child(getString(R.string.child_book));
         }
 
         getDatabase1();
@@ -93,7 +85,7 @@ public class InfoActivity extends AppCompatActivity {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog alerta;
+                AlertDialog ad;
                 AlertDialog.Builder builder = new AlertDialog.Builder(InfoActivity.this);
                 builder.setTitle(getString(R.string.button_delete));
                 builder.setMessage(getString(R.string.text_dialog)+ livro.getNome()+" ?");
@@ -101,16 +93,20 @@ public class InfoActivity extends AppCompatActivity {
                     public void onClick(DialogInterface arg0, int arg1) {
                         Delete delete =  new Delete(InfoActivity.this,livro,databaseReference);
                         delete.deleteBook();
-                        closeActivity();
-
+                        delete.addOnSuccessListener(new Delete.OnSuccessDeleteListener() {
+                            @Override
+                            public void onCompleteInsert(@NonNull Void aVoid) {
+                                closeActivity();
+                            }
+                        });
                     }
                 });
                 builder.setNegativeButton(getString(R.string.text_no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
                     }
                 });
-                alerta = builder.create();
-                alerta.show();
+                ad = builder.create();
+                ad.show();
             }
         });
     }

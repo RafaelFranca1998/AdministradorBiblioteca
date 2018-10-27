@@ -23,7 +23,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import release.saosalvador.com.administradorbiblioteca.R;
+import release.saosalvador.com.administradorbiblioteca.config.actions.Delete;
+import release.saosalvador.com.administradorbiblioteca.config.actions.Get;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.AdapterRecyclerView;
 import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.RecyclerItemClickListener;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity
     private LinearLayout layoutFabAdd;
     static String mCaminho;
     private String KEY;
+    NavigationView navigationView;
+    DrawerLayout drawer;
 
 
     private static List<Livro> listLivros;
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity
     private AdapterRecyclerView adapterListView;
     private String caminhoDoArquivo;
     static int itemPosition;
+    Toolbar toolbar;
 
     private DatabaseReference databaseReference;
 
@@ -64,11 +68,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        //------------------------------------------------------------------------------------------
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        //------------------------------------------------------------------------------------------
         KEY = getString(R.string.tag_id);
 
         listLivros =  new ArrayList<>();
@@ -100,33 +103,37 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_livros);
 
-        databaseReference = DAO.getFireBase().child("livros");
+//        databaseReference = DAO.getFireBase().child(getString(R.string.child_book));
         adapterListView =  new AdapterRecyclerView(MainActivity.this,listLivros);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listLivros.clear();
-                for (DataSnapshot data:dataSnapshot.getChildren()){
-                    Livro livro = data.getValue(Livro.class);
-                    listLivros.add(livro);
-                }
-                adapterListView.notifyDataSetChanged();
-            }
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                listLivros.clear();
+//                for (DataSnapshot data:dataSnapshot.getChildren()){
+//                    Livro livro = data.getValue(Livro.class);
+//                    listLivros.add(livro);
+//                }
+//                adapterListView.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.i(getString(R.string.error),databaseError.getMessage());
+//            }
+//        });
+        Get get =  new Get();
+        listLivros = get.getLivro();
+        adapterListView.notifyDataSetChanged();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.i("Erro: ",databaseError.getMessage());
-            }
-        });
         listView.setAdapter(adapterListView);
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -177,6 +184,12 @@ public class MainActivity extends AppCompatActivity
                 catch (Exception e){
                     e.printStackTrace();
                 }
+                break;
+            case 3:
+                Delete delete =  new Delete(MainActivity.this,listLivros.get(itemPosition),databaseReference);
+                delete.deleteBook();
+                break;
+
         }
         return super.onContextItemSelected(item);
     }
@@ -213,27 +226,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
 
-        if (id == R.id.nav_livros) {
-            Intent intent =  new Intent(MainActivity.this,MainActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_add_livro) {
-            Intent intent =  new Intent(MainActivity.this,AddBookActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_categorias) {
-
-        } else if (id == R.id.nav_edit) {
-
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
     private void closeSubMenusFab(){
         layoutFabSave.setVisibility(View.INVISIBLE);
@@ -248,6 +241,28 @@ public class MainActivity extends AppCompatActivity
         fabSettings.setImageResource(R.drawable.ic_close_red_24dp);
         fabExpanded = true;
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+
+        if (id == R.id.nav_livros) {
+            Intent intent =  new Intent(MainActivity.this,MainActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_add_livro) {
+            Intent intent =  new Intent(MainActivity.this,AddBookActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_categorias) {
+            Intent intent =  new Intent(MainActivity.this,CategoryActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_edit) {
+            //Intent intent =  new Intent(MainActivity.this,)
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
 
 
     public static class MyOnClickListener implements View.OnClickListener {

@@ -5,19 +5,19 @@ INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\ma
 INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:1-72:12
 INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:1-72:12
 MERGED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:2:1-15:12
-MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\df3b077e1b6616353715682bc2e3cd2f\AndroidManifest.xml:2:1-13:12
-MERGED from [com.android.databinding:adapters:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\adapters-1.2.1.aar\bae6ef77fe73c5468a2f2b1b45a327ba\AndroidManifest.xml:17:1-26:12
-MERGED from [com.android.databinding:library:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\library-1.2.1.aar\9dba3872e499084245dc689fb573167c\AndroidManifest.xml:17:1-26:12
-MERGED from [com.android.support:support-v4:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.0.aar\3085e1a8854051106f63b2e7ca2fe465\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-media-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.0.aar\a4aac9c8f6d862afb48a8d74f02fac39\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-fragment:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.0.aar\7947c97d65a90af408606ed1ac2ed266\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-core-ui:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.0.aar\1beb4a5de4baccbcf34d74739cc02fe8\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-core-utils:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.0.aar\16b31eb27a457307a15a6b688850ff07\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.0.aar\fc2c3f705052ed62a1bfed8f07edd6a2\AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\144e3521bebeac7c31c9f7ca1cdadee0\AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\37134f27b94812851ff08598506fb7b2\AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\ac75d02629c93f937223b3be566c94eb\AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\d4ba007e6841bf3deb0ef2c5c02afd25\AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\d73cdf5f46e238a10ecc1c24bd22b19e\AndroidManifest.xml:2:1-13:12
+MERGED from [com.android.databinding:adapters:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\adapters-1.2.1.aar\fcc3197418bb348f1a242268adabd075\AndroidManifest.xml:17:1-26:12
+MERGED from [com.android.databinding:library:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\library-1.2.1.aar\23d4136844700ef3b79b2a24448fbbc8\AndroidManifest.xml:17:1-26:12
+MERGED from [com.android.support:support-v4:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.0.aar\183ff7dd0eb0e1ab0c59ed5d4f6226fd\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.0.aar\2c39ff6f98c207e843d6f88b1f98a5be\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.0.aar\d8633212c3490cada65041f5fb368422\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.0.aar\70055d1cb6cd0726200b3f42e98f5544\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.0.aar\2031cb2b38fdb28e547058731fc12551\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.0.aar\a986c5a6651c6e2b2b568ac7e31781b7\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\4ae3277452bd237fcffa3ee36753e941\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\6e032f5add8a46147099b4336e677d87\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\492315acbb8c3390a94fd9b011a38aec\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\627ce838cfdecac1a3dd7f8f3a132e20\AndroidManifest.xml:17:1-22:12
 INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:1-72:12
 INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:1-72:12
 INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:2:1-72:12
@@ -59,8 +59,8 @@ application
 ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:17:5-70:19
 MERGED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:12:5-13:19
 MERGED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:12:5-13:19
-MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\df3b077e1b6616353715682bc2e3cd2f\AndroidManifest.xml:11:5-20
-MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\df3b077e1b6616353715682bc2e3cd2f\AndroidManifest.xml:11:5-20
+MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\d73cdf5f46e238a10ecc1c24bd22b19e\AndroidManifest.xml:11:5-20
+MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\d73cdf5f46e238a10ecc1c24bd22b19e\AndroidManifest.xml:11:5-20
 	android:label
 		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:19:9-41
 	android:allowBackup
@@ -156,35 +156,35 @@ INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\ma
 INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
 MERGED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:7:5-44
 MERGED from [:ViewLib] D:\WorkspaceAndroidStudio\AdministradorBiblioteca\ViewLib\build\intermediates\merged_manifests\debug\processDebugManifest\merged\AndroidManifest.xml:7:5-44
-MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\df3b077e1b6616353715682bc2e3cd2f\AndroidManifest.xml:7:5-9:41
-MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\df3b077e1b6616353715682bc2e3cd2f\AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.databinding:adapters:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\adapters-1.2.1.aar\bae6ef77fe73c5468a2f2b1b45a327ba\AndroidManifest.xml:22:5-24:41
-MERGED from [com.android.databinding:adapters:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\adapters-1.2.1.aar\bae6ef77fe73c5468a2f2b1b45a327ba\AndroidManifest.xml:22:5-24:41
-MERGED from [com.android.databinding:library:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\library-1.2.1.aar\9dba3872e499084245dc689fb573167c\AndroidManifest.xml:22:5-24:41
-MERGED from [com.android.databinding:library:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\library-1.2.1.aar\9dba3872e499084245dc689fb573167c\AndroidManifest.xml:22:5-24:41
-MERGED from [com.android.support:support-v4:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.0.aar\3085e1a8854051106f63b2e7ca2fe465\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-v4:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.0.aar\3085e1a8854051106f63b2e7ca2fe465\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-media-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.0.aar\a4aac9c8f6d862afb48a8d74f02fac39\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-media-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.0.aar\a4aac9c8f6d862afb48a8d74f02fac39\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-fragment:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.0.aar\7947c97d65a90af408606ed1ac2ed266\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-fragment:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.0.aar\7947c97d65a90af408606ed1ac2ed266\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-ui:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.0.aar\1beb4a5de4baccbcf34d74739cc02fe8\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-ui:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.0.aar\1beb4a5de4baccbcf34d74739cc02fe8\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-utils:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.0.aar\16b31eb27a457307a15a6b688850ff07\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-utils:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.0.aar\16b31eb27a457307a15a6b688850ff07\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.0.aar\fc2c3f705052ed62a1bfed8f07edd6a2\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.0.aar\fc2c3f705052ed62a1bfed8f07edd6a2\AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\144e3521bebeac7c31c9f7ca1cdadee0\AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\144e3521bebeac7c31c9f7ca1cdadee0\AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\37134f27b94812851ff08598506fb7b2\AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\37134f27b94812851ff08598506fb7b2\AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\ac75d02629c93f937223b3be566c94eb\AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\ac75d02629c93f937223b3be566c94eb\AndroidManifest.xml:20:5-44
-MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\d4ba007e6841bf3deb0ef2c5c02afd25\AndroidManifest.xml:20:5-44
-MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\d4ba007e6841bf3deb0ef2c5c02afd25\AndroidManifest.xml:20:5-44
+MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\d73cdf5f46e238a10ecc1c24bd22b19e\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\d73cdf5f46e238a10ecc1c24bd22b19e\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.databinding:adapters:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\adapters-1.2.1.aar\fcc3197418bb348f1a242268adabd075\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.databinding:adapters:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\adapters-1.2.1.aar\fcc3197418bb348f1a242268adabd075\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.databinding:library:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\library-1.2.1.aar\23d4136844700ef3b79b2a24448fbbc8\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.databinding:library:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\library-1.2.1.aar\23d4136844700ef3b79b2a24448fbbc8\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-v4:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.0.aar\183ff7dd0eb0e1ab0c59ed5d4f6226fd\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.0.aar\183ff7dd0eb0e1ab0c59ed5d4f6226fd\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.0.aar\2c39ff6f98c207e843d6f88b1f98a5be\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.0.aar\2c39ff6f98c207e843d6f88b1f98a5be\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.0.aar\d8633212c3490cada65041f5fb368422\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.0.aar\d8633212c3490cada65041f5fb368422\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.0.aar\70055d1cb6cd0726200b3f42e98f5544\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.0.aar\70055d1cb6cd0726200b3f42e98f5544\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.0.aar\2031cb2b38fdb28e547058731fc12551\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.0.aar\2031cb2b38fdb28e547058731fc12551\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.0.aar\a986c5a6651c6e2b2b568ac7e31781b7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.0.aar\a986c5a6651c6e2b2b568ac7e31781b7\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\4ae3277452bd237fcffa3ee36753e941\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\4ae3277452bd237fcffa3ee36753e941\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\6e032f5add8a46147099b4336e677d87\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\6e032f5add8a46147099b4336e677d87\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\492315acbb8c3390a94fd9b011a38aec\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\492315acbb8c3390a94fd9b011a38aec\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\627ce838cfdecac1a3dd7f8f3a132e20\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\627ce838cfdecac1a3dd7f8f3a132e20\AndroidManifest.xml:20:5-44
 INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		ADDED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\df3b077e1b6616353715682bc2e3cd2f\AndroidManifest.xml:9:9-38
+		ADDED from [com.github.gcacace:signature-pad:1.2.1] C:\Users\Rafael\.gradle\caches\transforms-1\files-1.1\signature-pad-1.2.1.aar\d73cdf5f46e238a10ecc1c24bd22b19e\AndroidManifest.xml:9:9-38
 	android:minSdkVersion
 		INJECTED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml
 		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml

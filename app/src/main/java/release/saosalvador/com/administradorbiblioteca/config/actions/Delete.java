@@ -21,11 +21,13 @@ import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class Delete {
-    Context mContext;
-    Livro mLivro;
-    DatabaseReference mDatabaseReference;
+    private OnSuccessDeleteListener listener;
+    private Context mContext;
+    private Livro mLivro;
+    private DatabaseReference mDatabaseReference;
 
     public Delete(Context context,Livro livro,DatabaseReference reference) {
+        this.listener = null;
         mContext = context;
         mLivro = livro;
         mDatabaseReference = reference;
@@ -56,7 +58,7 @@ public class Delete {
             @Override
             public void onSuccess(Void aVoid) {
                 deleteData();
-                Toast.makeText(mContext,R.string.delete_successful+"Imagem deletada",Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext,R.string.delete_successful+" "+R.string.deleted_image,Toast.LENGTH_LONG).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -71,10 +73,17 @@ public class Delete {
             @Override
             public void onSuccess(Void aVoid) {
                 DatabaseReference categoryReference = DAO.getFireBase()
-                        .child("categorias")
+                        .child(mContext.getString(R.string.child_category))
                         .child(mLivro.getCategoria())
                         .child(mLivro.getIdLivro());
-                categoryReference.setValue(null);
+                categoryReference.setValue(null).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        if (listener != null) {
+                            listener.onCompleteInsert(aVoid);
+                        }
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -82,6 +91,14 @@ public class Delete {
                 Toast.makeText(mContext,R.string.error_delete+" "+e.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public interface OnSuccessDeleteListener {
+        void onCompleteInsert(@NonNull Void aVoid);
+    }
+
+    public void addOnSuccessListener(OnSuccessDeleteListener listener) {
+        this.listener = listener;
     }
 
 }
