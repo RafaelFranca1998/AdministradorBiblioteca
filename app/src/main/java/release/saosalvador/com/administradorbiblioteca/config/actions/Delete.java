@@ -9,9 +9,12 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -25,12 +28,12 @@ public class Delete {
     private Context mContext;
     private Livro mLivro;
     private DatabaseReference mDatabaseReference;
+    private FirebaseFirestore mFirebaseFirestore;
 
-    public Delete(Context context,Livro livro,DatabaseReference reference) {
+    public Delete(Context context,Livro livro) {
         this.listener = null;
         mContext = context;
         mLivro = livro;
-        mDatabaseReference = reference;
     }
 
     public void deleteBook(){
@@ -57,7 +60,7 @@ public class Delete {
         deleteTumbnailRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                deleteData();
+                deleteDataFiresTore();
                 Toast.makeText(mContext,R.string.delete_successful+" "+R.string.deleted_image,Toast.LENGTH_LONG).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -68,27 +71,27 @@ public class Delete {
         });
     }
 
-    private void deleteData(){
-        mDatabaseReference.setValue(null).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+    private void deleteDataFiresTore(){
+        mFirebaseFirestore =  FirebaseFirestore.getInstance();
+        mFirebaseFirestore.collection(mContext.getString(R.string.child_book))
+                .document(mLivro.getIdLivro())
+                .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) {
-                DatabaseReference categoryReference = DAO.getFireBase()
-                        .child(mContext.getString(R.string.child_category))
-                        .child(mLivro.getCategoria())
-                        .child(mLivro.getIdLivro());
-                categoryReference.setValue(null).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        if (listener != null) {
-                            listener.onCompleteInsert(aVoid);
-                        }
-                    }
-                });
+            public void onComplete(@NonNull Task<Void> task) {
+                deleteThumbnail();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(mContext,R.string.error_delete+" "+e.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                if (listener != null) {
+                    listener.onCompleteInsert(aVoid);
+                }
             }
         });
     }

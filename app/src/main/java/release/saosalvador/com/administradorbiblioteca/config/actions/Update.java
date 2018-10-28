@@ -44,10 +44,18 @@ public class Update {
     public void editCategory(Category category, String oldName){
         try {
             mCategory = category;
-            DatabaseReference deleteReference = FirebaseDatabase.getInstance().getReference("categorias").child(oldName);
-            deleteReference.removeValue();
-            databaseReference = DAO.getFireBase().child("categorias").child(mCategory.getCategoryName());
-            databaseReference.setValue(mCategory).addOnSuccessListener(new OnSuccessListener<Void>() {
+            Map < String, Object > editCategory = new HashMap < > ();
+            editCategory.putAll(ToHashMap.categoryToHashMap(mCategory));
+            firebaseFirestore =  FirebaseFirestore.getInstance();
+            firebaseFirestore
+                    .collection("categorias")
+                    .document(oldName)
+                    .delete();
+            firebaseFirestore =  FirebaseFirestore.getInstance();
+            firebaseFirestore
+                    .collection("categorias")
+                    .document(mCategory.getCategoryName())
+                    .set(editCategory).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     if (listener != null) {
@@ -55,23 +63,6 @@ public class Update {
                     }
                 }
             });
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-    public void editCategoryFireStore(Category category){
-        try {
-            mCategory = category;
-            firebaseFirestore =  null;
-            Map < String, Object > newCategory = new HashMap < > ();
-            newCategory.putAll(ToHashMap.categoryToHashMap(mCategory));
-            try {
-                firebaseFirestore = FirebaseFirestore.getInstance();
-                firebaseFirestore.collection("livros").document(mLivro.getIdLivro()).set(newCategory);
-                firebaseFirestore.collection("categorias/"+mLivro.getCategoria()+"/").document(mLivro.getIdLivro());
-            }catch (Exception e){
-                e.printStackTrace();
-            }
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -20,7 +20,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnPausedListener;
 import com.google.firebase.storage.OnProgressListener;
@@ -35,6 +38,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.ToHashMap;
 import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
@@ -44,6 +49,7 @@ import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class Insert {
     private OnSuccessInsertListener listener;
+    private OnSuccessSendListener sendListener;
     private Context mContext;
     private Bitmap imagemCapa;
     private ProgressDialog pd;
@@ -54,7 +60,7 @@ public class Insert {
     private String mPath;
     private double progress;
     private DatabaseReference databaseReference;
-    FirebaseFirestore firebaseFirestore;
+    private FirebaseFirestore firebaseFirestore;
 
     /**
      * Construtor da classe;
@@ -62,6 +68,7 @@ public class Insert {
      */
     public Insert(@NonNull Context context) {
         this.listener = null;
+        this.sendListener = null;
         mContext = context;
     }
 
@@ -111,10 +118,12 @@ public class Insert {
                     try {
                         progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                         pd = new ProgressDialog(mContext);
-                        pd.setCancelable(false);
                         pd.setMessage("Carregando (" + (int) progress + "%)");
                         pd.setProgress((int) progress);
-                        pd.show();
+                        if (!pd.isShowing()) {
+                            pd.setCancelable(false);
+                            pd.show();
+                        }
                         System.out.println("Upload is " + progress + "% done");
                     }catch (Exception e){
 
@@ -136,8 +145,8 @@ public class Insert {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     pd.dismiss();
-                    if (listener != null) {
-                        listener.onCompleteInsert(taskSnapshot);
+                    if (sendListener != null) {
+                        sendListener.onCompleteInsert(taskSnapshot);
                     }
                 }
             }).addOnCanceledListener(new OnCanceledListener() {
@@ -205,51 +214,54 @@ public class Insert {
         newLivro.putAll(ToHashMap.livroToHashMap(mLivro));
         try {
             firebaseFirestore = FirebaseFirestore.getInstance();
-            firebaseFirestore.collection("livros").document(mLivro.getIdLivro()).set(newLivro);
-            firebaseFirestore.collection("categorias/"+mLivro.getCategoria()+"/").document(mLivro.getIdLivro()).set(newLivro);
+            firebaseFirestore.collection("livros").document(mLivro.getIdLivro()).set(newLivro).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    if (listener != null) {
+                        listener.onCompleteInsert(null);
+                    }
+                }
+            });
+            //mFirebaseFirestore.collection("categorias/"+mLivro.getCategoria()+"/").document(mLivro.getIdLivro()).set(newLivro);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void saveCategory(Category category){
-        mCategory =  category;
-        try {
-            databaseReference = DAO.getFireBase().child("categorias").child(mCategory.getCategoryName());
-            databaseReference.setValue(mCategory);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+    private Map < String, Object > newContact;
     public void saveCategoryFireStore(Category category){
         mCategory =  category;
-        Map < String, Object > newContact = new HashMap < > ();
+        newContact = new HashMap < > ();
         newContact.putAll(ToHashMap.categoryToHashMap(mCategory));
         try {
             firebaseFirestore = FirebaseFirestore.getInstance();
-            firebaseFirestore.collection("categorias").document(mCategory.getCategoryName()).set(newContact);
-        }catch (Exception e){
+            firebaseFirestore
+                    .collection(mContext.getString(R.string.child_category))
+                    .document(mCategory.getCategoryName()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                    if (!documentSnapshot.exists()){
+                        firebaseFirestore
+                                .collection(mContext.getString(R.string.child_category))
+                                .document(mCategory.getCategoryName())
+                                .set(newContact)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        if (listener != null) {
+                                            listener.onCompleteInsert(null);
+                                        }
+                                    }
+                                });
+                    }
+                }
+            });
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
 
-//    /**
-//     * Usado quando não existe uma categoria no banco.
-//     * @param category objeto do tipo {@link Category}.
-//     */
-//    public void saveCategory(Category category){
-//        try {
-//            Category mCategory = category;
-//            databaseReference = DAO.getFireBase().child("categorias").child(mCategory.getCategoryName());
-//            databaseReference.setValue(mCategory);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-
-
-
-
+    Category saveCategory;
     /**
      * salva a imagem da categoria.
      * @param category objeto do tipo {@link Category}.
@@ -257,18 +269,12 @@ public class Insert {
      */
     public void saveCategoryImg(Category category, Uri mPath){
         try {
-            Category saveCategory = category;
-            try {
-                StorageReference deleteReference = FirebaseStorage.getInstance().getReferenceFromUrl(saveCategory.getImgDownload());
-                deleteReference.delete();
-            }catch (Exception e){
-                Log.e("Erro: ", "Sem imagem para deletar "+e.getMessage());
-            }
-            StorageReference categoryReference = DAO.getFirebaseStorage()
+            saveCategory = category;
+            final StorageReference categoryReference = DAO.getFirebaseStorage()
                     .child("categorias")
                     .child(saveCategory.getCategoryName())
                     .child(saveCategory.getCategoryName());
-            Bitmap imagem = MediaStore.Images.Media.getBitmap((mContext).getContentResolver(), mPath);
+            final Bitmap imagem = MediaStore.Images.Media.getBitmap((mContext).getContentResolver(), mPath);
             // comprimir no formato jpeg
             ByteArrayOutputStream stream =  new ByteArrayOutputStream();
             imagem.compress(Bitmap.CompressFormat.JPEG,60,stream);
@@ -279,11 +285,13 @@ public class Insert {
             uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    if (pd2.isShowing()){
+                        pd2.setCancelable(false);
+                        pd2.setMessage("Carregando ("+ (int)progress+"%)");
+                        pd2.show();
+                    }
                     progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                    pd2.setCancelable(false);
                     pd2.setProgress((int)progress);
-                    pd2.setMessage("Carregando ("+ (int)progress+"%)");
-                    pd2.show();
                     System.out.println("Upload is " + progress + "% done");
                 }
             }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
@@ -302,20 +310,13 @@ public class Insert {
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    saveCategory.setImgDownload(categoryReference.toString());
+                    saveCategoryFireStore(saveCategory);
                     pd2.dismiss();
                     Toast.makeText(mContext,"Imagem carregada!",Toast.LENGTH_SHORT).show();
                 }
             });
-            saveCategory.setImgDownload(categoryReference.toString());
-            databaseReference = DAO.getFireBase().child("categorias").child("imagens").child(saveCategory.getCategoryName());
-            databaseReference.setValue(saveCategory).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    if (listener != null) {
-                        listener.onCompleteInsert(null);
-                    }
-                }
-            });
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -333,7 +334,7 @@ public class Insert {
             Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             pdfiumCore.renderPageBitmap(pdfDocument, bmp, pageNumber, 0, 0, width, height);
             imagemCapa = bmp;
-            pdfiumCore.closeDocument(pdfDocument); // important!
+            pdfiumCore.closeDocument(pdfDocument);
         } catch(Exception e) {
             //todo with exception
         }
@@ -341,7 +342,13 @@ public class Insert {
 
     public interface OnSuccessInsertListener {void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot);}
 
+    public interface OnSuccessSendListener {void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot);}
+
     public void addOnSuccessListener(OnSuccessInsertListener listener) {
         this.listener = listener;
+    }
+
+    public void addOnSuccessSendListener(OnSuccessSendListener listener) {
+        this.sendListener = listener;
     }
 }

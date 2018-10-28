@@ -22,12 +22,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.gms.tasks.Task;
+
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -48,6 +52,7 @@ public class CategoryEditActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private Category category;
     private Uri caminhoArquivo;
+    FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,23 +78,28 @@ public class CategoryEditActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //What to do on back clicked
                 finish();
             }
         });
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                category = dataSnapshot.getValue(Category.class);
-                editTextCategoryName.setText(category.getCategoryName());
-                oldName = category.getCategoryName();
-                updateImgAccount();
-            }
 
+        firebaseFirestore =  FirebaseFirestore.getInstance();
+        firebaseFirestore
+                .collection("categorias")
+                .document(categoryName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    category = doc.toObject(Category.class);
+                    editTextCategoryName.setText(category.getCategoryName());
+                    oldName = category.getCategoryName();
+                    updateImgAccount();
+                } else {
+                    Log.w("D", "Error getting documents.", task.getException());
+                }
             }
         });
 
@@ -97,7 +107,7 @@ public class CategoryEditActivity extends AppCompatActivity {
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             getImg();
+                getImg();
             }
         });
 
@@ -160,7 +170,11 @@ public class CategoryEditActivity extends AppCompatActivity {
                 public void onSuccess(byte[] bytes) {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     imageViewCategory.setImageBitmap(bitmap);
-                    pd.dismiss();
+                    try {
+                        pd.dismiss();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

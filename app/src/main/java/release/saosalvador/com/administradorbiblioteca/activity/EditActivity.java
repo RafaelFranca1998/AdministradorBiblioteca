@@ -15,10 +15,14 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 
@@ -44,6 +48,7 @@ public class EditActivity extends AppCompatActivity {
     private Category category;
     private String idLivro;
     private String categoryName;
+    FirebaseFirestore firebaseFirestore;
 
 
     @Override
@@ -95,52 +100,66 @@ public class EditActivity extends AppCompatActivity {
         if (extra!= null){
             Log.e("bundle","Não está null");
             idLivro = extra.getString("id");
-            databaseReference = DAO.getFireBase().child("livros");
         }
         getDatabase1();
 
     }
 
     private void getDatabase1(){
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    Log.i("Debug:",dataSnapshot.getChildren().toString());
-                    Log.i("Debug:", idLivro);
-                    String key2 = data.getKey();
-                    assert key2 != null;
-                    if ( key2.equals(idLivro) ) {
-                        livro = data.getValue(Livro.class);
-                        editTextLivroNome.setText(livro.getNome());
-                        editTextLivroAutor.setText(livro.getAutor());
-                        editTextLivroCategoria.setText(livro.getCategoria());
-                        editTextLivroEditora.setText(livro.getEditora());
-                        editTextLivroAno.setText(livro.getAno());
-                        categoryName = livro.getCategoria();
-                        categoryReference = DAO.getFireBase().child("categorias").child(categoryName);
-                        getDatabase2();
+        firebaseFirestore =  FirebaseFirestore.getInstance();
+        firebaseFirestore
+                .collection("livros")
+                .document(idLivro)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot doc = task.getResult();
+                            livro = doc.toObject(Livro.class);
+                            editTextLivroNome.setText(livro.getNome());
+                            editTextLivroAutor.setText(livro.getAutor());
+                            editTextLivroCategoria.setText(livro.getCategoria());
+                            editTextLivroEditora.setText(livro.getEditora());
+                            editTextLivroAno.setText(livro.getAno());
+                            categoryName = livro.getCategoria();
+                            getDatabase2();
+                        } else {
+                            Log.w("D", "Error getting documents.", task.getException());
+                        }
                     }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+                });
     }
 
     private void getDatabase2(){
-        categoryReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                category = dataSnapshot.getValue(Category.class);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        firebaseFirestore =  FirebaseFirestore.getInstance();
+        firebaseFirestore
+                .collection("categorias")
+                .document(categoryName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot doc = task.getResult();
+                            category = doc.toObject(Category.class);
+                        } else {
+                            Log.w("D", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
 
-            }
-        });
+
+//        categoryReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                category = dataSnapshot.getValue(Category.class);
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 
     private void editarLivro(){
@@ -167,7 +186,7 @@ public class EditActivity extends AppCompatActivity {
                 category.setCategoryName(livro.getCategoria());
                 insert.saveCategoryFireStore(category);
             }
-            insert.saveInfo(livro,category);
+            insert.saveInfoFireStore(livro,category);
             insert.addOnSuccessListener(new Insert.OnSuccessInsertListener() {
                 @Override
                 public void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot) {

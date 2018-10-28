@@ -15,10 +15,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +33,7 @@ import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.AdapterRecyclerViewCategory;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.RecyclerItemClickListener;
 import release.saosalvador.com.administradorbiblioteca.model.Category;
+import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class CategoryActivity extends AppCompatActivity {
     private List<Category> categoryList;
@@ -35,6 +41,13 @@ public class CategoryActivity extends AppCompatActivity {
     private AdapterRecyclerViewCategory adapterListView;
     private int itemPosition;
     private DatabaseReference databaseReference;
+    FirebaseFirestore firebaseFirestore;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        adapterListView.notifyDataSetChanged();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,23 +59,20 @@ public class CategoryActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         categoryList=  new ArrayList<>();
         listView = findViewById(R.id.recycler_view_category);
-
-        databaseReference = DAO.getFireBase().child("categorias").child("imagens");
         adapterListView =  new AdapterRecyclerViewCategory(CategoryActivity.this,categoryList);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                categoryList.clear();
-                for (DataSnapshot data:dataSnapshot.getChildren()){
-                    Category category = data.getValue(Category.class);
-                    categoryList.add(category);
-                }
-                adapterListView.notifyDataSetChanged();
-            }
 
+        firebaseFirestore =  FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("categorias").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.i(getString(R.string.error),databaseError.getMessage());
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        categoryList.add(document.toObject(Category.class)) ;
+                    }
+                    adapterListView.notifyDataSetChanged();
+                } else {
+                    Log.w("D", "Error getting documents.", task.getException());
+                }
             }
         });
         listView.setAdapter(adapterListView);

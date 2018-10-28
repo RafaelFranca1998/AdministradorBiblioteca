@@ -162,12 +162,12 @@ public class AddBookActivity extends AppCompatActivity {
             category.setCategoryName(editTextLivroCategoria.getText().toString());
             Insert insert =  new Insert(AddBookActivity.this);
             insert.saveBook(livro,caminhoDoArquivo);
-            //insert.saveCategoryFireStore(category);
+            insert.saveCategoryFireStore(category);
             insert.saveInfoFireStore(livro,category);
            // insert.saveInfo(livro,category);
-            insert.addOnSuccessListener(new Insert.OnSuccessInsertListener() {
+            insert.addOnSuccessSendListener(new Insert.OnSuccessSendListener() {
                 @Override
-                public void onCompleteInsert(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                public void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot) {
                     finish();
                 }
             });

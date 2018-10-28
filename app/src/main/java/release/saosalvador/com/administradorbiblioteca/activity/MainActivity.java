@@ -25,20 +25,23 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.UploadTask;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Delete;
-import release.saosalvador.com.administradorbiblioteca.config.actions.Get;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.AdapterRecyclerView;
-import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.RecyclerItemClickListener;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     private String KEY;
     NavigationView navigationView;
     DrawerLayout drawer;
+    FirebaseFirestore firebaseFirestore;
 
 
     private static List<Livro> listLivros;
@@ -61,8 +65,6 @@ public class MainActivity extends AppCompatActivity
     private String caminhoDoArquivo;
     static int itemPosition;
     Toolbar toolbar;
-
-    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,27 +114,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_livros);
 
-//        databaseReference = DAO.getFireBase().child(getString(R.string.child_book));
         adapterListView =  new AdapterRecyclerView(MainActivity.this,listLivros);
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                listLivros.clear();
-//                for (DataSnapshot data:dataSnapshot.getChildren()){
-//                    Livro livro = data.getValue(Livro.class);
-//                    listLivros.add(livro);
-//                }
-//                adapterListView.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Log.i(getString(R.string.error),databaseError.getMessage());
-//            }
-//        });
-        Get get =  new Get();
-        listLivros = get.getLivro();
-        adapterListView.notifyDataSetChanged();
+
+        updateList();
 
         listView.setAdapter(adapterListView);
         StaggeredGridLayoutManager gridLayoutManager =
@@ -186,17 +170,42 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
             case 3:
-                Delete delete =  new Delete(MainActivity.this,listLivros.get(itemPosition),databaseReference);
+                Delete delete =  new Delete(MainActivity.this,listLivros.get(itemPosition));
                 delete.deleteBook();
+                delete.addOnSuccessListener(new Delete.OnSuccessDeleteListener() {
+                    @Override
+                    public void onCompleteInsert(@NonNull Void aVoid) {
+                        adapterListView.notifyDataSetChanged();
+                    }
+                });
                 break;
 
         }
         return super.onContextItemSelected(item);
     }
 
+    private void updateList(){
+        firebaseFirestore =  FirebaseFirestore.getInstance();
+        firebaseFirestore.collection(getString(R.string.child_book)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    listLivros.clear();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        listLivros.add(document.toObject(Livro.class)) ;
+                    }
+                    adapterListView.notifyDataSetChanged();
+                } else {
+                    Log.w("D", "Error getting documents.", task.getException());
+                }
+            }
+        });
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        updateList();
     }
 
     @Override

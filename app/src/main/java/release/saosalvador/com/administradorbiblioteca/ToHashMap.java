@@ -1,12 +1,8 @@
-/******************************************************************************
- * Copyright (c) 2018. all rights are reserved to the authors of this project, unauthorized use of this code in
- * other projects may result in legal complications.                          *
- ******************************************************************************/
-
 package release.saosalvador.com.administradorbiblioteca;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import release.saosalvador.com.administradorbiblioteca.model.Category;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
@@ -22,11 +18,10 @@ public class ToHashMap {
         map.put("imgDownload", object.getImgDownload());
         return map;
     }
-    public static Category categoryToHashMap(HashMap m){
+    public static Category categoryToHashMap(HashMap<String,String> m){
         Category object =  new Category();
-        HashMap<String,String > map = m;
-        object.setCategoryName(map.get("categoryName"));
-        object.setImgDownload(map.get("imgDownload"));
+        object.setCategoryName(m.get("categoryName"));
+        object.setImgDownload( m.get("imgDownload"));
         return object;
     }
     public static HashMap<String,String> livroToHashMap(Livro object){
@@ -35,34 +30,33 @@ public class ToHashMap {
             map.put("nome", object.getNome());
             map.put("idLivro", object.getIdLivro());
             map.put("editora", object.getEditora());
-            map.put("edicao", object.getEdicao());
+        //  map.put("edicao", object.getEdicao());
             map.put("ano", object.getAno());
             map.put("autor", object.getAutor());
             map.put("categoria", object.getCategoria());
             map.put("area", object.getArea());
             map.put("linkDownload", object.getLinkDownload());
             map.put("imgDownload", object.getImgDownload());
-            map.put("endereçoLocal", object.getEndereçoLocal());
+        //  map.put("endereçoLocal", object.getEndereçoLocal());
         }catch (Exception e){
             e.printStackTrace();
         }
         return map;
     }
-    public static Livro hashMapToLivro(Map<String, Object> hashMap){
+    public static Livro hashMapToLivro(Map<String, Object> map){
         Livro  object =  new Livro();
-        Map<String,Object> map =  hashMap;
         try {
-            object.setNome(map.get("nome").toString());
-            object.setIdLivro(map.get("idLivro").toString());
-            object.setEditora(map.get("editora").toString());
-            object.setEdicao(map.get("edicao").toString());
-            object.setAno(map.get("ano").toString());
-            object.setAutor(map.get("autor").toString());
-            object.setCategoria(map.get("categoria").toString());
-            object.setArea(map.get("area").toString());
-            object.setLinkDownload(map.get("linkDownload").toString());
-            object.setImgDownload(map.get("imgDownload").toString());
-            object.setEndereçoLocal(map.get("endereçoLocal").toString());
+            object.setNome(Objects.requireNonNull(map.get("nome")).toString());
+            object.setIdLivro(Objects.requireNonNull(map.get("idLivro")).toString());
+            object.setEditora(Objects.requireNonNull(map.get("editora")).toString());
+            //object.setEdicao(map.get("edicao").toString());
+            object.setAno(Objects.requireNonNull(map.get("ano")).toString());
+            object.setAutor(Objects.requireNonNull(map.get("autor")).toString());
+            object.setCategoria(Objects.requireNonNull(map.get("categoria")).toString());
+            object.setArea(Objects.requireNonNull(map.get("area")).toString());
+            object.setLinkDownload(Objects.requireNonNull(map.get("linkDownload")).toString());
+            object.setImgDownload(Objects.requireNonNull(map.get("imgDownload")).toString());
+           // object.setEndereçoLocal(map.get("endereçoLocal").toString());
         }catch (NullPointerException e){
             e.printStackTrace();
         }

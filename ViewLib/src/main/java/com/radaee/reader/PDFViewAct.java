@@ -274,7 +274,11 @@ public class PDFViewAct extends Activity implements PDFLayoutListener {
                         }
                     }).show();
                 }
-            } else super.onBackPressed();
+            } else {
+                super.onBackPressed();
+                //TODO modificado
+                finish();
+            }
         }
     }
 

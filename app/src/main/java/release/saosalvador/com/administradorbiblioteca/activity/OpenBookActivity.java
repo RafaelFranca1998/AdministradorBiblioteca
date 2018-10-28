@@ -5,7 +5,10 @@
 
 package release.saosalvador.com.administradorbiblioteca.activity;
 
+import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,14 +16,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.radaee.pdf.Global;
 import com.radaee.reader.PDFViewAct;
@@ -37,14 +42,30 @@ import release.saosalvador.com.administradorbiblioteca.model.Livro;
 public class OpenBookActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private DatabaseReference databaseReference;
+    FirebaseFirestore firebaseFirestore;
     private String idLivro;
     private Livro livro;
+    private ProgressDialog dialog;
+    private double progress;
+    private static boolean isFirstOpen =  true;
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (isFirstOpen){
+            getDatabase1();
+            isFirstOpen = false;
+        }else {
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_book);
+
 
         Bundle extra = getIntent().getExtras();
         if (extra!= null){
@@ -52,31 +73,30 @@ public class OpenBookActivity extends AppCompatActivity {
             idLivro = extra.getString("id");
             databaseReference = DAO.getFireBase().child("livros");
         }
-        getDatabase1();
+
     }
 
-    private void getDatabase1(){
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    Log.i("Debug:",dataSnapshot.getChildren().toString());
-                    Log.i("Debug:", idLivro);
-                    String key2 = data.getKey();
-                    assert key2 != null;
-                    if ( key2.equals(idLivro) ) {
-                        livro = data.getValue(Livro.class);
-                    }
-                }
-                if (livro != null){
-                    downloadFile(livro.getLinkDownload(),livro.getNome());
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+    private void getDatabase1(){
+        firebaseFirestore =  FirebaseFirestore.getInstance();
+        firebaseFirestore
+                .collection("livros")
+                .document(idLivro)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot doc = task.getResult();
+                            livro = doc.toObject(Livro.class);
+                            if (livro != null){
+                                downloadFile2(livro.getLinkDownload(),livro.getNome());
+                            }
+                        } else {
+                            Log.w("D", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 
     //todo escrever pdfs
@@ -96,36 +116,54 @@ public class OpenBookActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    private  void downloadFile2(String url, final String nomeLivro){
-        mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl(url+"/"+nomeLivro);
-                mStorageRef.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                saveFile(bytes,nomeLivro);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                exception.printStackTrace();
-            }
-        });
-    }
 
-    private void saveFile(byte[] bytes,String n){
-        try {
-            File dir = new File(Environment.getExternalStorageDirectory() + "/.Administrador");
-            if (!dir.exists())
-                dir.mkdirs();
-            File file = new File(dir, n);
-            FileOutputStream fOut = new FileOutputStream(file);
-            fOut.write(bytes);
-            fOut.flush();
-            fOut.close();
-            abrirLivro(file.getAbsolutePath());
-        }catch (Exception e){
-            e.printStackTrace();
+    private File bookFile;
+
+    private  void downloadFile2(String url, final String nomeLivro) {
+        String mNome = Base64Custom.renoveSpaces(nomeLivro);
+        StorageReference islandRef = FirebaseStorage.getInstance().getReferenceFromUrl(url + "/" + mNome);
+
+        bookFile = new File(getFilesDir(), mNome);
+
+        if (bookFile.exists()) {
+            abrirLivro(bookFile.getAbsolutePath());
+        } else{
+
+            dialog = new ProgressDialog(OpenBookActivity.this);
+
+            islandRef.getFile(bookFile).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+                @TargetApi(Build.VERSION_CODES.N)
+                @Override
+                public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    if (!dialog.isShowing()) {
+                        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                        dialog.setTitle("Baixando " + livro.getNome());
+                        dialog.setMax((int) taskSnapshot.getTotalByteCount());
+                        dialog.setCancelable(false);
+                        dialog.show();
+                    }
+                    progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    dialog.setProgress((int) progress);
+                }
+            }).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Log.e("firebase ", ";local tem file created  created " + bookFile.getAbsolutePath());
+                    //  updateDb(timestamp,localFile.toString(),position);
+                    abrirLivro(bookFile.getAbsolutePath());
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    exception.getCause();
+                    exception.printStackTrace();
+                    Log.e("firebase ", ";local tem file not created  created " + exception.toString());
+                }
+            });
+
         }
     }
+
 
     private void downloadFile(String url,String nomeLivro) {
         String mNome = Base64Custom.renoveSpaces(nomeLivro);
@@ -139,13 +177,31 @@ public class OpenBookActivity extends AppCompatActivity {
         final File localFile;
 
         try {
+            dialog =  new ProgressDialog(OpenBookActivity.this);
             localFile = File.createTempFile(nomeLivro,nomeLivro);
+            abrirLivro(localFile.getAbsolutePath());
             localFile.mkdirs();
-            islandRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            islandRef.getFile(localFile).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+                @TargetApi(Build.VERSION_CODES.N)
+                @Override
+                public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    if (!dialog.isShowing()) {
+                        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                        dialog.setTitle("Baixando " + livro.getNome());
+                        dialog.setMax((int) taskSnapshot.getTotalByteCount());
+                        dialog.setCancelable(false);
+                        dialog.show();
+                    }
+                    progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    dialog.setProgress((int) progress);
+                }
+            }).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Log.e("firebase ",";local tem file created  created " +localFile.toString());
+                    Log.e("firebase ", ";local tem file created  created " + localFile.toString());
                     //  updateDb(timestamp,localFile.toString(),position);
+                    dialog.dismiss();
+                    finish();
                     abrirLivro(localFile.getAbsolutePath());
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -153,15 +209,16 @@ public class OpenBookActivity extends AppCompatActivity {
                 public void onFailure(@NonNull Exception exception) {
                     exception.getCause();
                     exception.printStackTrace();
-                    Log.e("firebase ",";local tem file not created  created " +exception.toString());
+                    dialog.dismiss();
+                    Log.e("firebase ", ";local tem file not created  created " + exception.toString());
                 }
             });
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
+
 
     private void abrirLivro(String caminhoDoArquivo){
         if (caminhoDoArquivo != null && !caminhoDoArquivo.equals("")) {
