@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import release.saosalvador.com.administradorbiblioteca.R;
 
 public class TransitionActivity extends AppCompatActivity {
-    private static int SPLASH_TIME_OUT = 3000;
     int cont;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -64,6 +63,7 @@ public class TransitionActivity extends AppCompatActivity {
 
             } else {
                 t = false;
+                int SPLASH_TIME_OUT = 3000;
                 new Handler().postDelayed(new Runnable() {
                     /*
                      * Exibindo splash com um timer.

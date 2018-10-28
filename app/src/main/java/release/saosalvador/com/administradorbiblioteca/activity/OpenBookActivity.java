@@ -9,7 +9,6 @@ import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,8 +30,6 @@ import com.radaee.pdf.Global;
 import com.radaee.reader.PDFViewAct;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
@@ -88,9 +85,10 @@ public class OpenBookActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot doc = task.getResult();
+                            assert doc != null;
                             livro = doc.toObject(Livro.class);
                             if (livro != null){
-                                downloadFile2(livro.getLinkDownload(),livro.getNome());
+                                downloadFile(livro.getLinkDownload(),livro.getNome());
                             }
                         } else {
                             Log.w("D", "Error getting documents.", task.getException());
@@ -99,27 +97,10 @@ public class OpenBookActivity extends AppCompatActivity {
                 });
     }
 
-    //todo escrever pdfs
-    public  void writePdf(byte[] pdf,String nome){
-        try {
-            String file_path = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.Adm/Books";
-            File dir = new File(file_path);
-            if(!dir.exists())
-                dir.mkdirs();
-            File file = new File(dir, nome);
-            FileOutputStream fOut = new FileOutputStream(file);
-            fOut.write(pdf);
-            fOut.flush();
-            fOut.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     private File bookFile;
 
-    private  void downloadFile2(String url, final String nomeLivro) {
+    private  void downloadFile(String url, final String nomeLivro) {
         String mNome = Base64Custom.renoveSpaces(nomeLivro);
         StorageReference islandRef = FirebaseStorage.getInstance().getReferenceFromUrl(url + "/" + mNome);
 
@@ -163,62 +144,6 @@ public class OpenBookActivity extends AppCompatActivity {
 
         }
     }
-
-
-    private void downloadFile(String url,String nomeLivro) {
-        String mNome = Base64Custom.renoveSpaces(nomeLivro);
-        StorageReference  islandRef = FirebaseStorage.getInstance().getReferenceFromUrl(url+"/"+mNome);
-
-        File rootPath = new File(Environment.getExternalStorageDirectory()+"/.Administrador");
-        if(!rootPath.exists()) {
-            rootPath.mkdirs();
-        }
-
-        final File localFile;
-
-        try {
-            dialog =  new ProgressDialog(OpenBookActivity.this);
-            localFile = File.createTempFile(nomeLivro,nomeLivro);
-            abrirLivro(localFile.getAbsolutePath());
-            localFile.mkdirs();
-            islandRef.getFile(localFile).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
-                @TargetApi(Build.VERSION_CODES.N)
-                @Override
-                public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    if (!dialog.isShowing()) {
-                        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                        dialog.setTitle("Baixando " + livro.getNome());
-                        dialog.setMax((int) taskSnapshot.getTotalByteCount());
-                        dialog.setCancelable(false);
-                        dialog.show();
-                    }
-                    progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                    dialog.setProgress((int) progress);
-                }
-            }).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Log.e("firebase ", ";local tem file created  created " + localFile.toString());
-                    //  updateDb(timestamp,localFile.toString(),position);
-                    dialog.dismiss();
-                    finish();
-                    abrirLivro(localFile.getAbsolutePath());
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    exception.getCause();
-                    exception.printStackTrace();
-                    dialog.dismiss();
-                    Log.e("firebase ", ";local tem file not created  created " + exception.toString());
-                }
-            });
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     private void abrirLivro(String caminhoDoArquivo){
         if (caminhoDoArquivo != null && !caminhoDoArquivo.equals("")) {

@@ -12,19 +12,16 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnPausedListener;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageMetadata;
@@ -55,11 +52,7 @@ public class Insert {
     private ProgressDialog pd;
     private Livro mLivro;
     private Category mCategory;
-    private StorageReference storageReference;
-    private String nomelivro;
-    private String mPath;
     private double progress;
-    private DatabaseReference databaseReference;
     private FirebaseFirestore firebaseFirestore;
 
     /**
@@ -77,15 +70,14 @@ public class Insert {
      * deverá ser seguido pelo saveInfo.
      */
     public void saveBook(Livro livro,String path){
-        mPath =  path;
         mLivro = livro;
         try {
-            Uri uri = Uri.fromFile(new File(mPath));
+            Uri uri = Uri.fromFile(new File(path));
             generateImageFromPdf(uri);
 
             StorageMetadata metadata = new StorageMetadata.Builder().setContentType("application/pdf").build();
-            nomelivro = Base64Custom.renoveSpaces(mLivro.getNome());
-            storageReference = DAO.getFirebaseStorage().child(mContext.getString(R.string.child_book)).child(mLivro.getIdLivro()).child(nomelivro);
+            String nomelivro = Base64Custom.renoveSpaces(mLivro.getNome());
+            StorageReference storageReference = DAO.getFirebaseStorage().child(mContext.getString(R.string.child_book)).child(mLivro.getIdLivro()).child(nomelivro);
             mLivro.setLinkDownload( storageReference.toString() );
             ByteArrayOutputStream stream =  new ByteArrayOutputStream();
             imagemCapa.compress(Bitmap.CompressFormat.JPEG,40,stream);
@@ -93,8 +85,7 @@ public class Insert {
             String linkDownload = mLivro.getLinkDownload();
             linkDownload = linkDownload.replace("gs:/","");
             linkDownload = linkDownload.replace("bibliotecasaosalvador.appspot.com/","");
-            storageReference = null;
-            storageReference = DAO.getFirebaseStorage().child(linkDownload).child("thumbnail-"+nomelivro);
+            storageReference = DAO.getFirebaseStorage().child(linkDownload).child("thumbnail-"+ nomelivro);
             mLivro.setImgDownload(storageReference.toString());
             UploadTask uploadTask2 = storageReference.putBytes(byteImagem);
             uploadTask2.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -109,7 +100,6 @@ public class Insert {
                     e.getMessage();
                 }
             });
-            storageReference = null;
             storageReference = DAO.getFirebaseStorage().child(linkDownload).child(nomelivro);
             UploadTask uploadTask = storageReference.putFile(uri, metadata);
             uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -126,7 +116,7 @@ public class Insert {
                         }
                         System.out.println("Upload is " + progress + "% done");
                     }catch (Exception e){
-
+                        e.printStackTrace();
                     }
                 }
             }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
@@ -162,45 +152,6 @@ public class Insert {
         }catch (Exception e){
             e.printStackTrace();
             Toast.makeText(mContext,R.string.unknow_error+e.getMessage(),Toast.LENGTH_LONG).show();
-        }
-    }
-
-    /**
-     * salva informações no banco de dados.
-     * tabela: livros/nome do livro.
-     * tabela: categorias/categoria/livros/nome do livro.
-     */
-    public void saveInfo(Livro livro,Category category){
-        mLivro = livro;
-        mCategory = category;
-        try {
-            databaseReference = DAO.getFireBase()
-                    .child("livros")
-                    .child(mLivro.getIdLivro());
-            databaseReference.setValue(mLivro);
-//            databaseReference = null;
-//            databaseReference = DAO.getFireBase()
-//                    .child("categorias")
-//                    .child(mLivro.getCategoria())
-//                    .child("livros")
-//                    .child(mLivro.getIdLivro());
-//            databaseReference.setValue(mLivro).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                @Override
-//                public void onSuccess(Void aVoid) {
-//                    if (listener != null) {
-//                        listener.onCompleteInsert(null);
-//                    }
-//                }
-//            });
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            try {
-                pd.dismiss();
-            }catch (NullPointerException e){
-                Log.i("Debug: ","progressDialog null");
-            }
-
         }
     }
 
@@ -240,6 +191,7 @@ public class Insert {
                     .document(mCategory.getCategoryName()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                    assert documentSnapshot != null;
                     if (!documentSnapshot.exists()){
                         firebaseFirestore
                                 .collection(mContext.getString(R.string.child_category))
@@ -261,7 +213,7 @@ public class Insert {
         }
     }
 
-    Category saveCategory;
+    private Category saveCategory;
     /**
      * salva a imagem da categoria.
      * @param category objeto do tipo {@link Category}.

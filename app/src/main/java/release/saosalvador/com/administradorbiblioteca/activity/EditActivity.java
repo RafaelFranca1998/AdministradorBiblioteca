@@ -17,33 +17,22 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 
 import release.saosalvador.com.administradorbiblioteca.R;
-import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
-import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Insert;
 import release.saosalvador.com.administradorbiblioteca.model.Category;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class EditActivity extends AppCompatActivity {
-    private RadioGroup radioGroupArea;
     private String areaSelecionada;
-    private Button btEdit;
     private EditText editTextLivroNome;
     private EditText editTextLivroAutor;
     private EditText editTextLivroCategoria;
     private EditText editTextLivroEditora;
     private EditText editTextLivroAno;
-    private DatabaseReference databaseReference;
-    private DatabaseReference categoryReference;
     private Livro livro;
     private Category category;
     private String idLivro;
@@ -56,8 +45,8 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        radioGroupArea = findViewById(R.id.radio_group_area_edit);
-        btEdit = findViewById(R.id.bt_edit);
+        RadioGroup radioGroupArea = findViewById(R.id.radio_group_area_edit);
+        Button btEdit = findViewById(R.id.bt_edit);
         editTextLivroNome = findViewById(R.id.edit_text_livro_nome_edit);
         editTextLivroAutor = findViewById(R.id.edit_text_livro_autor_edit);
         editTextLivroCategoria = findViewById(R.id.edit_text_livro_categoria_edit);
@@ -116,7 +105,9 @@ public class EditActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot doc = task.getResult();
+                            assert doc != null;
                             livro = doc.toObject(Livro.class);
+                            assert livro != null;
                             editTextLivroNome.setText(livro.getNome());
                             editTextLivroAutor.setText(livro.getAutor());
                             editTextLivroCategoria.setText(livro.getCategoria());
@@ -142,6 +133,7 @@ public class EditActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot doc = task.getResult();
+                            assert doc != null;
                             category = doc.toObject(Category.class);
                         } else {
                             Log.w("D", "Error getting documents.", task.getException());

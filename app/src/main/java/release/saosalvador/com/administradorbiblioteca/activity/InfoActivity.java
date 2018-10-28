@@ -21,7 +21,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
@@ -33,12 +32,10 @@ import java.io.File;
 
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
-import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Delete;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class InfoActivity extends AppCompatActivity {
-    private DatabaseReference databaseReference;
     FirebaseFirestore firebaseFirestore;
     private String idLivro;
     private String livroNome;
@@ -90,7 +87,6 @@ public class InfoActivity extends AppCompatActivity {
         if (extra!= null){
             Log.e(TAG,"Não está null");
             idLivro = extra.getString(KEY);
-            databaseReference = DAO.getFireBase().child(getString(R.string.child_book));
         }
 
         getDatabase1();
@@ -273,8 +269,7 @@ public class InfoActivity extends AppCompatActivity {
     private boolean deleteLocalFile(String nomeLivro){
         String mNome = Base64Custom.renoveSpaces(nomeLivro);
         bookFile = new File(getFilesDir(), mNome);
-        boolean deleted = bookFile.delete();
-        return deleted;
+        return bookFile.delete();
     }
 
     @Override

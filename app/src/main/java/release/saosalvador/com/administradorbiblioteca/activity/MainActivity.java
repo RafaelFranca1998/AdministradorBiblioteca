@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Delete;
@@ -191,7 +192,7 @@ public class MainActivity extends AppCompatActivity
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     listLivros.clear();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                         listLivros.add(document.toObject(Livro.class)) ;
                     }
                     adapterListView.notifyDataSetChanged();
@@ -264,8 +265,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_categorias) {
             Intent intent =  new Intent(MainActivity.this,CategoryActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_edit) {
-            //Intent intent =  new Intent(MainActivity.this,)
         }
 
         drawer.closeDrawer(GravityCompat.START);

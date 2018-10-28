@@ -13,22 +13,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
-import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class Delete {
     private OnSuccessDeleteListener listener;
     private Context mContext;
     private Livro mLivro;
-    private DatabaseReference mDatabaseReference;
-    private FirebaseFirestore mFirebaseFirestore;
 
     public Delete(Context context,Livro livro) {
         this.listener = null;
@@ -73,7 +69,7 @@ public class Delete {
 
 
     private void deleteDataFiresTore(){
-        mFirebaseFirestore =  FirebaseFirestore.getInstance();
+        FirebaseFirestore mFirebaseFirestore = FirebaseFirestore.getInstance();
         mFirebaseFirestore.collection(mContext.getString(R.string.child_book))
                 .document(mLivro.getIdLivro())
                 .delete().addOnCompleteListener(new OnCompleteListener<Void>() {

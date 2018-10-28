@@ -17,30 +17,24 @@ import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import release.saosalvador.com.administradorbiblioteca.R;
-import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.AdapterRecyclerViewCategory;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.RecyclerItemClickListener;
 import release.saosalvador.com.administradorbiblioteca.model.Category;
-import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class CategoryActivity extends AppCompatActivity {
     private List<Category> categoryList;
     private RecyclerView listView;
     private AdapterRecyclerViewCategory adapterListView;
     private int itemPosition;
-    private DatabaseReference databaseReference;
     FirebaseFirestore firebaseFirestore;
 
     @Override
@@ -66,7 +60,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                         categoryList.add(document.toObject(Category.class)) ;
                     }
                     adapterListView.notifyDataSetChanged();

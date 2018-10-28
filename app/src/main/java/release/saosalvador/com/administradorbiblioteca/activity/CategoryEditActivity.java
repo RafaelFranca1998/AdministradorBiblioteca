@@ -28,7 +28,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -36,8 +35,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Objects;
+
 import release.saosalvador.com.administradorbiblioteca.R;
-import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Insert;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Update;
 import release.saosalvador.com.administradorbiblioteca.model.Category;
@@ -45,14 +45,9 @@ import release.saosalvador.com.administradorbiblioteca.model.Category;
 public class CategoryEditActivity extends AppCompatActivity {
     private EditText editTextCategoryName;
     private ImageView imageViewCategory;
-    private Button buttonUpdate;
-    private Button buttonConcluir;
     private String categoryName;
     private String oldName;
-    private DatabaseReference databaseReference;
     private Category category;
-    private Uri caminhoArquivo;
-    FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +59,13 @@ public class CategoryEditActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         editTextCategoryName =  findViewById(R.id.edit_text_category_name);
         imageViewCategory = findViewById(R.id.imageview_category_img);
-        buttonUpdate = findViewById(R.id.bt_update_category_image);
-        buttonConcluir = findViewById(R.id.bt_concluir);
+        Button buttonUpdate = findViewById(R.id.bt_update_category_image);
+        Button buttonConcluir = findViewById(R.id.bt_concluir);
 
         Bundle extra = getIntent().getExtras();
         if (extra!= null){
             Log.e("Debug: ","Não está null");
             categoryName = extra.getString("category");
-            databaseReference = DAO.getFireBase().child("categorias").child(categoryName);
         }
 
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
@@ -83,7 +77,7 @@ public class CategoryEditActivity extends AppCompatActivity {
         });
 
 
-        firebaseFirestore =  FirebaseFirestore.getInstance();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore
                 .collection("categorias")
                 .document(categoryName)
@@ -93,8 +87,9 @@ public class CategoryEditActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
+                    assert doc != null;
                     category = doc.toObject(Category.class);
-                    editTextCategoryName.setText(category.getCategoryName());
+                    editTextCategoryName.setText(Objects.requireNonNull(category).getCategoryName());
                     oldName = category.getCategoryName();
                     updateImgAccount();
                 } else {
@@ -115,7 +110,7 @@ public class CategoryEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 category.setCategoryName(editTextCategoryName.getText().toString());
-                Update update =  new Update(CategoryEditActivity.this);
+                Update update =  new Update();
                 update.editCategory(category,oldName);
                 update.addOnSuccessListener(new Update.OnUpdateSuccessListener() {
                     @Override
@@ -141,9 +136,9 @@ public class CategoryEditActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null){
-            caminhoArquivo = data.getData();
+            Uri caminhoArquivo = data.getData();
             Insert insert =  new Insert(CategoryEditActivity.this);
-            insert.saveCategoryImg(category,caminhoArquivo);
+            insert.saveCategoryImg(category, caminhoArquivo);
             insert.addOnSuccessListener(new Insert.OnSuccessInsertListener() {
                 @Override
                 public void onCompleteInsert(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
