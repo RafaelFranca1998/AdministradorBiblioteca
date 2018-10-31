@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -27,6 +26,7 @@ import java.util.List;
 import java.util.Objects;
 
 import release.saosalvador.com.administradorbiblioteca.R;
+import release.saosalvador.com.administradorbiblioteca.config.actions.Insert;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.AdapterRecyclerViewCategory;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.RecyclerItemClickListener;
 import release.saosalvador.com.administradorbiblioteca.model.Category;
@@ -37,7 +37,8 @@ public class CategoryActivity extends AppCompatActivity {
     private RecyclerView listView;
     private AdapterRecyclerViewCategory adapterListView;
     private int itemPosition;
-    FirebaseFirestore firebaseFirestore;
+    private FirebaseFirestore firebaseFirestore;
+    private boolean isFirstOpen =  true;
 
     @Override
     protected void onPause() {
@@ -57,22 +58,8 @@ public class CategoryActivity extends AppCompatActivity {
         listView = findViewById(R.id.recycler_view_category);
         adapterListView =  new AdapterRecyclerViewCategory(CategoryActivity.this,categoryList);
 
-        firebaseFirestore =  FirebaseFirestore.getInstance();
+        getDatabase();
 
-        firebaseFirestore.collection("categorias").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        categoryList.add(document.toObject(Category.class)) ;
-                    }
-                    checkCategory();
-                    adapterListView.notifyDataSetChanged();
-                } else {
-                    Log.w("D", "Error getting documents.", task.getException());
-                }
-            }
-        });
         listView.setAdapter(adapterListView);
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
@@ -100,6 +87,29 @@ public class CategoryActivity extends AppCompatActivity {
         );
     }
 
+    private void getDatabase(){
+        firebaseFirestore =  FirebaseFirestore.getInstance();
+
+        firebaseFirestore.collection("categorias").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    categoryList.clear();
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                        categoryList.add(document.toObject(Category.class)) ;
+                    }
+                    if (isFirstOpen) {
+                        checkCategory();
+                        isFirstOpen = false;
+                    }
+                    adapterListView.notifyDataSetChanged();
+                } else {
+                    Log.w("D", "Error getting documents.", task.getException());
+                }
+            }
+        });
+    }
+
     private void checkCategory(){
         final ArrayList<String> strings =  new ArrayList<>();
         firebaseFirestore =  FirebaseFirestore.getInstance();
@@ -119,7 +129,7 @@ public class CategoryActivity extends AppCompatActivity {
                         } else {
                             Log.w("D", "Error getting documents.", task.getException());
                         }
-                        removerDuplicados(strings);
+                        createCategory(removerDuplicados(strings));
                     }
                 });
     }
@@ -138,5 +148,15 @@ public class CategoryActivity extends AppCompatActivity {
             }
         }
         return list;
+    }
+
+    private void createCategory(ArrayList<String> livros){
+        for (String livro: livros){
+            Insert insert =  new Insert(this);
+            Category category =  new Category();
+            category.setCategoryName(livro);
+            insert.saveCategoryFireStore(category);
+        }
+        getDatabase();
     }
 }

@@ -12,7 +12,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import java.util.Map;
 
-import release.saosalvador.com.administradorbiblioteca.ToHashMap;
+import release.saosalvador.com.administradorbiblioteca.config.ToHashMap;
 import release.saosalvador.com.administradorbiblioteca.model.Category;
 
 public class Update {

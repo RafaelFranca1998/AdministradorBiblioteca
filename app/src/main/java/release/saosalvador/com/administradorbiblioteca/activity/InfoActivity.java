@@ -153,7 +153,7 @@ public class InfoActivity extends AppCompatActivity {
                 if (confirm){
                     Toast.makeText(InfoActivity.this,"Livro apagado da memória com sucesso",Toast.LENGTH_LONG).show();;
                     txtSituacao.setTextColor(getResources().getColor(R.color.red));
-                    txtSituacao.setText("Livro Não Baixado");
+                    txtSituacao.setText(R.string.livro_n_baixado);
                     buttonBaixar.setEnabled(true);
                     buttonDeleteLocal.setEnabled(false);
                 }
@@ -174,6 +174,7 @@ public class InfoActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot doc = task.getResult();
+                            assert doc != null;
                             livro = doc.toObject(Livro.class);
                             assert livro != null;
                             txtNome.setText(livro.getNome());

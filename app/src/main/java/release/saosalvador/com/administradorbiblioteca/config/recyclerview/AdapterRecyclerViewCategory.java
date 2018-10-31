@@ -104,18 +104,23 @@ public class AdapterRecyclerViewCategory extends RecyclerView.Adapter<AdapterRec
                 e.printStackTrace();
             }
         }
-        else {try {
-            StorageReference storageReference =
-                    FirebaseStorage.getInstance().getReferenceFromUrl(url);
-            mViewHolder.progressBar.setVisibility(View.VISIBLE);
-            Glide.with(mContext)
-                    .using(new FirebaseImageLoader())
-                    .load(storageReference)
-                    .into(viewHolder.imgCategory);
-            mViewHolder.progressBar.setVisibility(View.GONE);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        else {
+            try {
+                if (url == null){
+                    viewHolder.imgCategory.setImageResource(R.drawable.ic_add);
+                }else {
+                    StorageReference storageReference =
+                            FirebaseStorage.getInstance().getReferenceFromUrl(url);
+                    mViewHolder.progressBar.setVisibility(View.VISIBLE);
+                    Glide.with(mContext)
+                            .using(new FirebaseImageLoader())
+                            .load(storageReference)
+                            .into(viewHolder.imgCategory);
+                    mViewHolder.progressBar.setVisibility(View.GONE);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
     }

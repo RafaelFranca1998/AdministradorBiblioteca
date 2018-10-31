@@ -38,7 +38,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import release.saosalvador.com.administradorbiblioteca.R;
-import release.saosalvador.com.administradorbiblioteca.ToHashMap;
+import release.saosalvador.com.administradorbiblioteca.config.ToHashMap;
 import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
 import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.model.Category;
