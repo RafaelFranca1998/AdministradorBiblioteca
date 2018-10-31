@@ -26,6 +26,11 @@
     <string name="successful_image_upload">Imagem Enviada.</string>
     <string name="error_image_upload">Falha ao carregar o livro.</string>
     <string name="unknow_error">Erro desconhecido! </string>
+    <string name="adicionar_livro">Adicionar Livro</string>
+    <string name="categorias">Categorias</string>
+    <string name="livros">Livros</string>
+    <string name="livro_n_baixado">Livro Não Baixado</string>
+    <string name="livro_baixado">Livro Baixado</string>
 
 
 </resources>

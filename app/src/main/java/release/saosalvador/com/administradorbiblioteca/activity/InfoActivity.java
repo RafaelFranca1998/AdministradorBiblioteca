@@ -3,8 +3,10 @@ package release.saosalvador.com.administradorbiblioteca.activity;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -183,17 +185,7 @@ public class InfoActivity extends AppCompatActivity {
                             livroNome = livro.getNome();
                             linkLivro = livro.getLinkDownload();
                             bookFile = new File(getFilesDir(), Base64Custom.renoveSpaces(livro.getNome()));
-                            if (bookFile.exists()) {
-                                txtSituacao.setTextColor(getResources().getColor(R.color.green));
-                                txtSituacao.setText("Livro Baixado");
-                                buttonBaixar.setEnabled(false);
-                                buttonDeleteLocal.setEnabled(true);
-                            } else {
-                                txtSituacao.setTextColor(getResources().getColor(R.color.red));
-                                txtSituacao.setText("Livro Não Baixado");
-                                buttonBaixar.setEnabled(true);
-                                buttonDeleteLocal.setEnabled(false);
-                            }
+                            checkLocalFile();
                             dimissDialog();
                         } else {
                             Log.w("D", "Error getting documents.", task.getException());
@@ -223,6 +215,25 @@ public class InfoActivity extends AppCompatActivity {
     private void dimissDialog(){
         dialog.dismiss();
 
+    }
+
+    private void checkLocalFile(){
+        if (bookFile.exists()) {
+            txtSituacao.setTextColor(getResources().getColor(R.color.green));
+            txtSituacao.setText(R.string.livro_baixado);
+            buttonBaixar.setEnabled(false);
+            buttonDeleteLocal.setEnabled(true);
+        } else {
+            txtSituacao.setTextColor(getResources().getColor(R.color.red));
+            txtSituacao.setText(R.string.livro_n_baixado);
+            buttonBaixar.setEnabled(true);
+            buttonDeleteLocal.setEnabled(false);
+        }
+        if (!isConected(this)&&bookFile.exists()){
+            buttonOpen.setEnabled(true);
+        }else {
+            buttonOpen.setEnabled(false);
+        }
     }
 
     private  void downloadFile(String url, final String nomeLivro) {
@@ -265,6 +276,13 @@ public class InfoActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (bookFile != null) {
+            checkLocalFile();
+        }
+    }
 
     private boolean deleteLocalFile(String nomeLivro){
         String mNome = Base64Custom.renoveSpaces(nomeLivro);
@@ -272,9 +290,18 @@ public class InfoActivity extends AppCompatActivity {
         return bookFile.delete();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+
+    public static boolean isConected(Context cont){
+        ConnectivityManager conmag = (ConnectivityManager)cont.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if ( conmag != null ) {
+            conmag.getActiveNetworkInfo();
+
+            if (conmag.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()) return true;
+
+            if (conmag.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()) return true;
+        }
+        return false;
     }
 
     public void closeActivity(){

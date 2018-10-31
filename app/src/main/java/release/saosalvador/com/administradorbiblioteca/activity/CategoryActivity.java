@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -29,6 +30,7 @@ import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.AdapterRecyclerViewCategory;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.RecyclerItemClickListener;
 import release.saosalvador.com.administradorbiblioteca.model.Category;
+import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class CategoryActivity extends AppCompatActivity {
     private List<Category> categoryList;
@@ -56,6 +58,7 @@ public class CategoryActivity extends AppCompatActivity {
         adapterListView =  new AdapterRecyclerViewCategory(CategoryActivity.this,categoryList);
 
         firebaseFirestore =  FirebaseFirestore.getInstance();
+
         firebaseFirestore.collection("categorias").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -63,6 +66,7 @@ public class CategoryActivity extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                         categoryList.add(document.toObject(Category.class)) ;
                     }
+                    checkCategory();
                     adapterListView.notifyDataSetChanged();
                 } else {
                     Log.w("D", "Error getting documents.", task.getException());
@@ -78,7 +82,6 @@ public class CategoryActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //What to do on back clicked
                 finish();
             }
         });
@@ -95,5 +98,45 @@ public class CategoryActivity extends AppCompatActivity {
                     }
                 })
         );
+    }
+
+    private void checkCategory(){
+        final ArrayList<String> strings =  new ArrayList<>();
+        firebaseFirestore =  FirebaseFirestore.getInstance();
+        firebaseFirestore
+                .collection("livros")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                Livro livro = document.toObject(Livro.class);
+                                strings.add(livro.getCategoria()) ;
+                                Log.i("Debug Livros",livro.getCategoria());
+                            }
+                            adapterListView.notifyDataSetChanged();
+                        } else {
+                            Log.w("D", "Error getting documents.", task.getException());
+                        }
+                        removerDuplicados(strings);
+                    }
+                });
+    }
+
+    //TODO aqui
+    private ArrayList removerDuplicados(ArrayList list) {
+        for (int i = 0; i < list.size(); i++) {
+            Object a = list.get(i);
+            for (int j = i+1; j < list.size(); j++) {
+                Object b = list.get(j);
+                if (a.equals(b)) {
+                    Log.i("Debug Duplicados",list.get(j).toString());
+                    list.remove(j);
+                    j--;
+                }
+            }
+        }
+        return list;
     }
 }

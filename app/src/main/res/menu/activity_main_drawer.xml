@@ -7,19 +7,15 @@
         <item
             android:id="@+id/nav_livros"
             android:icon="@drawable/ic_book_black_24dp"
-            android:title="Livros" />
+            android:title="@string/livros" />
         <item
             android:id="@+id/nav_add_livro"
             android:icon="@drawable/ic_library_add_black_24dp"
-            android:title="Adicionar Livro" />
+            android:title="@string/adicionar_livro" />
         <item
             android:id="@+id/nav_categorias"
             android:icon="@drawable/ic_category_black_24dp"
-            android:title="Categorias" />
-        <item
-            android:id="@+id/nav_edit"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Editar livro" />
+            android:title="@string/categorias" />
     </group>
 
 </menu>

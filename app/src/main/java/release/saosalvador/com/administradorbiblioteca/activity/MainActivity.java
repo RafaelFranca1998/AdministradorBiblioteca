@@ -6,7 +6,12 @@
 package release.saosalvador.com.administradorbiblioteca.activity;
 
 
+import android.annotation.SuppressLint;
+import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -20,7 +25,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
@@ -31,19 +35,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.UploadTask;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Delete;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.AdapterRecyclerView;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.RecyclerItemClickListener;
+import release.saosalvador.com.administradorbiblioteca.config.room.AppDatabase;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class MainActivity extends AppCompatActivity
@@ -53,17 +55,15 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton fabSettings;
     private LinearLayout layoutFabSave;
     private LinearLayout layoutFabAdd;
-    static String mCaminho;
+    private DrawerLayout drawer;
     private String KEY;
-    NavigationView navigationView;
-    DrawerLayout drawer;
-    FirebaseFirestore firebaseFirestore;
-
+    private AppDatabase db;
+    private Livro livro;
 
     private static List<Livro> listLivros;
+    @SuppressLint("StaticFieldLeak")
     private static RecyclerView listView;
     private AdapterRecyclerView adapterListView;
-    private String caminhoDoArquivo;
     static int itemPosition;
     Toolbar toolbar;
 
@@ -76,23 +76,23 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         //------------------------------------------------------------------------------------------
         KEY = getString(R.string.tag_id);
-
+        //------------------------------------------------------------------------------------------
         listLivros =  new ArrayList<>();
         listView = findViewById(R.id.recycler_view);
-
+        //------------------------------------------------------------------------------------------
         fabSettings =  findViewById(R.id.fabSetting);
         layoutFabSave = findViewById(R.id.layoutFabSave);
         layoutFabAdd = findViewById(R.id.layoutFabAdd);
-        //  layoutFabPhoto = (LinearLayout) this.findViewById(R.id.layoutFabPhoto);
 
         fabSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (fabExpanded == true){
+                if (fabExpanded) {
                     closeSubMenusFab();
                 } else {
                     openSubMenusFab();
                 }
+
             }
         });
 
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -117,12 +117,14 @@ public class MainActivity extends AppCompatActivity
 
         adapterListView =  new AdapterRecyclerView(MainActivity.this,listLivros);
 
-        updateList();
-
         listView.setAdapter(adapterListView);
+
+
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         listView.setLayoutManager(gridLayoutManager);
+
+            updateList();
 
         listView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, listView ,new RecyclerItemClickListener.OnItemClickListener() {
@@ -185,28 +187,64 @@ public class MainActivity extends AppCompatActivity
         return super.onContextItemSelected(item);
     }
 
-    private void updateList(){
-        firebaseFirestore =  FirebaseFirestore.getInstance();
-        firebaseFirestore.collection(getString(R.string.child_book)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+    private void getOffline(){
+        db = Room.databaseBuilder(getApplicationContext(),AppDatabase.class, "db_livros").build();
+        AsyncTask.execute(new Runnable() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    listLivros.clear();
-                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        listLivros.add(document.toObject(Livro.class)) ;
-                    }
-                    adapterListView.notifyDataSetChanged();
-                } else {
-                    Log.w("D", "Error getting documents.", task.getException());
-                }
+            public void run() {
+                listLivros = db.userDao().getAll();
+                Livro livroteste = listLivros.get(1);
+                Log.i("LivroTeste: ",livroteste.getAno());
+                Log.i("LivroTeste: ",livroteste.getNome());
+                Log.i("LivroTeste: ",livroteste.getCategoria());
             }
         });
+        adapterListView.notifyDataSetChanged();
+
+    }
+
+    private void updateList(){
+        db = Room.databaseBuilder(getApplicationContext(),AppDatabase.class, "db_livros").build();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore
+                .collection(getString(R.string.child_book))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            listLivros.clear();
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                livro = document.toObject(Livro.class);
+                                listLivros.add(livro) ;
+                                /*
+                                 *  Insert and get data using Database Async way
+                                 */
+                                AsyncTask.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        db.userDao().insertAll(livro);
+                                        Log.i("Room: ",db.userDao().getAll().toString()) ;
+                                    }
+                                });
+                            }
+                            adapterListView.notifyDataSetChanged();
+                        } else {
+                            Log.w("D", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        updateList();
+//        if (isConected(this)){
+            updateList();
+//        } else {
+//            getOffline();
+//        }
     }
 
     @Override
@@ -218,25 +256,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
 
     private void closeSubMenusFab(){
         layoutFabSave.setVisibility(View.INVISIBLE);
@@ -257,8 +276,10 @@ public class MainActivity extends AppCompatActivity
         int id = menuItem.getItemId();
 
         if (id == R.id.nav_livros) {
-            Intent intent =  new Intent(MainActivity.this,MainActivity.class);
-            startActivity(intent);
+            if (!menuItem.isChecked()) {
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
         } else if (id == R.id.nav_add_livro) {
             Intent intent =  new Intent(MainActivity.this,AddBookActivity.class);
             startActivity(intent);
@@ -271,8 +292,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
-
     public static class MyOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -280,4 +299,16 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public static boolean isConected(Context cont){
+        ConnectivityManager conmag = (ConnectivityManager)cont.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if ( conmag != null ) {
+            conmag.getActiveNetworkInfo();
+
+            if (conmag.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()) return true;
+
+            if (conmag.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()) return true;
+        }
+        return false;
+    }
 }

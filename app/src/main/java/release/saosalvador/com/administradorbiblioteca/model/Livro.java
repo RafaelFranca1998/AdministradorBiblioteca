@@ -1,9 +1,41 @@
 package release.saosalvador.com.administradorbiblioteca.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
+@Entity
 public class Livro {
-    private String nome,idLivro,editora,edicao,ano,autor,categoria,area,linkDownload,imgDownload,endereçoLocal;
+    @PrimaryKey
+    @NonNull private String idLivro;
 
+    @ColumnInfo(name = "nome")
+    private String nome;
+
+    @ColumnInfo(name = "editora")
+    private String editora;
+
+    @ColumnInfo(name = "edicao")
+    private String edicao;
+
+    @ColumnInfo(name = "ano")
+    private String ano;
+
+    @ColumnInfo(name = "autor")
+    private String autor;
+
+    @ColumnInfo(name = "categoria")
+    private String categoria;
+
+    @ColumnInfo(name = "area")
+    private String area;
+
+    @ColumnInfo(name = "linkDownload")
+    private String linkDownload;
+
+    @ColumnInfo(name = "imgDownload")
+    private String imgDownload;
 
 
     public String getLinkDownload() {
@@ -84,13 +116,5 @@ public class Livro {
 
     public void setImgDownload(String imgDownload) {
         this.imgDownload = imgDownload;
-    }
-
-    public String getEndereçoLocal() {
-        return endereçoLocal;
-    }
-
-    public void setEndereçoLocal(String endereçoLocal) {
-        this.endereçoLocal = endereçoLocal;
     }
 }

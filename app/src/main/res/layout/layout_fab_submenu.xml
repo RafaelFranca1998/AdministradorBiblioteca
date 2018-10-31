@@ -46,8 +46,10 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabAdd"
+            android:elevation="1dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="6dp"
             android:src="@android:drawable/ic_input_add"
             app:backgroundTint="@color/accent"
             app:fabSize="mini" />
@@ -88,8 +90,10 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabSave"
+            android:elevation="1dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="6dp"
             android:src="@drawable/ic_menu_camera"
             app:backgroundTint="@android:color/holo_green_light"
             app:fabSize="mini" />
@@ -107,13 +111,15 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabSetting"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:elevation="1dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:src="@android:drawable/ic_input_add"
             app:backgroundTint="@color/accent"
             app:fabSize="normal" />
-
     </LinearLayout>
 
 </FrameLayout>

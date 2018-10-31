@@ -7,7 +7,9 @@ package release.saosalvador.com.administradorbiblioteca.activity;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -162,5 +164,11 @@ public class OpenBookActivity extends AppCompatActivity {
         }else {
             Toast.makeText(this, "Selecione um livro.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isFirstOpen = true;
     }
 }
