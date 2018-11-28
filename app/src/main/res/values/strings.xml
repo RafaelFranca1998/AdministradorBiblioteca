@@ -31,6 +31,24 @@
     <string name="livros">Livros</string>
     <string name="livro_n_baixado">Livro Não Baixado</string>
     <string name="livro_baixado">Livro Baixado</string>
-
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="main_activity_title">Inicio</string>
+    <string name="ano">Ano</string>
+    <string name="area">Área</string>
+    <string name="informatica">Informática</string>
+    <string name="saude">Saude</string>
+    <string name="administracao">Administração</string>
+    <string name="adicionar_livro">Adicionar Livro</string>
+    <string name="caminho">Caminho</string>
+    <string name="abrir_livro">Abrir Livro</string>
+    <string name="selecionar_arquivo">Selecionar Arquivo</string>
+    <string name="nome">Nome:</string>
+    <string name="autor">Autor</string>
+    <string name="categoria">Categoria</string>
+    <string name="editora">Editora</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="geral">Geral</string>
+    <string name="matematica">Matemática</string>
+    <string name="direito">Direito</string>
 
 </resources>

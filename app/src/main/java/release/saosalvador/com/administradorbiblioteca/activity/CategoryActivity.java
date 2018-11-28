@@ -43,7 +43,13 @@ public class CategoryActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        adapterListView.notifyDataSetChanged();
+        getDatabase();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isFirstOpen =  true;
     }
 
     @Override
@@ -134,7 +140,6 @@ public class CategoryActivity extends AppCompatActivity {
                 });
     }
 
-    //TODO aqui
     private ArrayList removerDuplicados(ArrayList list) {
         for (int i = 0; i < list.size(); i++) {
             Object a = list.get(i);

@@ -39,14 +39,14 @@ import javax.annotation.Nullable;
 
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.ToHashMap;
-import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
+import release.saosalvador.com.administradorbiblioteca.config.MyCustomUtil;
 import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.model.Category;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class Insert {
-    private OnSuccessInsertListener listener;
-    private OnSuccessSendListener sendListener;
+    private OnSuccessInsertListener insertListener;
+    private OnSuccessUploadListener uploadListener;
     private Context mContext;
     private Bitmap imagemCapa;
     private ProgressDialog pd;
@@ -60,8 +60,8 @@ public class Insert {
      * @param context contexto da aplicação.
      */
     public Insert(@NonNull Context context) {
-        this.listener = null;
-        this.sendListener = null;
+        this.insertListener = null;
+        this.uploadListener = null;
         mContext = context;
     }
 
@@ -69,23 +69,24 @@ public class Insert {
      * salva somente o livro e a imagem do livro no sevidor de arquivos.
      * deverá ser seguido pelo saveInfo.
      */
-    public void saveBook(Livro livro,String path){
+    public void salvarLivro(Livro livro, String path){
         mLivro = livro;
         try {
             Uri uri = Uri.fromFile(new File(path));
             generateImageFromPdf(uri);
 
             StorageMetadata metadata = new StorageMetadata.Builder().setContentType("application/pdf").build();
-            String nomelivro = Base64Custom.renoveSpaces(mLivro.getNome());
-            StorageReference storageReference = DAO.getFirebaseStorage().child(mContext.getString(R.string.child_book)).child(mLivro.getIdLivro()).child(nomelivro);
+            StorageReference storageReference
+                    = DAO.getFirebaseStorage().child(mContext.getString(R.string.child_book)).child(mLivro.getIdLivro());
             mLivro.setLinkDownload( storageReference.toString() );
+
             ByteArrayOutputStream stream =  new ByteArrayOutputStream();
             imagemCapa.compress(Bitmap.CompressFormat.JPEG,40,stream);
             byte[] byteImagem = stream.toByteArray();
             String linkDownload = mLivro.getLinkDownload();
             linkDownload = linkDownload.replace("gs:/","");
             linkDownload = linkDownload.replace("bibliotecasaosalvador.appspot.com/","");
-            storageReference = DAO.getFirebaseStorage().child(linkDownload).child("thumbnail-"+ nomelivro);
+            storageReference = DAO.getFirebaseStorage().child(linkDownload).child("thumbnail-livro");
             mLivro.setImgDownload(storageReference.toString());
             UploadTask uploadTask2 = storageReference.putBytes(byteImagem);
             uploadTask2.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -100,7 +101,7 @@ public class Insert {
                     e.getMessage();
                 }
             });
-            storageReference = DAO.getFirebaseStorage().child(linkDownload).child(nomelivro);
+            storageReference = DAO.getFirebaseStorage().child(linkDownload).child("livro.pdf");
             UploadTask uploadTask = storageReference.putFile(uri, metadata);
             uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -135,8 +136,8 @@ public class Insert {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     pd.dismiss();
-                    if (sendListener != null) {
-                        sendListener.onCompleteInsert(taskSnapshot);
+                    if (uploadListener != null) {
+                        uploadListener.onCompleteInsert(taskSnapshot);
                     }
                 }
             }).addOnCanceledListener(new OnCanceledListener() {
@@ -155,35 +156,35 @@ public class Insert {
         }
     }
 
+
     public void saveInfoFireStore(Livro livro,Category category){
         mLivro = livro;
         mCategory = category;
         firebaseFirestore =  null;
         Map < String, Object > newLivro = new HashMap < > ();
         Map < String, Object > newCategory = new HashMap < > ();
-        newCategory.putAll(ToHashMap.categoryToHashMap(mCategory));
+        newCategory.putAll(ToHashMap.hashmapToCategory(mCategory));
         newLivro.putAll(ToHashMap.livroToHashMap(mLivro));
         try {
             firebaseFirestore = FirebaseFirestore.getInstance();
             firebaseFirestore.collection("livros").document(mLivro.getIdLivro()).set(newLivro).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    if (listener != null) {
-                        listener.onCompleteInsert(null);
+                    if (insertListener != null) {
+                        insertListener.onCompleteInsert(null);
                     }
                 }
             });
-            //mFirebaseFirestore.collection("categorias/"+mLivro.getCategoria()+"/").document(mLivro.getIdLivro()).set(newLivro);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private Map < String, Object > newContact;
+    private Map < String, Object > newCategory;
     public void saveCategoryFireStore(Category category){
-        mCategory =  category;
-        newContact = new HashMap < > ();
-        newContact.putAll(ToHashMap.categoryToHashMap(mCategory));
+        mCategory = category;
+        newCategory = new HashMap < > ();
+        newCategory.putAll(ToHashMap.hashmapToCategory(mCategory));
         try {
             firebaseFirestore = FirebaseFirestore.getInstance();
             firebaseFirestore
@@ -196,12 +197,12 @@ public class Insert {
                         firebaseFirestore
                                 .collection(mContext.getString(R.string.child_category))
                                 .document(mCategory.getCategoryName())
-                                .set(newContact)
+                                .set(newCategory)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        if (listener != null) {
-                                            listener.onCompleteInsert(null);
+                                        if (insertListener != null) {
+                                            insertListener.onCompleteInsert(null);
                                         }
                                     }
                                 });
@@ -222,10 +223,13 @@ public class Insert {
     public void saveCategoryImg(Category category, Uri mPath){
         try {
             saveCategory = category;
+            String name = saveCategory.getCategoryName();
+            name =  MyCustomUtil.unaccent(name);
+            name = MyCustomUtil.removeSpaces(name);
             final StorageReference categoryReference = DAO.getFirebaseStorage()
                     .child("categorias")
-                    .child(saveCategory.getCategoryName())
-                    .child(saveCategory.getCategoryName());
+                    .child(name)
+                    .child(name);
             final Bitmap imagem = MediaStore.Images.Media.getBitmap((mContext).getContentResolver(), mPath);
             // comprimir no formato jpeg
             ByteArrayOutputStream stream =  new ByteArrayOutputStream();
@@ -233,7 +237,6 @@ public class Insert {
             byte[] byteData = stream.toByteArray();
             UploadTask uploadTask = categoryReference.putBytes(byteData);
             final ProgressDialog pd2 = new ProgressDialog(mContext);
-            // Listen for state changes, errors, and completion of the upload.
             uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
@@ -262,7 +265,8 @@ public class Insert {
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    saveCategory.setImgDownload(categoryReference.toString());
+                    String parse = categoryReference.toString();
+                    saveCategory.setImgDownload(parse);
                     saveCategoryFireStore(saveCategory);
                     pd2.dismiss();
                     Toast.makeText(mContext,"Imagem carregada!",Toast.LENGTH_SHORT).show();
@@ -273,6 +277,8 @@ public class Insert {
             e.printStackTrace();
         }
     }
+
+
 
     private void generateImageFromPdf(Uri pdfUri) {
         int pageNumber = 0;
@@ -288,19 +294,19 @@ public class Insert {
             imagemCapa = bmp;
             pdfiumCore.closeDocument(pdfDocument);
         } catch(Exception e) {
-            //todo with exception
+            e.printStackTrace();
         }
     }
 
     public interface OnSuccessInsertListener {void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot);}
 
-    public interface OnSuccessSendListener {void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot);}
+    public interface OnSuccessUploadListener {void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot);}
 
     public void addOnSuccessListener(OnSuccessInsertListener listener) {
-        this.listener = listener;
+        this.insertListener = listener;
     }
 
-    public void addOnSuccessSendListener(OnSuccessSendListener listener) {
-        this.sendListener = listener;
+    public void addOnSuccessUploadListener(OnSuccessUploadListener listener) {
+        this.uploadListener = listener;
     }
 }

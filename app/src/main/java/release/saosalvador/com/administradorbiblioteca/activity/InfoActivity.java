@@ -8,10 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Build;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,12 +33,13 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 
 import release.saosalvador.com.administradorbiblioteca.R;
-import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
+import release.saosalvador.com.administradorbiblioteca.config.MyCustomUtil;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Delete;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class InfoActivity extends AppCompatActivity {
-    FirebaseFirestore firebaseFirestore;
+    @SuppressWarnings("FieldCanBeLocal")
+    private FirebaseFirestore firebaseFirestore;
     private String idLivro;
     private String livroNome;
     private String linkLivro;
@@ -65,6 +66,8 @@ public class InfoActivity extends AppCompatActivity {
     private ProgressDialog dialog;
     private ProgressDialog progressDialogHorizontal;
     private double progress;
+    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,14 +87,22 @@ public class InfoActivity extends AppCompatActivity {
         txtAno = findViewById(R.id.tv_ano);
         txtCurso = findViewById(R.id.tv_curso);
         txtSituacao = findViewById(R.id.tv_situation);
+        toolbar =  findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Bundle extra = getIntent().getExtras();
         if (extra!= null){
             Log.e(TAG,"Não está null");
             idLivro = extra.getString(KEY);
         }
-
-        getDatabase1();
 
         buttonOpen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,14 +153,14 @@ public class InfoActivity extends AppCompatActivity {
         buttonBaixar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                downloadFile(linkLivro,livroNome);
+                downloadFile(linkLivro);
             }
         });
 
         buttonDeleteLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean confirm = deleteLocalFile(livroNome);
+                boolean confirm = deleteLocalFile();
                 if (confirm){
                     Toast.makeText(InfoActivity.this,"Livro apagado da memória com sucesso",Toast.LENGTH_LONG).show();;
                     txtSituacao.setTextColor(getResources().getColor(R.color.red));
@@ -160,6 +171,12 @@ public class InfoActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getDatabase1();
     }
 
     private void getDatabase1(){
@@ -177,7 +194,7 @@ public class InfoActivity extends AppCompatActivity {
                             assert doc != null;
                             livro = doc.toObject(Livro.class);
                             assert livro != null;
-                            txtNome.setText(livro.getNome());
+                            txtNome.setText(MyCustomUtil.removeLines(livro.getNome()));
                             txtAutor.setText(livro.getAutor());
                             txtCategoria.setText(livro.getCategoria());
                             txtAno.setText(livro.getAno());
@@ -185,9 +202,10 @@ public class InfoActivity extends AppCompatActivity {
                             url = livro.getImgDownload();
                             livroNome = livro.getNome();
                             linkLivro = livro.getLinkDownload();
-                            bookFile = new File(getFilesDir(), Base64Custom.renoveSpaces(livro.getNome()));
+                            bookFile = new File(getFilesDir(),idLivro);
                             checkLocalFile();
                             dimissDialog();
+                            toolbar.setTitle(MyCustomUtil.removeLines(livroNome));
                         } else {
                             Log.w("D", "Error getting documents.", task.getException());
                         }
@@ -215,7 +233,6 @@ public class InfoActivity extends AppCompatActivity {
 
     private void dimissDialog(){
         dialog.dismiss();
-
     }
 
     private void checkLocalFile(){
@@ -231,16 +248,15 @@ public class InfoActivity extends AppCompatActivity {
             buttonDeleteLocal.setEnabled(false);
         }
         if (!isConected(this)&&bookFile.exists()){
-            buttonOpen.setEnabled(true);
-        }else {
             buttonOpen.setEnabled(false);
+        }else {
+            buttonOpen.setEnabled(true);
         }
     }
 
-    private  void downloadFile(String url, final String nomeLivro) {
-        String mNome = Base64Custom.renoveSpaces(nomeLivro);
-        StorageReference islandRef = FirebaseStorage.getInstance().getReferenceFromUrl(url + "/" + mNome);
-        bookFile = new File(getFilesDir(), mNome);
+    private  void downloadFile(String url) {
+        StorageReference islandRef = FirebaseStorage.getInstance().getReferenceFromUrl(url + "/livro.pdf");
+        bookFile = new File(getFilesDir(), idLivro);
         progressDialogHorizontal = new ProgressDialog(InfoActivity.this);
         islandRef.getFile(bookFile).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
             @TargetApi(Build.VERSION_CODES.N)
@@ -285,9 +301,8 @@ public class InfoActivity extends AppCompatActivity {
         }
     }
 
-    private boolean deleteLocalFile(String nomeLivro){
-        String mNome = Base64Custom.renoveSpaces(nomeLivro);
-        bookFile = new File(getFilesDir(), mNome);
+    private boolean deleteLocalFile(){
+        bookFile = new File(getFilesDir(), idLivro);
         return bookFile.delete();
     }
 

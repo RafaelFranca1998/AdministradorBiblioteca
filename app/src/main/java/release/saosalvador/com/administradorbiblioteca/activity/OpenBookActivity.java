@@ -7,9 +7,7 @@ package release.saosalvador.com.administradorbiblioteca.activity;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +19,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
@@ -34,14 +31,9 @@ import com.radaee.reader.PDFViewAct;
 import java.io.File;
 
 import release.saosalvador.com.administradorbiblioteca.R;
-import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
-import release.saosalvador.com.administradorbiblioteca.config.DAO;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class OpenBookActivity extends AppCompatActivity {
-    private StorageReference mStorageRef;
-    private DatabaseReference databaseReference;
-    FirebaseFirestore firebaseFirestore;
     private String idLivro;
     private Livro livro;
     private ProgressDialog dialog;
@@ -65,19 +57,17 @@ public class OpenBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_book);
 
-
         Bundle extra = getIntent().getExtras();
         if (extra!= null){
             Log.e("bundle","Não está null");
             idLivro = extra.getString("id");
-            databaseReference = DAO.getFireBase().child("livros");
         }
 
     }
 
 
     private void getDatabase1(){
-        firebaseFirestore =  FirebaseFirestore.getInstance();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore
                 .collection("livros")
                 .document(idLivro)
@@ -90,7 +80,7 @@ public class OpenBookActivity extends AppCompatActivity {
                             assert doc != null;
                             livro = doc.toObject(Livro.class);
                             if (livro != null){
-                                downloadFile(livro.getLinkDownload(),livro.getNome());
+                                downloadFile(livro.getLinkDownload());
                             }
                         } else {
                             Log.w("D", "Error getting documents.", task.getException());
@@ -102,11 +92,9 @@ public class OpenBookActivity extends AppCompatActivity {
 
     private File bookFile;
 
-    private  void downloadFile(String url, final String nomeLivro) {
-        String mNome = Base64Custom.renoveSpaces(nomeLivro);
-        StorageReference islandRef = FirebaseStorage.getInstance().getReferenceFromUrl(url + "/" + mNome);
-
-        bookFile = new File(getFilesDir(), mNome);
+    private  void downloadFile(String url) {
+        StorageReference islandRef = FirebaseStorage.getInstance().getReferenceFromUrl(url + "/livro.pdf");
+        bookFile = new File(getFilesDir(), idLivro);
 
         if (bookFile.exists()) {
             abrirLivro(bookFile.getAbsolutePath());

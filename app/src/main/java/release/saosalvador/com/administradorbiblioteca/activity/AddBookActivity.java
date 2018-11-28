@@ -9,9 +9,11 @@ package release.saosalvador.com.administradorbiblioteca.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -20,10 +22,13 @@ import com.radaee.pdf.Global;
 import com.radaee.reader.PDFViewAct;
 
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 import release.saosalvador.com.administradorbiblioteca.R;
-import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
+import release.saosalvador.com.administradorbiblioteca.config.MyCustomUtil;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Insert;
 import release.saosalvador.com.administradorbiblioteca.model.Category;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
@@ -37,42 +42,33 @@ public class AddBookActivity extends AppCompatActivity {
     private EditText editTextLivroCategoria;
     private EditText editTextLivroEditora;
     private EditText editTextLivroAno;
+    private Calendar myCalendar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
+        //------------------------------------------------------------------------------------------
         RadioGroup radioGroupArea = findViewById(R.id.radio_group_area_add);
+        //------------------------------------------------------------------------------------------
         Button btSelecionarLivro = findViewById(R.id.bt_selecionar_livro);
         Button btAdicionar = findViewById(R.id.bt_adicionar);
         Button btAbrirLivro = findViewById(R.id.bt_abrir_livro);
+        //------------------------------------------------------------------------------------------
         editTextLivroNome = findViewById(R.id.edit_text__add_livro_nome);
         editTextLivroAutor = findViewById(R.id.edit_text_add_livro_autor);
         editTextLivroCategoria = findViewById(R.id.edit_text_add_livro_categoria);
         editTextLivroEditora = findViewById(R.id.edit_text_add_livro_editora);
         editTextLivroAno = findViewById(R.id.edit_text_add_livro_ano);
-
+        //------------------------------------------------------------------------------------------
+        myCalendar =  new GregorianCalendar();
+        //------------------------------------------------------------------------------------------
         radioGroupArea.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
-                    case R.id.rb_informatica:
-                        areaSelecionada = "Informatica";
-                        break;
-                    case R.id.rb_administracao:
-                        areaSelecionada = "Administracao";
-                        break;
-                    case R.id.rb_direito:
-                        areaSelecionada = "Direito";
-                        break;
-                    case R.id.rb_matematica:
-                        areaSelecionada = "Matematica";
-                        break;
-                    case R.id.rb_saude:
-                        areaSelecionada = "Saude";
-                        break;
-                }
+                RadioButton radioButton = findViewById(checkedId);
+                areaSelecionada = radioButton.getText().toString();
             }
         });
 
@@ -80,7 +76,6 @@ public class AddBookActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addBook();
-
             }
         });
 
@@ -121,6 +116,17 @@ public class AddBookActivity extends AppCompatActivity {
             }
         });
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     @Override
@@ -138,22 +144,25 @@ public class AddBookActivity extends AppCompatActivity {
             Livro livro = new Livro();
             if (nomedolivro.contains("=")||nomedolivro.contains(",")
                     ||nomedolivro.contains("$")||nomedolivro.contains("#")
-                    ||nomedolivro.contains("[")||nomedolivro.contains("]")) throw  new IllegalArgumentException();
+                    ||nomedolivro.contains("[")||nomedolivro.contains("]"))
+                throw  new IllegalArgumentException();
+            //--------------------------------------------------------------------------------------
             livro.setNome(nomedolivro);
-            livro.setAutor(editTextLivroAutor.getText().toString());
+            livro.setAutor(MyCustomUtil.removeLines(editTextLivroAutor.getText().toString()));
             livro.setArea(areaSelecionada);
             livro.setCategoria(editTextLivroCategoria.getText().toString());
             livro.setEditora(editTextLivroEditora.getText().toString());
             livro.setAno(editTextLivroAno.getText().toString());
-            livro.setIdLivro(Base64Custom.codificarBase64(editTextLivroNome.getText().toString()));
+            livro.setIdLivro(MyCustomUtil.codeBase64(editTextLivroNome.getText().toString()));
+            livro.setDataAdicionado(getData());
             Category category = new Category();
             category.setCategoryName(editTextLivroCategoria.getText().toString());
+            //--------------------------------------------------------------------------------------
             Insert insert =  new Insert(AddBookActivity.this);
-            insert.saveBook(livro,caminhoDoArquivo);
+            insert.salvarLivro(livro,caminhoDoArquivo);
             insert.saveCategoryFireStore(category);
             insert.saveInfoFireStore(livro, category);
-           // insert.saveInfo(livro,category);
-            insert.addOnSuccessSendListener(new Insert.OnSuccessSendListener() {
+            insert.addOnSuccessUploadListener(new Insert.OnSuccessUploadListener() {
                 @Override
                 public void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot) {
                     finish();
@@ -164,5 +173,9 @@ public class AddBookActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private Date getData() {
+        return myCalendar.getTime();
     }
 }

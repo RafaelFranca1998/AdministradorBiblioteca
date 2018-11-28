@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -21,7 +22,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+
 import release.saosalvador.com.administradorbiblioteca.R;
+import release.saosalvador.com.administradorbiblioteca.config.MyCustomUtil;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Insert;
 import release.saosalvador.com.administradorbiblioteca.model.Category;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
@@ -37,7 +41,9 @@ public class EditActivity extends AppCompatActivity {
     private Category category;
     private String idLivro;
     private String categoryName;
-    FirebaseFirestore firebaseFirestore;
+    private String url;
+    private String urlImg;
+    private FirebaseFirestore firebaseFirestore;
 
 
     @Override
@@ -56,23 +62,8 @@ public class EditActivity extends AppCompatActivity {
         radioGroupArea.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
-                    case R.id.rb_informatica:
-                        areaSelecionada = "Informatica";
-                        break;
-                    case R.id.rb_administracao:
-                        areaSelecionada = "Administracao";
-                        break;
-                    case R.id.rb_direito:
-                        areaSelecionada = "Direito";
-                        break;
-                    case R.id.rb_matematica:
-                        areaSelecionada = "Matematica";
-                        break;
-                    case R.id.rb_saude:
-                        areaSelecionada = "Saude";
-                        break;
-                }
+                RadioButton radioButton = findViewById(checkedId);
+                areaSelecionada = radioButton.getText().toString();
             }
         });
 
@@ -114,6 +105,8 @@ public class EditActivity extends AppCompatActivity {
                             editTextLivroEditora.setText(livro.getEditora());
                             editTextLivroAno.setText(livro.getAno());
                             categoryName = livro.getCategoria();
+                            url = livro.getLinkDownload();
+                            urlImg = livro.getImgDownload();
                             getDatabase2();
                         } else {
                             Log.w("D", "Error getting documents.", task.getException());
@@ -140,22 +133,14 @@ public class EditActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
-//        categoryReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                category = dataSnapshot.getValue(Category.class);
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
     }
+
+
 
     private void editarLivro(){
         try {
+            renomearArquivoLocal();
+
             String nomedolivro = editTextLivroNome.getText().toString() ;
             if (nomedolivro.contains("=")||nomedolivro.contains(",")||
                     nomedolivro.contains("$")||nomedolivro.contains("#")||
@@ -167,6 +152,8 @@ public class EditActivity extends AppCompatActivity {
             livro.setEditora(editTextLivroEditora.getText().toString());
             livro.setAno(editTextLivroAno.getText().toString());
             livro.setIdLivro(livro.getIdLivro());
+            livro.setImgDownload(MyCustomUtil.unaccent(urlImg));
+            livro.setLinkDownload(MyCustomUtil.unaccent(url));
             Insert insert =  new Insert(EditActivity.this);
             //testa se a categoria existe.
             try {
@@ -189,6 +176,15 @@ public class EditActivity extends AppCompatActivity {
             Toast.makeText(this,"Retire os simbolos = '#', '$', '[', or ']'",Toast.LENGTH_LONG).show();
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    private void renomearArquivoLocal(){
+        File bookFile = new File(getFilesDir(), MyCustomUtil.removeSpaces(livro.getNome()));
+        if (bookFile.exists()) {
+            File newFile = new File(getFilesDir(),
+                    MyCustomUtil.removeSpaces(editTextLivroNome.getText().toString()));
+            bookFile.renameTo(newFile);
         }
     }
 }

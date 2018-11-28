@@ -5,38 +5,38 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity
+import java.util.Date;
+
 public class Livro {
-    @PrimaryKey
     @NonNull private String idLivro;
 
-    @ColumnInfo(name = "nome")
     private String nome;
 
-    @ColumnInfo(name = "editora")
     private String editora;
 
-    @ColumnInfo(name = "edicao")
     private String edicao;
 
-    @ColumnInfo(name = "ano")
     private String ano;
 
-    @ColumnInfo(name = "autor")
     private String autor;
 
-    @ColumnInfo(name = "categoria")
     private String categoria;
 
-    @ColumnInfo(name = "area")
     private String area;
 
-    @ColumnInfo(name = "linkDownload")
     private String linkDownload;
 
-    @ColumnInfo(name = "imgDownload")
     private String imgDownload;
 
+    private boolean isFavorite;
+
+    private Date dataAdicionado;
+
+    private Date dataVisitado;
+
+    public Livro() {
+        isFavorite = false;
+    }
 
     public String getLinkDownload() {
         return linkDownload;
@@ -116,5 +116,29 @@ public class Livro {
 
     public void setImgDownload(String imgDownload) {
         this.imgDownload = imgDownload;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public Date getDataAdicionado() {
+        return dataAdicionado;
+    }
+
+    public void setDataAdicionado(Date dataAdicionado) {
+        this.dataAdicionado = dataAdicionado;
+    }
+
+    public Date getDataVisitado() {
+        return dataVisitado;
+    }
+
+    public void setDataVisitado(Date dataVisitado) {
+        this.dataVisitado = dataVisitado;
     }
 }

@@ -27,6 +27,7 @@ import java.util.List;
 
 import release.saosalvador.com.administradorbiblioteca.activity.MainActivity;
 import release.saosalvador.com.administradorbiblioteca.R;
+import release.saosalvador.com.administradorbiblioteca.config.MyCustomUtil;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerView.ViewHolder> {
@@ -85,7 +86,7 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
         TextView textViewCategoria = mViewHolder.txtCategoria;
         textViewCategoria.setText(livro.getCategoria());
         TextView textViewNome = mViewHolder.txtNomeLivro;
-        textViewNome.setText(livro.getNome());
+        textViewNome.setText(MyCustomUtil.removeLines(livro.getNome()));
         ImageView imgIcon = mViewHolder.imgIcon;
         url = livro.getImgDownload();
         if (mViewHolder.imgIcon == null){

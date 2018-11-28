@@ -147,39 +147,46 @@
                     android:layout_height="match_parent">
 
                     <RadioButton
-                        android:id="@+id/rb_informatica"
+                        android:id="@+id/rb_informatica_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Informática" />
 
                     <RadioButton
-                        android:id="@+id/rb_saude"
+                        android:id="@+id/rb_saude_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Saude" />
 
                     <RadioButton
-                        android:id="@+id/rb_administracao"
+                        android:id="@+id/rb_administracao_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Administração" />
 
                     <RadioButton
-                        android:id="@+id/rb_direito"
+                        android:id="@+id/rb_direito_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Direito" />
 
                     <RadioButton
-                        android:id="@+id/rb_matematica"
+                        android:id="@+id/rb_matematica_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Matemática" />
+
+                    <RadioButton
+                        android:id="@+id/rb_geral_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/geral" />
 
                 </RadioGroup>
             </LinearLayout>

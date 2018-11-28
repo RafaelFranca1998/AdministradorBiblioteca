@@ -29,7 +29,7 @@ public class Update {
     public void editCategory(Category category, String oldName){
         try {
             Map < String, Object > editCategory = new HashMap < > ();
-            editCategory.putAll(ToHashMap.categoryToHashMap(category));
+            editCategory.putAll(ToHashMap.hashmapToCategory(category));
             FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
             firebaseFirestore
                     .collection("categorias")

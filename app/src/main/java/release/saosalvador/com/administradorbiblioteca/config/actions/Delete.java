@@ -18,7 +18,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import release.saosalvador.com.administradorbiblioteca.R;
-import release.saosalvador.com.administradorbiblioteca.config.Base64Custom;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class Delete {
@@ -34,7 +33,7 @@ public class Delete {
 
     public void deleteBook(){
         StorageReference deleteRef = FirebaseStorage.getInstance()
-                .getReferenceFromUrl(mLivro.getLinkDownload()+"/"+Base64Custom.renoveSpaces(mLivro.getNome()));
+                .getReferenceFromUrl(mLivro.getLinkDownload()+"/livro.pdf");
         deleteRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

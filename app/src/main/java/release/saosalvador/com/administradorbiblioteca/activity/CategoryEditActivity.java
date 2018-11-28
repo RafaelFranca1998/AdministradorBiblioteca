@@ -48,6 +48,8 @@ public class CategoryEditActivity extends AppCompatActivity {
     private String categoryName;
     private String oldName;
     private Category category;
+    private String url;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,29 +78,6 @@ public class CategoryEditActivity extends AppCompatActivity {
             }
         });
 
-
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore
-                .collection("categorias")
-                .document(categoryName)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot doc = task.getResult();
-                    assert doc != null;
-                    category = doc.toObject(Category.class);
-                    editTextCategoryName.setText(Objects.requireNonNull(category).getCategoryName());
-                    oldName = category.getCategoryName();
-                    updateImgAccount();
-                } else {
-                    Log.w("D", "Error getting documents.", task.getException());
-                }
-            }
-        });
-
-
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +99,32 @@ public class CategoryEditActivity extends AppCompatActivity {
                 });
             }
         });
+
+        getDataBase();
+    }
+
+    private void getDataBase(){
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore
+                .collection("categorias")
+                .document(categoryName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot doc = task.getResult();
+                            assert doc != null;
+                            category = doc.toObject(Category.class);
+                            editTextCategoryName.setText(Objects.requireNonNull(category).getCategoryName());
+                            url = category.getImgDownload();
+                            oldName = category.getCategoryName();
+                            updateImg();
+                        } else {
+                            Log.w("D", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 
     public void getImg(){
@@ -142,25 +147,28 @@ public class CategoryEditActivity extends AppCompatActivity {
             insert.addOnSuccessListener(new Insert.OnSuccessInsertListener() {
                 @Override
                 public void onCompleteInsert(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                    updateImgAccount();
+                    getDataBase();
                 }
             });
         }
     }
 
-    //TODO tá dando erro
     ProgressDialog pd;
-    private void updateImgAccount(){
+    private void updateImg(){
         try {
-            StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(category.getImgDownload());
-            final long ONE_MEGABYTE = 1024 * 1024;
+            StorageReference reference =
+                    FirebaseStorage
+                            .getInstance()
+                            .getReferenceFromUrl(url);
+
+            final long FIVE_MEGABYTE = 1024 * 1024 * 5;
 
             pd = new ProgressDialog(CategoryEditActivity.this);
             pd.setCancelable(false);
             pd.setMessage("Carregando");
             pd.show();
             // mProgressBar.setProgress((int)progress);
-            reference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            reference.getBytes(FIVE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);

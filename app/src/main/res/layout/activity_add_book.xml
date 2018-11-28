@@ -14,11 +14,10 @@
     <include
         android:id="@+id/include"
         layout="@layout/toolbar"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollViewAdd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></include>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBarAdd"
@@ -50,7 +49,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Adicionar Livro"
+                android:text="@string/adicionar_livro"
                 android:textColor="@android:color/black" />
 
             <LinearLayout
@@ -64,20 +63,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Caminho" />
+                    android:text="@string/caminho" />
 
                 <Button
                     android:id="@+id/bt_abrir_livro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Abrir Livro"
+                    android:text="@string/abrir_livro"
                     android:textSize="10sp" />
 
                 <Button
                     android:id="@+id/bt_selecionar_livro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Selecionar Arquivo"
+                    android:text="@string/selecionar_arquivo"
                     android:textSize="10sp" />
             </LinearLayout>
 
@@ -85,7 +84,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome:"
+                android:text="@string/nome"
                 android:textColor="@android:color/black" />
 
             <EditText
@@ -100,7 +99,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Autor"
+                android:text="@string/autor"
                 android:textColor="@android:color/black" />
 
             <EditText
@@ -115,7 +114,7 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Categoria"
+                android:text="@string/categoria"
                 android:textColor="@android:color/black" />
 
             <EditText
@@ -130,7 +129,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Editora"
+                android:text="@string/editora"
                 android:textColor="@android:color/black" />
 
             <EditText
@@ -145,7 +144,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ano"
+                android:text="@string/ano"
                 android:textColor="@android:color/black" />
 
             <EditText
@@ -163,10 +162,10 @@
 
                 <TextView
                     android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Área"
+                    android:text="@string/area"
                     android:textColor="@android:color/black" />
 
                 <Button
@@ -185,42 +184,50 @@
                 <RadioGroup
                     android:id="@+id/radio_group_area_add"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    tools:ignore="UselessParent">
 
                     <RadioButton
-                        android:id="@+id/rb_informatica"
+                        android:id="@+id/rb_informatica_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Informática" />
+                        android:text="@string/informatica" />
 
                     <RadioButton
-                        android:id="@+id/rb_saude"
+                        android:id="@+id/rb_saude_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Saude" />
+                        android:text="@string/saude" />
 
                     <RadioButton
-                        android:id="@+id/rb_administracao"
+                        android:id="@+id/rb_administracao_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Administração" />
+                        android:text="@string/administracao" />
 
                     <RadioButton
-                        android:id="@+id/rb_direito"
+                        android:id="@+id/rb_direito_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Direito" />
+                        android:text="@string/direito" />
 
                     <RadioButton
-                        android:id="@+id/rb_matematica"
+                        android:id="@+id/rb_matematica_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Matemática" />
+                        android:text="@string/matematica" />
+
+                    <RadioButton
+                        android:id="@+id/rb_geral_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/geral" />
 
                 </RadioGroup>
             </LinearLayout>
@@ -229,7 +236,7 @@
                 android:id="@+id/bt_adicionar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Adicionar" />
+                android:text="@string/adicionar" />
 
         </LinearLayout>
     </ScrollView>

@@ -7,11 +7,9 @@ package release.saosalvador.com.administradorbiblioteca.activity;
 
 
 import android.annotation.SuppressLint;
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -45,7 +43,6 @@ import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Delete;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.AdapterRecyclerView;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.RecyclerItemClickListener;
-import release.saosalvador.com.administradorbiblioteca.config.room.AppDatabase;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class MainActivity extends AppCompatActivity
@@ -56,16 +53,16 @@ public class MainActivity extends AppCompatActivity
     private LinearLayout layoutFabSave;
     private LinearLayout layoutFabAdd;
     private DrawerLayout drawer;
-    private String KEY;
-    private AppDatabase db;
-    private Livro livro;
 
+    private String KEY;
+    private Livro livro;
+    private NavigationView navigationView;
     private static List<Livro> listLivros;
     @SuppressLint("StaticFieldLeak")
     private static RecyclerView listView;
     private AdapterRecyclerView adapterListView;
     static int itemPosition;
-    Toolbar toolbar;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +73,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         //------------------------------------------------------------------------------------------
         KEY = getString(R.string.tag_id);
+
         //------------------------------------------------------------------------------------------
         listLivros =  new ArrayList<>();
         listView = findViewById(R.id.recycler_view);
@@ -106,7 +104,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -116,15 +114,12 @@ public class MainActivity extends AppCompatActivity
         navigationView.setCheckedItem(R.id.nav_livros);
 
         adapterListView =  new AdapterRecyclerView(MainActivity.this,listLivros);
-
         listView.setAdapter(adapterListView);
-
-
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         listView.setLayoutManager(gridLayoutManager);
 
-            updateList();
+        updateList();
 
         listView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, listView ,new RecyclerItemClickListener.OnItemClickListener() {
@@ -187,25 +182,7 @@ public class MainActivity extends AppCompatActivity
         return super.onContextItemSelected(item);
     }
 
-
-    private void getOffline(){
-        db = Room.databaseBuilder(getApplicationContext(),AppDatabase.class, "db_livros").build();
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                listLivros = db.userDao().getAll();
-                Livro livroteste = listLivros.get(1);
-                Log.i("LivroTeste: ",livroteste.getAno());
-                Log.i("LivroTeste: ",livroteste.getNome());
-                Log.i("LivroTeste: ",livroteste.getCategoria());
-            }
-        });
-        adapterListView.notifyDataSetChanged();
-
-    }
-
     private void updateList(){
-        db = Room.databaseBuilder(getApplicationContext(),AppDatabase.class, "db_livros").build();
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore
                 .collection(getString(R.string.child_book))
@@ -218,16 +195,6 @@ public class MainActivity extends AppCompatActivity
                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                 livro = document.toObject(Livro.class);
                                 listLivros.add(livro) ;
-                                /*
-                                 *  Insert and get data using Database Async way
-                                 */
-                                AsyncTask.execute(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        db.userDao().insertAll(livro);
-                                        Log.i("Room: ",db.userDao().getAll().toString()) ;
-                                    }
-                                });
                             }
                             adapterListView.notifyDataSetChanged();
                         } else {
@@ -240,11 +207,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-//        if (isConected(this)){
-            updateList();
-//        } else {
-//            getOffline();
-//        }
+        updateList();
+        navigationView.setCheckedItem(R.id.nav_livros);
+        toolbar.setTitle(R.string.main_activity_title);
     }
 
     @Override
