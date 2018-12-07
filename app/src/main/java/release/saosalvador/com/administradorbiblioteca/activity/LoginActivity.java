@@ -35,20 +35,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.MyCustomUtil;
-import release.saosalvador.com.administradorbiblioteca.model.Login;
+import release.saosalvador.com.administradorbiblioteca.model.L;
 
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
@@ -73,16 +70,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signInWithEmailAndPassword("rafaelfranca2013@hotmail.com","32612421");
 
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        Map<String,String> map =  new HashMap<>();
-        map.put(MyCustomUtil.codeBase64("login"),MyCustomUtil.codeBase64("ADSRWPV@1618"));
-        map.put(MyCustomUtil.codeBase64("senha"),MyCustomUtil.codeBase64("DEADLOCKB17"));
-        firebaseFirestore
-                .collection(MyCustomUtil.codeBase64("senhas"))
-                .document()
-                .collection(MyCustomUtil.codeBase64("administrador"))
-                .document()
-                .set(map);
+//        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+//        Map<String,String> map =  new HashMap<>();
+//        map.put(MyCustomUtil.codeBase64("login"),MyCustomUtil.codeBase64("ADSRWPV@1618"));
+//        map.put(MyCustomUtil.codeBase64("senha"),MyCustomUtil.codeBase64("DEADLOCKB17"));
+//        firebaseFirestore
+//                .collection(MyCustomUtil.codeBase64("senhas"))
+//                .document()
+//                .collection(MyCustomUtil.codeBase64("administrador"))
+//                .document()
+//                .set(map);
 
         mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -151,10 +148,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
@@ -276,9 +269,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot doc = task.getResult();
-                                Login login = doc.toObject(Login.class);
-                                if (login.getbG9naW4().equals(mEmail)&&login.getC2VuaGE().equals(mPassword)){
-                                    Toast.makeText(LoginActivity.this,"Sucesso ao fazer Login!",Toast.LENGTH_LONG).show();
+                                L l = doc.toObject(L.class);
+                                if (l.getbG9naW4().equals(mEmail)&& l.getC2VuaGE().equals(mPassword)){
+                                    Toast.makeText(LoginActivity.this,"Sucesso ao fazer L!",Toast.LENGTH_LONG).show();
                                 }else {
                                     Toast.makeText(LoginActivity.this,"Acesso Negado!",Toast.LENGTH_LONG).show();
                                 }

@@ -5,7 +5,7 @@
 
 package release.saosalvador.com.administradorbiblioteca.model;
 
-public class Login {
+public class L {
     private String bG9naW4, c2VuaGE;
 
     public String getbG9naW4() {
