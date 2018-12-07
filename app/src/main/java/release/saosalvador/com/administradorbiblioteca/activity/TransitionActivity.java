@@ -18,7 +18,6 @@ import release.saosalvador.com.administradorbiblioteca.R;
 public class TransitionActivity extends AppCompatActivity {
     int cont;
 
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     String[] PERMISSIONS = {
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -27,7 +26,6 @@ public class TransitionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transition);
-        firebaseAuth.signInWithEmailAndPassword("rafaelfranca2013@hotmail.com","32612421");
         if (ContextCompat.checkSelfPermission(TransitionActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED||
                 ContextCompat.checkSelfPermission(TransitionActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)

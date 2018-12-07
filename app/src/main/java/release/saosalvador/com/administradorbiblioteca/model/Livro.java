@@ -1,37 +1,20 @@
 package release.saosalvador.com.administradorbiblioteca.model;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
-
 import java.util.Date;
 
 public class Livro {
-    @NonNull private String idLivro;
-
+    private String idLivro;
     private String nome;
-
     private String editora;
-
     private String edicao;
-
     private String ano;
-
     private String autor;
-
     private String categoria;
-
     private String area;
-
     private String linkDownload;
-
     private String imgDownload;
-
     private boolean isFavorite;
-
     private Date dataAdicionado;
-
     private Date dataVisitado;
 
     public Livro() {

@@ -1,10 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name">Administrador Biblioteca</string>
+    <string name="app_name_administrador">Administrador Biblioteca</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Administrador</string>
+    <string name="nav_header_subtitle">Biblioteca São Salvador</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -38,7 +38,6 @@
     <string name="informatica">Informática</string>
     <string name="saude">Saude</string>
     <string name="administracao">Administração</string>
-    <string name="adicionar_livro">Adicionar Livro</string>
     <string name="caminho">Caminho</string>
     <string name="abrir_livro">Abrir Livro</string>
     <string name="selecionar_arquivo">Selecionar Arquivo</string>
@@ -50,5 +49,18 @@
     <string name="geral">Geral</string>
     <string name="matematica">Matemática</string>
     <string name="direito">Direito</string>
+    <string name="title_activity_login">Entrar</string>
+    <!-- Strings related to bG9naW4 -->
+    <string name="prompt_email">Login</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in">Entrar</string>
+    <string name="action_sign_in_short">Entrar</string>
+    <string name="error_invalid_email">Login inválido</string>
+    <string name="error_invalid_password">Senha Inválida</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 
 </resources>

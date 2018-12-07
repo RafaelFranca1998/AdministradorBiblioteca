@@ -46,7 +46,6 @@ public class AdapterRecyclerViewCategory extends RecyclerView.Adapter<AdapterRec
 
     private List<Category> mCategoryList;
     private Context mContext;
-    private String url;
     private ViewHolder mViewHolder;
 
     public AdapterRecyclerViewCategory(Context context, List<Category> categoryList) {
@@ -74,7 +73,7 @@ public class AdapterRecyclerViewCategory extends RecyclerView.Adapter<AdapterRec
         TextView textViewCategoria = mViewHolder.txtCategory;
         textViewCategoria.setText(category.getCategoryName());
         ImageView imgIcon = mViewHolder.imgCategory;
-        url = category.getImgDownload();
+        String url = category.getImgDownload();
         if (mViewHolder.imgCategory == null){
             try {
                 mViewHolder.imgCategory.setVisibility(View.GONE);

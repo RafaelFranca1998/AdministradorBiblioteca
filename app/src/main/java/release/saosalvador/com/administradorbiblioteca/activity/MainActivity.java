@@ -7,9 +7,7 @@ package release.saosalvador.com.administradorbiblioteca.activity;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -24,7 +22,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,13 +45,9 @@ import release.saosalvador.com.administradorbiblioteca.model.Livro;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private boolean fabExpanded = false;
-    private FloatingActionButton fabSettings;
-    private LinearLayout layoutFabSave;
-    private LinearLayout layoutFabAdd;
     private DrawerLayout drawer;
 
-    private String KEY;
+    private String KEY = "id";
     private Livro livro;
     private NavigationView navigationView;
     private static List<Livro> listLivros;
@@ -68,42 +61,19 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //------------------------------------------------------------------------------------------
+        //---------------------------------------TOOLBAR--------------------------------------------
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //------------------------------------------------------------------------------------------
-        KEY = getString(R.string.tag_id);
-
-        //------------------------------------------------------------------------------------------
-        listLivros =  new ArrayList<>();
-        listView = findViewById(R.id.recycler_view);
-        //------------------------------------------------------------------------------------------
-        fabSettings =  findViewById(R.id.fabSetting);
-        layoutFabSave = findViewById(R.id.layoutFabSave);
-        layoutFabAdd = findViewById(R.id.layoutFabAdd);
-
-        fabSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (fabExpanded) {
-                    closeSubMenusFab();
-                } else {
-                    openSubMenusFab();
-                }
-
-            }
-        });
-
-        closeSubMenusFab();
-
-        layoutFabAdd.setOnClickListener(new View.OnClickListener() {
+        //---------------------------------------FAB------------------------------------------------
+        FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
+        fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent =  new Intent(MainActivity.this,AddBookActivity.class);
                 startActivity(intent);
             }
         });
-
+        //---------------------------------------NAV_VIEW-------------------------------------------
         navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -112,13 +82,15 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_livros);
-
+        //---------------------------------------RECYCLERVIEW---------------------------------------
+        listLivros =  new ArrayList<>();
+        listView = findViewById(R.id.recycler_view);
         adapterListView =  new AdapterRecyclerView(MainActivity.this,listLivros);
         listView.setAdapter(adapterListView);
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         listView.setLayoutManager(gridLayoutManager);
-
+        //------------------------------------------------------------------------------------------
         updateList();
 
         listView.addOnItemTouchListener(
@@ -222,19 +194,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void closeSubMenusFab(){
-        layoutFabSave.setVisibility(View.INVISIBLE);
-        layoutFabAdd.setVisibility(View.INVISIBLE);
-        fabSettings.setImageResource(R.drawable.ic_add_green_24dp);
-        fabExpanded = false;
-    }
-
-    private void openSubMenusFab(){
-        layoutFabSave.setVisibility(View.VISIBLE);
-        layoutFabAdd.setVisibility(View.VISIBLE);
-        fabSettings.setImageResource(R.drawable.ic_close_red_24dp);
-        fabExpanded = true;
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -262,18 +221,5 @@ public class MainActivity extends AppCompatActivity
         public void onClick(View v) {
             itemPosition = listView.indexOfChild(v);
         }
-    }
-
-    public static boolean isConected(Context cont){
-        ConnectivityManager conmag = (ConnectivityManager)cont.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if ( conmag != null ) {
-            conmag.getActiveNetworkInfo();
-
-            if (conmag.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()) return true;
-
-            if (conmag.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()) return true;
-        }
-        return false;
     }
 }
