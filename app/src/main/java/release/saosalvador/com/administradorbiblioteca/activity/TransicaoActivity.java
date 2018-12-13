@@ -11,11 +11,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import release.saosalvador.com.administradorbiblioteca.R;
 
-public class TransitionActivity extends AppCompatActivity {
+public class TransicaoActivity extends AppCompatActivity {
     int cont;
 
     String[] PERMISSIONS = {
@@ -25,16 +23,17 @@ public class TransitionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transition);
-        if (ContextCompat.checkSelfPermission(TransitionActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)
+        setContentView(R.layout.activity_transicao);
+        if (ContextCompat.checkSelfPermission(TransicaoActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED||
-                ContextCompat.checkSelfPermission(TransitionActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                ContextCompat.checkSelfPermission(TransicaoActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
             checkAllPermissions();
         } else {
-            loadMain();
+            telaPrincipal();
         }
     }
+    
     @TargetApi(Build.VERSION_CODES.M)
     public void checkAllPermissions() {
         cont = 0;
@@ -43,20 +42,20 @@ public class TransitionActivity extends AppCompatActivity {
             int PERMISSION_GRANTED = PackageManager.PERMISSION_GRANTED;
 
             if (ActivityCompat.checkSelfPermission
-                    (TransitionActivity.this, permission) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(TransitionActivity.this,PERMISSIONS , PERMISSION_GRANTED);
+                    (TransicaoActivity.this, permission) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(TransicaoActivity.this,PERMISSIONS , PERMISSION_GRANTED);
             }else{
-                ActivityCompat.requestPermissions(TransitionActivity.this, PERMISSIONS, PERMISSION_GRANTED);
+                ActivityCompat.requestPermissions(TransicaoActivity.this, PERMISSIONS, PERMISSION_GRANTED);
             }
-            if (cont == PERMISSIONS.length) loadMain();
+            if (cont == PERMISSIONS.length) telaPrincipal();
         }
     }
-    private void loadMain(){
+    private void telaPrincipal(){
         boolean t = true;
         while (t) {
-            if (ContextCompat.checkSelfPermission(TransitionActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)
+            if (ContextCompat.checkSelfPermission(TransicaoActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED||
-                    ContextCompat.checkSelfPermission(TransitionActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    ContextCompat.checkSelfPermission(TransicaoActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
 
             } else {
@@ -68,7 +67,7 @@ public class TransitionActivity extends AppCompatActivity {
                      */
                     @Override
                     public void run() {
-                        Intent i = new Intent(TransitionActivity.this, MainActivity.class);
+                        Intent i = new Intent(TransicaoActivity.this, MainActivity.class);
                         startActivity(i);
                         finish();
                     }

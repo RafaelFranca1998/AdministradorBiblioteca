@@ -9,23 +9,28 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import release.saosalvador.com.administradorbiblioteca.model.Category;
+import release.saosalvador.com.administradorbiblioteca.model.Categorias;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
+/**
+ * Clase para converter objeto em hashmap.
+ */
 public class ToHashMap {
 
     public ToHashMap() {
     }
 
-    public static HashMap<String,String> hashmapToCategory(Category category){
+    public static HashMap<String,String> categoryToHashmap(Categorias categorias){
         HashMap<String,String> map =  new HashMap<>();
-        map.put("categoryName", category.getCategoryName());
-        map.put("imgDownload", category.getImgDownload());
+        map.put("categoryName", categorias.getCategoryName());
+        map.put("categorias", categorias.getCategory());
+        map.put("imgDownload", categorias.getImgDownload());
         return map;
     }
-    public static Category hashmapToCategory(HashMap<String,String> m){
-        Category object =  new Category();
+    public static Categorias categoryToHashmap(HashMap<String,String> m){
+        Categorias object =  new Categorias();
         object.setCategoryName(m.get("categoryName"));
+        object.setCategoryName(m.get("category"));
         object.setImgDownload( m.get("imgDownload"));
         return object;
     }

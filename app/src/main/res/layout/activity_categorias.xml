@@ -11,7 +11,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".activity.CategoryActivity">
+    tools:context=".activity.CategoriasActivity">
 
     <include
         layout="@layout/toolbar"

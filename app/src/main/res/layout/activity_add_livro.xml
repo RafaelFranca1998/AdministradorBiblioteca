@@ -9,7 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddBookActivity">
+    tools:context=".activity.AddLivroActivity">
 
     <include
         android:id="@+id/include"

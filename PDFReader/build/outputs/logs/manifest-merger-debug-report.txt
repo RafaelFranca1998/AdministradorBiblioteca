@@ -75,13 +75,13 @@ ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\
 		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:22:13-74
 	android:name
 		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:21:13-41
-intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+intent-filter#action:name:android.intent.action.MAIN+categorias:name:android.intent.categorias.LAUNCHER
 ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:24:13-27:29
 action#android.intent.action.MAIN
 ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:25:17-69
 	android:name
 		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:25:25-66
-category#android.intent.category.LAUNCHER
+categorias#android.intent.categorias.LAUNCHER
 ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:26:17-77
 	android:name
 		ADDED from D:\WorkspaceAndroidStudio\AdministradorBiblioteca\PDFReader\src\main\AndroidManifest.xml:26:27-74

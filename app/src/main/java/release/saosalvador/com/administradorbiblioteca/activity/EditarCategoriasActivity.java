@@ -40,36 +40,25 @@ import java.util.Objects;
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Insert;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Update;
-import release.saosalvador.com.administradorbiblioteca.model.Category;
+import release.saosalvador.com.administradorbiblioteca.model.Categorias;
 
-public class CategoryEditActivity extends AppCompatActivity {
+public class EditarCategoriasActivity extends AppCompatActivity {
     private EditText editTextCategoryName;
-    private ImageView imageViewCategory;
-    private String categoryName;
-    private String oldName;
-    private Category category;
+    private ImageView imageViewCategoria;
+    private String nomeCategoria;
+    private String nomeAntigo;
+    private Categorias categorias;
     private String url;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_edit);
-
+        setContentView(R.layout.activity_editar_categorias);
+        //------------------------------------------------------------------------------------------
         Toolbar toolbar =  findViewById(R.id.toolbar);
         toolbar.setTitle("Editar Categoria");
         setSupportActionBar(toolbar);
-        editTextCategoryName =  findViewById(R.id.edit_text_category_name);
-        imageViewCategory = findViewById(R.id.imageview_category_img);
-        Button buttonUpdate = findViewById(R.id.bt_update_category_image);
-        Button buttonConcluir = findViewById(R.id.bt_concluir);
-
-        Bundle extra = getIntent().getExtras();
-        if (extra!= null){
-            Log.e("Debug: ","Não está null");
-            categoryName = extra.getString("category");
-        }
-
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +66,17 @@ public class CategoryEditActivity extends AppCompatActivity {
                 finish();
             }
         });
+        //------------------------------------------------------------------------------------------
+        editTextCategoryName =  findViewById(R.id.edit_text_category_name);
+        imageViewCategoria = findViewById(R.id.imageview_category_img);
+        Button buttonUpdate = findViewById(R.id.bt_update_category_image);
+        Button buttonConcluir = findViewById(R.id.bt_concluir);
+        //------------------------------------------------------------------------------------------
+        Bundle extra = getIntent().getExtras();
+        if (extra!= null){
+            Log.e("Debug: ","Não está null");
+            nomeCategoria = extra.getString("categorias");
+        }
 
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,9 +88,9 @@ public class CategoryEditActivity extends AppCompatActivity {
         buttonConcluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                category.setCategoryName(editTextCategoryName.getText().toString());
+                categorias.setCategoryName(editTextCategoryName.getText().toString());
                 Update update =  new Update();
-                update.editCategory(category,oldName);
+                update.editCategory(categorias, nomeAntigo);
                 update.addOnSuccessListener(new Update.OnUpdateSuccessListener() {
                     @Override
                     public void onCompleteUpdate(UploadTask.TaskSnapshot taskSnapshot) {
@@ -103,11 +103,14 @@ public class CategoryEditActivity extends AppCompatActivity {
         getDataBase();
     }
 
+    /**
+     * Obtem dados do banco de dados.
+     */
     private void getDataBase(){
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore
                 .collection("categorias")
-                .document(categoryName)
+                .document(nomeCategoria)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -115,10 +118,10 @@ public class CategoryEditActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot doc = task.getResult();
                             assert doc != null;
-                            category = doc.toObject(Category.class);
-                            editTextCategoryName.setText(Objects.requireNonNull(category).getCategoryName());
-                            url = category.getImgDownload();
-                            oldName = category.getCategoryName();
+                            categorias = doc.toObject(Categorias.class);
+                            editTextCategoryName.setText(Objects.requireNonNull(categorias).getCategoryName());
+                            url = categorias.getImgDownload();
+                            nomeAntigo = categorias.getCategoryName();
                             updateImg();
                         } else {
                             Log.w("D", "Error getting documents.", task.getException());
@@ -127,6 +130,9 @@ public class CategoryEditActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Inicia a Intent para escolher um arquivo(Imagem).
+     */
     public void getImg(){
         new Thread(new Runnable() {
             @Override
@@ -142,8 +148,8 @@ public class CategoryEditActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null){
             Uri caminhoArquivo = data.getData();
-            Insert insert =  new Insert(CategoryEditActivity.this);
-            insert.saveCategoryImg(category, caminhoArquivo);
+            Insert insert =  new Insert(EditarCategoriasActivity.this);
+            insert.saveCategoryImg(categorias, caminhoArquivo);
             insert.addOnSuccessListener(new Insert.OnSuccessInsertListener() {
                 @Override
                 public void onCompleteInsert(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
@@ -154,6 +160,10 @@ public class CategoryEditActivity extends AppCompatActivity {
     }
 
     ProgressDialog pd;
+
+    /**
+     * Atualiza a imagem.
+     */
     private void updateImg(){
         try {
             StorageReference reference =
@@ -163,7 +173,7 @@ public class CategoryEditActivity extends AppCompatActivity {
 
             final long FIVE_MEGABYTE = 1024 * 1024 * 5;
 
-            pd = new ProgressDialog(CategoryEditActivity.this);
+            pd = new ProgressDialog(EditarCategoriasActivity.this);
             pd.setCancelable(false);
             pd.setMessage("Carregando");
             pd.show();
@@ -172,7 +182,7 @@ public class CategoryEditActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(byte[] bytes) {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                    imageViewCategory.setImageBitmap(bitmap);
+                    imageViewCategoria.setImageBitmap(bitmap);
                     try {
                         pd.dismiss();
                     }catch (Exception e){

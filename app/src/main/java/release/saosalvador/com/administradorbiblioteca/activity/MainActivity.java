@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
     @SuppressLint("StaticFieldLeak")
     private static RecyclerView listView;
     private AdapterRecyclerView adapterListView;
-    static int itemPosition;
+    static int posicaoItem;
     private Toolbar toolbar;
 
     @Override
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(MainActivity.this,AddBookActivity.class);
+                Intent intent =  new Intent(MainActivity.this,AddLivroActivity.class);
                 startActivity(intent);
             }
         });
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         listView.setLayoutManager(gridLayoutManager);
         //------------------------------------------------------------------------------------------
-        updateList();
+        atualizarLista();
 
         listView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, listView ,new RecyclerItemClickListener.OnItemClickListener() {
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity
                         intent.putExtra(KEY,listLivros.get(position).getIdLivro());
                         startActivity(intent);                    }
                     @Override public void onLongItemClick(View view, int position) {
-                        itemPosition = position;
+                        posicaoItem = position;
                     }
                 })
         );
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity
             case 0:
                 try{
                     Intent intent = new Intent(MainActivity.this,InfoActivity.class);
-                    intent.putExtra(KEY,listLivros.get(itemPosition).getIdLivro());
+                    intent.putExtra(KEY,listLivros.get(posicaoItem).getIdLivro());
                     startActivity(intent);
                 }
                 catch (Exception e){
@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity
                 break;
             case 1:
                 try {
-                    Intent intent = new Intent(MainActivity.this, OpenBookActivity.class);
-                    intent.putExtra(KEY, listLivros.get(itemPosition).getIdLivro());
+                    Intent intent = new Intent(MainActivity.this, AbrirLivroActivity.class);
+                    intent.putExtra(KEY, listLivros.get(posicaoItem).getIdLivro());
                     startActivity(intent);
                 }catch (Exception e){
                     e.printStackTrace();
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity
             case 2:
                 try{
                     Intent intent = new Intent(MainActivity.this,EditActivity.class);
-                    intent.putExtra(KEY,listLivros.get(itemPosition).getIdLivro());
+                    intent.putExtra(KEY,listLivros.get(posicaoItem).getIdLivro());
                     startActivity(intent);
                 }
                 catch (Exception e){
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
             case 3:
-                Delete delete =  new Delete(MainActivity.this,listLivros.get(itemPosition));
+                Delete delete =  new Delete(MainActivity.this,listLivros.get(posicaoItem));
                 delete.deleteBook();
                 delete.addOnSuccessListener(new Delete.OnSuccessDeleteListener() {
                     @Override
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity
         return super.onContextItemSelected(item);
     }
 
-    private void updateList(){
+    private void atualizarLista(){
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore
                 .collection(getString(R.string.child_book))
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        updateList();
+        atualizarLista();
         navigationView.setCheckedItem(R.id.nav_livros);
         toolbar.setTitle(R.string.main_activity_title);
     }
@@ -205,10 +205,10 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         } else if (id == R.id.nav_add_livro) {
-            Intent intent =  new Intent(MainActivity.this,AddBookActivity.class);
+            Intent intent =  new Intent(MainActivity.this,AddLivroActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_categorias) {
-            Intent intent =  new Intent(MainActivity.this,CategoryActivity.class);
+            Intent intent =  new Intent(MainActivity.this,CategoriasActivity.class);
             startActivity(intent);
         }
 
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity
     public static class MyOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            itemPosition = listView.indexOfChild(v);
+            posicaoItem = listView.indexOfChild(v);
         }
     }
 }

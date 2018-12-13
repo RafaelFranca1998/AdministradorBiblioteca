@@ -27,7 +27,7 @@ import java.io.File;
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.MyCustomUtil;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Insert;
-import release.saosalvador.com.administradorbiblioteca.model.Category;
+import release.saosalvador.com.administradorbiblioteca.model.Categorias;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
 public class EditActivity extends AppCompatActivity {
@@ -38,7 +38,7 @@ public class EditActivity extends AppCompatActivity {
     private EditText editTextLivroEditora;
     private EditText editTextLivroAno;
     private Livro livro;
-    private Category category;
+    private Categorias categorias;
     private String idLivro;
     private String categoryName;
     private String url;
@@ -50,7 +50,7 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-
+        //------------------------------------------------------------------------------------------
         RadioGroup radioGroupArea = findViewById(R.id.radio_group_area_edit);
         Button btEdit = findViewById(R.id.bt_edit);
         editTextLivroNome = findViewById(R.id.edit_text_livro_nome_edit);
@@ -58,7 +58,7 @@ public class EditActivity extends AppCompatActivity {
         editTextLivroCategoria = findViewById(R.id.edit_text_livro_categoria_edit);
         editTextLivroEditora = findViewById(R.id.edit_text_livro_editora_edit);
         editTextLivroAno = findViewById(R.id.edit_text_livro_ano_edit);
-
+        //------------------------------------------------------------------------------------------
         radioGroupArea.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -82,9 +82,11 @@ public class EditActivity extends AppCompatActivity {
             idLivro = extra.getString("id");
         }
         getDatabase1();
-
     }
 
+    /**
+     * Obtem dados do banco de dados (livro).
+     */
     private void getDatabase1(){
         firebaseFirestore =  FirebaseFirestore.getInstance();
         firebaseFirestore
@@ -114,7 +116,9 @@ public class EditActivity extends AppCompatActivity {
                     }
                 });
     }
-
+    /**
+     * Obtem dados do banco de dados (Categoria).
+     */
     private void getDatabase2(){
         firebaseFirestore =  FirebaseFirestore.getInstance();
         firebaseFirestore
@@ -127,7 +131,7 @@ public class EditActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot doc = task.getResult();
                             assert doc != null;
-                            category = doc.toObject(Category.class);
+                            categorias = doc.toObject(Categorias.class);
                         } else {
                             Log.w("D", "Error getting documents.", task.getException());
                         }
@@ -135,16 +139,20 @@ public class EditActivity extends AppCompatActivity {
                 });
     }
 
-
-
+    /**
+     * Edita o livro.
+     */
     private void editarLivro(){
         try {
             renomearArquivoLocal();
 
+            //Checa inconsistências no nome.
             String nomedolivro = editTextLivroNome.getText().toString() ;
             if (nomedolivro.contains("=")||nomedolivro.contains(",")||
                     nomedolivro.contains("$")||nomedolivro.contains("#")||
                     nomedolivro.contains("[")||nomedolivro.contains("]")) throw  new IllegalArgumentException();
+            //--------------------------------------------------------------------------------------
+            //Preenche as informações do objeto.
             livro.setNome(nomedolivro);
             livro.setAutor(editTextLivroAutor.getText().toString());
             livro.setArea(areaSelecionada);
@@ -154,22 +162,24 @@ public class EditActivity extends AppCompatActivity {
             livro.setIdLivro(livro.getIdLivro());
             livro.setImgDownload(MyCustomUtil.unaccent(urlImg));
             livro.setLinkDownload(MyCustomUtil.unaccent(url));
+            //--------------------------------------------------------------------------------------
             Insert insert =  new Insert(EditActivity.this);
             //testa se a categoria existe.
             try {
-                String s = category.getCategoryName();
+                String s = categorias.getCategoryName();
             } catch (NullPointerException e){
                 e.printStackTrace();
             } finally {
-                category =  new Category();
-                category.setCategoryName(livro.getCategoria());
-                insert.saveCategoryFireStore(category);
+                categorias =  new Categorias();
+                categorias.setCategoryName(livro.getCategoria());
+                insert.saveCategoryFireStore(categorias);
             }
-            insert.saveInfoFireStore(livro,category);
+            //Salva as informações no banco de dados.
+            insert.saveInfoFireStore(livro, categorias);
             insert.addOnSuccessListener(new Insert.OnSuccessInsertListener() {
                 @Override
                 public void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot) {
-                    finish();
+                    finish(); //termina a atividade.
                 }
             });
         } catch (IllegalArgumentException e){
@@ -179,6 +189,9 @@ public class EditActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Renomeia o arquivo local se ele já existir na memória.
+     */
     private void renomearArquivoLocal(){
         File bookFile = new File(getFilesDir(), MyCustomUtil.removeSpaces(livro.getNome()));
         if (bookFile.exists()) {

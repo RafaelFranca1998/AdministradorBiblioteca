@@ -5,6 +5,10 @@
 
 package release.saosalvador.com.administradorbiblioteca.model;
 
+/**
+ * Classe L
+ *
+ */
 public class L {
     private String bG9naW4, c2VuaGE;
 

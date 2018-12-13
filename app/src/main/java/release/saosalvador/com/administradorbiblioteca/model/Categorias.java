@@ -5,8 +5,12 @@
 
 package release.saosalvador.com.administradorbiblioteca.model;
 
-public class Category {
+/**
+ * Classe categoria
+ */
+public class Categorias {
     private String categoryName;
+    private String category;
     private String imgDownload;
 
     public String getCategoryName() {
@@ -23,5 +27,13 @@ public class Category {
 
     public void setImgDownload(String imgDownload) {
         this.imgDownload = imgDownload;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

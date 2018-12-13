@@ -1,6 +1,10 @@
 package release.saosalvador.com.administradorbiblioteca.config;
 
+/**
+ * Gera caracteres rãndomicos.
+ */
 public class RandomKey {
+
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     public RandomKey() {

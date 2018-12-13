@@ -27,7 +27,7 @@ import java.util.List;
 
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.activity.MainActivity;
-import release.saosalvador.com.administradorbiblioteca.model.Category;
+import release.saosalvador.com.administradorbiblioteca.model.Categorias;
 
 public class AdapterRecyclerViewCategory extends RecyclerView.Adapter<AdapterRecyclerViewCategory.ViewHolder> {
 
@@ -44,12 +44,12 @@ public class AdapterRecyclerViewCategory extends RecyclerView.Adapter<AdapterRec
         }
     }
 
-    private List<Category> mCategoryList;
+    private List<Categorias> mCategoriasList;
     private Context mContext;
     private ViewHolder mViewHolder;
 
-    public AdapterRecyclerViewCategory(Context context, List<Category> categoryList) {
-        mCategoryList = categoryList;
+    public AdapterRecyclerViewCategory(Context context, List<Categorias> categoriasList) {
+        mCategoriasList = categoriasList;
         mContext = context;
     }
 
@@ -67,13 +67,13 @@ public class AdapterRecyclerViewCategory extends RecyclerView.Adapter<AdapterRec
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        Category category = mCategoryList.get(position);
+        Categorias categorias = mCategoriasList.get(position);
         mViewHolder = viewHolder;
 
         TextView textViewCategoria = mViewHolder.txtCategory;
-        textViewCategoria.setText(category.getCategoryName());
+        textViewCategoria.setText(categorias.getCategoryName());
         ImageView imgIcon = mViewHolder.imgCategory;
-        String url = category.getImgDownload();
+        String url = categorias.getImgDownload();
         if (mViewHolder.imgCategory == null){
             try {
                 mViewHolder.imgCategory.setVisibility(View.GONE);
@@ -126,6 +126,6 @@ public class AdapterRecyclerViewCategory extends RecyclerView.Adapter<AdapterRec
 
     @Override
     public int getItemCount() {
-        return mCategoryList.size();
+        return mCategoriasList.size();
     }
 }

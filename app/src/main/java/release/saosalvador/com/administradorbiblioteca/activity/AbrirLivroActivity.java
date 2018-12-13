@@ -33,7 +33,7 @@ import java.io.File;
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
-public class OpenBookActivity extends AppCompatActivity {
+public class AbrirLivroActivity extends AppCompatActivity {
     private String idLivro;
     private Livro livro;
     private ProgressDialog dialog;
@@ -44,8 +44,8 @@ public class OpenBookActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (isFirstOpen){
-            getDatabase1();
+        if (isFirstOpen){//checa se o livro está sendo abreto ou fechado.
+            getDatabase();
             isFirstOpen = false;
         }else {
             finish();
@@ -55,18 +55,19 @@ public class OpenBookActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_open_book);
+        setContentView(R.layout.activity_abrir_livro);
 
         Bundle extra = getIntent().getExtras();
         if (extra!= null){
             Log.e("bundle","Não está null");
             idLivro = extra.getString("id");
         }
-
     }
 
-
-    private void getDatabase1(){
+    /**
+     * Obtem dados do livro.
+     */
+    private void getDatabase(){
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseFirestore
                 .collection("livros")
@@ -92,6 +93,10 @@ public class OpenBookActivity extends AppCompatActivity {
 
     private File bookFile;
 
+    /**
+     * Baixa o livro do servidor de arquivos.
+     * @param url
+     */
     private  void downloadFile(String url) {
         StorageReference islandRef = FirebaseStorage.getInstance().getReferenceFromUrl(url + "/livro.pdf");
         bookFile = new File(getFilesDir(), idLivro);
@@ -100,7 +105,7 @@ public class OpenBookActivity extends AppCompatActivity {
             abrirLivro(bookFile.getAbsolutePath());
         } else{
 
-            dialog = new ProgressDialog(OpenBookActivity.this);
+            dialog = new ProgressDialog(AbrirLivroActivity.this);
 
             islandRef.getFile(bookFile).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
                 @TargetApi(Build.VERSION_CODES.N)
@@ -135,10 +140,14 @@ public class OpenBookActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Abre o arquivo salvo na  memoria do celular.
+     * @param caminhoDoArquivo
+     */
     private void abrirLivro(String caminhoDoArquivo){
         if (caminhoDoArquivo != null && !caminhoDoArquivo.equals("")) {
             try {
-                Global.Init(OpenBookActivity.this);
+                Global.Init(AbrirLivroActivity.this);
                 Intent intent = new Intent();
                 intent.setClass(this, PDFViewAct.class);
                 intent.putExtra("PDFPath", caminhoDoArquivo);

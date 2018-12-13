@@ -43,7 +43,7 @@ public class InfoActivity extends AppCompatActivity {
     private String idLivro;
     private String livroNome;
     private String linkLivro;
-    private Livro livro;
+    private Livro  livro;
     //---------------------------------------------------------------------------------------------
     private TextView txtNome;
     private TextView txtAutor;
@@ -62,7 +62,7 @@ public class InfoActivity extends AppCompatActivity {
     private String KEY;
     private String url;
     //----------------------------------------------------------------------------------------------
-    private File bookFile;
+    private File livroFile;
     private ProgressDialog dialog;
     private ProgressDialog progressDialogHorizontal;
     private double progress;
@@ -73,9 +73,10 @@ public class InfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+//--------------------------------------------------------------------------------------------------
         TAG = getString(R.string.tag_debug);
         KEY = getString(R.string.tag_id);
-
+//----------------------------------------------VIEWS-----------------------------------------------
         buttonOpen = findViewById(R.id.bt_open_book);
         buttonEdit = findViewById(R.id.bt_edit_book);
         buttonDelete =findViewById(R.id.bt_delete_book);
@@ -88,7 +89,7 @@ public class InfoActivity extends AppCompatActivity {
         txtCurso = findViewById(R.id.tv_curso);
         txtSituacao = findViewById(R.id.tv_situation);
         toolbar =  findViewById(R.id.toolbar);
-
+//-----------------------------------------TOOLBAR--------------------------------------------------
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -97,8 +98,8 @@ public class InfoActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        Bundle extra = getIntent().getExtras();
+//--------------------------------------------------------------------------------------------------
+        Bundle extra = getIntent().getExtras(); // obtem o id do livro passado na atividade anterior.
         if (extra!= null){
             Log.e(TAG,"Não está null");
             idLivro = extra.getString(KEY);
@@ -107,7 +108,7 @@ public class InfoActivity extends AppCompatActivity {
         buttonOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(InfoActivity.this,OpenBookActivity.class);
+                Intent intent =  new Intent(InfoActivity.this,AbrirLivroActivity.class);
                 intent.putExtra(KEY,livro.getIdLivro());
                 startActivity(intent);
             }
@@ -160,14 +161,28 @@ public class InfoActivity extends AppCompatActivity {
         buttonDeleteLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean confirm = deleteLocalFile();
-                if (confirm){
-                    Toast.makeText(InfoActivity.this,"Livro apagado da memória com sucesso",Toast.LENGTH_LONG).show();;
-                    txtSituacao.setTextColor(getResources().getColor(R.color.red));
-                    txtSituacao.setText(R.string.livro_n_baixado);
-                    buttonBaixar.setEnabled(true);
-                    buttonDeleteLocal.setEnabled(false);
-                }
+                AlertDialog ad;
+                AlertDialog.Builder builder = new AlertDialog.Builder(InfoActivity.this);
+                builder.setTitle(getString(R.string.button_delete));
+                builder.setMessage(getString(R.string.text_dialog)+ livro.getNome()+"da memória ?");
+                builder.setPositiveButton(getString(R.string.text_yes), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        boolean confirm = deleteLocalFile();
+                        if (confirm){
+                            Toast.makeText(InfoActivity.this,"Livro apagado da memória com sucesso!",Toast.LENGTH_LONG).show();;
+                            txtSituacao.setTextColor(getResources().getColor(R.color.red));
+                            txtSituacao.setText(R.string.livro_n_baixado);
+                            buttonBaixar.setEnabled(true);
+                            buttonDeleteLocal.setEnabled(false);
+                        }
+                    }
+                });
+                builder.setNegativeButton(getString(R.string.text_no), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                    }
+                });
+                ad = builder.create();
+                ad.show();
             }
         });
 
@@ -176,10 +191,13 @@ public class InfoActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getDatabase1();
+        getDatabase();
     }
 
-    private void getDatabase1(){
+    /**
+     * Obtem dados do livro selecionado.
+     */
+    private void getDatabase(){
         createDialog();
         firebaseFirestore =  FirebaseFirestore.getInstance();
         firebaseFirestore
@@ -202,7 +220,7 @@ public class InfoActivity extends AppCompatActivity {
                             url = livro.getImgDownload();
                             livroNome = livro.getNome();
                             linkLivro = livro.getLinkDownload();
-                            bookFile = new File(getFilesDir(),idLivro);
+                            livroFile = new File(getFilesDir(),idLivro);
                             checkLocalFile();
                             dimissDialog();
                             toolbar.setTitle(MyCustomUtil.removeLines(livroNome));
@@ -223,6 +241,9 @@ public class InfoActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Cria o progressdialog.
+     */
     private void createDialog(){
         dialog =  new ProgressDialog(InfoActivity.this);
         dialog.setCancelable(false);
@@ -231,12 +252,18 @@ public class InfoActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * descarta o progressdialog.
+     */
     private void dimissDialog(){
         dialog.dismiss();
     }
 
+    /**
+     * checa se o arquivo já existe na memória.
+     */
     private void checkLocalFile(){
-        if (bookFile.exists()) {
+        if (livroFile.exists()) {
             txtSituacao.setTextColor(getResources().getColor(R.color.green));
             txtSituacao.setText(R.string.livro_baixado);
             buttonBaixar.setEnabled(false);
@@ -247,18 +274,22 @@ public class InfoActivity extends AppCompatActivity {
             buttonBaixar.setEnabled(true);
             buttonDeleteLocal.setEnabled(false);
         }
-        if (!isConected(this)&&bookFile.exists()){
+        if (!isConected(this)&& livroFile.exists()){
             buttonOpen.setEnabled(false);
         }else {
             buttonOpen.setEnabled(true);
         }
     }
 
+    /**
+     * baixa o livro do servidor de arquivos.
+     * @param url link do livro.
+     */
     private  void downloadFile(String url) {
         StorageReference islandRef = FirebaseStorage.getInstance().getReferenceFromUrl(url + "/livro.pdf");
-        bookFile = new File(getFilesDir(), idLivro);
+        livroFile = new File(getFilesDir(), idLivro);
         progressDialogHorizontal = new ProgressDialog(InfoActivity.this);
-        islandRef.getFile(bookFile).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+        islandRef.getFile(livroFile).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
             @TargetApi(Build.VERSION_CODES.N)
             @Override
             public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -275,7 +306,7 @@ public class InfoActivity extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                Log.e("firebase ", ";local tem file created  created " + bookFile.getAbsolutePath());
+                Log.e("firebase ", ";local tem file created  created " + livroFile.getAbsolutePath());
                 txtSituacao.setTextColor(getResources().getColor(R.color.green));
                 txtSituacao.setText("Livro Baixado");
                 buttonBaixar.setEnabled(false);
@@ -296,17 +327,25 @@ public class InfoActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        if (bookFile != null) {
+        if (livroFile != null) {
             checkLocalFile();
         }
     }
 
+    /**
+     * deleta arquivo local.
+     * @return verdadeiro se deletato com sucesso.
+     */
     private boolean deleteLocalFile(){
-        bookFile = new File(getFilesDir(), idLivro);
-        return bookFile.delete();
+        livroFile = new File(getFilesDir(), idLivro);
+        return livroFile.delete();
     }
 
-
+    /**
+     * verifica se o dispositivo esta conectadoa internet.
+     * @param cont
+     * @return true se estiver conectado.
+     */
     public static boolean isConected(Context cont){
         ConnectivityManager conmag = (ConnectivityManager)cont.getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -320,6 +359,9 @@ public class InfoActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * fecha a atividade.
+     */
     public void closeActivity(){
         this.finish();
     }

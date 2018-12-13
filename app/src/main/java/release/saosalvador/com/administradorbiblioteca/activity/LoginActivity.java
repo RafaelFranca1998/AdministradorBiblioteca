@@ -271,7 +271,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 DocumentSnapshot doc = task.getResult();
                                 L l = doc.toObject(L.class);
                                 if (l.getbG9naW4().equals(mEmail)&& l.getC2VuaGE().equals(mPassword)){
-                                    Toast.makeText(LoginActivity.this,"Sucesso ao fazer L!",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this,"Sucesso ao fazer Login!",Toast.LENGTH_LONG).show();
+                                    Intent intent =  new Intent(LoginActivity.this,TransicaoActivity.class);
+                                    startActivity(intent);
+                                    finish();
                                 }else {
                                     Toast.makeText(LoginActivity.this,"Acesso Negado!",Toast.LENGTH_LONG).show();
                                 }
@@ -288,9 +291,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                Intent intent =  new Intent(LoginActivity.this,TransitionActivity.class);
-                startActivity(intent);
-                finish();
+
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

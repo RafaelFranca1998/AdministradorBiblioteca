@@ -2,6 +2,9 @@ package release.saosalvador.com.administradorbiblioteca.model;
 
 import java.util.Date;
 
+/**
+ * Classe livro
+ */
 public class Livro {
     private String idLivro;
     private String nome;

@@ -41,9 +41,12 @@ import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.ToHashMap;
 import release.saosalvador.com.administradorbiblioteca.config.MyCustomUtil;
 import release.saosalvador.com.administradorbiblioteca.config.DAO;
-import release.saosalvador.com.administradorbiblioteca.model.Category;
+import release.saosalvador.com.administradorbiblioteca.model.Categorias;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
+/**
+ * Metodos para inserir dados no banco de dados e servidor de arquivos.
+ */
 public class Insert {
     private OnSuccessInsertListener insertListener;
     private OnSuccessUploadListener uploadListener;
@@ -51,7 +54,7 @@ public class Insert {
     private Bitmap imagemCapa;
     private ProgressDialog pd;
     private Livro mLivro;
-    private Category mCategory;
+    private Categorias mCategorias;
     private double progress;
     private FirebaseFirestore firebaseFirestore;
 
@@ -156,18 +159,26 @@ public class Insert {
         }
     }
 
-
-    public void saveInfoFireStore(Livro livro,Category category){
+    /**
+     * Salva dados do livro no banco de dados.
+     * @param livro
+     * @param categorias
+     */
+    public void saveInfoFireStore(Livro livro,Categorias categorias){
         mLivro = livro;
-        mCategory = category;
+        mCategorias = categorias;
         firebaseFirestore =  null;
         Map < String, Object > newLivro = new HashMap < > ();
         Map < String, Object > newCategory = new HashMap < > ();
-        newCategory.putAll(ToHashMap.hashmapToCategory(mCategory));
+        newCategory.putAll(ToHashMap.categoryToHashmap(mCategorias));
         newLivro.putAll(ToHashMap.livroToHashMap(mLivro));
         try {
             firebaseFirestore = FirebaseFirestore.getInstance();
-            firebaseFirestore.collection("livros").document(mLivro.getIdLivro()).set(newLivro).addOnSuccessListener(new OnSuccessListener<Void>() {
+            firebaseFirestore
+                    .collection("livros")
+                    .document(mLivro.getIdLivro())
+                    .set(newLivro)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     if (insertListener != null) {
@@ -181,22 +192,29 @@ public class Insert {
     }
 
     private Map < String, Object > newCategory;
-    public void saveCategoryFireStore(Category category){
-        mCategory = category;
+
+    /**
+     * salva a categoria no banco de dados.
+     * @param categorias
+     */
+    public void saveCategoryFireStore(Categorias categorias){
+        mCategorias = categorias;
+        mCategorias.setCategory(mCategorias.getCategoryName().toLowerCase());
         newCategory = new HashMap < > ();
-        newCategory.putAll(ToHashMap.hashmapToCategory(mCategory));
+        newCategory.putAll(ToHashMap.categoryToHashmap(mCategorias));
         try {
             firebaseFirestore = FirebaseFirestore.getInstance();
             firebaseFirestore
                     .collection(mContext.getString(R.string.child_category))
-                    .document(mCategory.getCategoryName()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    .document(mCategorias.getCategoryName())
+                    .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                     assert documentSnapshot != null;
                     if (!documentSnapshot.exists()){
                         firebaseFirestore
                                 .collection(mContext.getString(R.string.child_category))
-                                .document(mCategory.getCategoryName())
+                                .document(mCategorias.getCategoryName())
                                 .set(newCategory)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -214,16 +232,16 @@ public class Insert {
         }
     }
 
-    private Category saveCategory;
+    private Categorias saveCategorias;
     /**
      * salva a imagem da categoria.
-     * @param category objeto do tipo {@link Category}.
+     * @param categorias objeto do tipo {@link Categorias}.
      * @param mPath caminho da imagem.
      */
-    public void saveCategoryImg(Category category, Uri mPath){
+    public void saveCategoryImg(Categorias categorias, Uri mPath){
         try {
-            saveCategory = category;
-            String name = saveCategory.getCategoryName();
+            saveCategorias = categorias;
+            String name = saveCategorias.getCategoryName();
             name =  MyCustomUtil.unaccent(name);
             name = MyCustomUtil.removeSpaces(name);
             final StorageReference categoryReference = DAO.getFirebaseStorage()
@@ -266,8 +284,8 @@ public class Insert {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     String parse = categoryReference.toString();
-                    saveCategory.setImgDownload(parse);
-                    saveCategoryFireStore(saveCategory);
+                    saveCategorias.setImgDownload(parse);
+                    saveCategoryFireStore(saveCategorias);
                     pd2.dismiss();
                     Toast.makeText(mContext,"Imagem carregada!",Toast.LENGTH_SHORT).show();
                 }
@@ -279,7 +297,10 @@ public class Insert {
     }
 
 
-
+    /**
+     * Gera thumbnail do livro.
+     * @param pdfUri
+     */
     private void generateImageFromPdf(Uri pdfUri) {
         int pageNumber = 0;
         PdfiumCore pdfiumCore = new PdfiumCore(mContext);
@@ -297,7 +318,7 @@ public class Insert {
             e.printStackTrace();
         }
     }
-
+//--------------------------------Listeners da classe-----------------------------------------------
     public interface OnSuccessInsertListener {void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot);}
 
     public interface OnSuccessUploadListener {void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot);}

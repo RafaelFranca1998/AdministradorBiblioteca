@@ -29,11 +29,11 @@ import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Insert;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.AdapterRecyclerViewCategory;
 import release.saosalvador.com.administradorbiblioteca.config.recyclerview.RecyclerItemClickListener;
-import release.saosalvador.com.administradorbiblioteca.model.Category;
+import release.saosalvador.com.administradorbiblioteca.model.Categorias;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
-public class CategoryActivity extends AppCompatActivity {
-    private List<Category> categoryList;
+public class CategoriasActivity extends AppCompatActivity {
+    private List<Categorias> categoriasList;
     private RecyclerView listView;
     private AdapterRecyclerViewCategory adapterListView;
     private int itemPosition;
@@ -55,22 +55,11 @@ public class CategoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
-
+        setContentView(R.layout.activity_categorias);
+        //------------------------------------------------------------------------------------------
         Toolbar toolbar =  findViewById(R.id.toolbar);
         toolbar.setTitle("Categorias disponiveis");
         setSupportActionBar(toolbar);
-        categoryList=  new ArrayList<>();
-        listView = findViewById(R.id.recycler_view_category);
-        adapterListView =  new AdapterRecyclerViewCategory(CategoryActivity.this,categoryList);
-
-        getDatabase();
-
-        listView.setAdapter(adapterListView);
-        StaggeredGridLayoutManager gridLayoutManager =
-                new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-        listView.setLayoutManager(gridLayoutManager);
-
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,12 +67,25 @@ public class CategoryActivity extends AppCompatActivity {
                 finish();
             }
         });
+        //------------------------------------------------------------------------------------------
+        categoriasList =  new ArrayList<>();
+        listView = findViewById(R.id.recycler_view_category);
+        adapterListView =  new AdapterRecyclerViewCategory(CategoriasActivity.this, categoriasList);
+        //------------------------------------------------------------------------------------------
+        getDatabase();
+
+        listView.setAdapter(adapterListView);
+        StaggeredGridLayoutManager gridLayoutManager =
+                new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        listView.setLayoutManager(gridLayoutManager);
+
+
 
         listView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, listView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent intent = new Intent(CategoryActivity.this,CategoryEditActivity.class);
-                        String categoryName = categoryList.get(position).getCategoryName();
+                        Intent intent = new Intent(CategoriasActivity.this,EditarCategoriasActivity.class);
+                        String categoryName = categoriasList.get(position).getCategoryName();
                         intent.putExtra("category", categoryName);
                         startActivity(intent);                    }
                     @Override public void onLongItemClick(View view, int position) {
@@ -92,7 +94,7 @@ public class CategoryActivity extends AppCompatActivity {
                 })
         );
     }
-
+    //---------------------------------Obtem dados do banco-----------------------------------------
     private void getDatabase(){
         firebaseFirestore =  FirebaseFirestore.getInstance();
 
@@ -100,9 +102,9 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    categoryList.clear();
+                    categoriasList.clear();
                     for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        categoryList.add(document.toObject(Category.class)) ;
+                        categoriasList.add(document.toObject(Categorias.class)) ;
                     }
                     if (isFirstOpen) {
                         checkCategory();
@@ -115,7 +117,10 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
     }
-
+    //----------------------------------Obtem dados dos livros--------------------------------------
+    /**
+     * Obtem as categorias de todos os livros.
+     */
     private void checkCategory(){
         final ArrayList<String> strings =  new ArrayList<>();
         firebaseFirestore =  FirebaseFirestore.getInstance();
@@ -139,7 +144,13 @@ public class CategoryActivity extends AppCompatActivity {
                     }
                 });
     }
+    //---------------------------------Remove categorias repetidas----------------------------------
 
+    /**
+     * Remove categorias repetidas.
+     * @param list
+     * @return
+     */
     private ArrayList removerDuplicados(ArrayList list) {
         for (int i = 0; i < list.size(); i++) {
             Object a = list.get(i);
@@ -155,12 +166,16 @@ public class CategoryActivity extends AppCompatActivity {
         return list;
     }
 
+    /**
+     * Atualiza categorias no banco de dados.
+     * @param livros
+     */
     private void createCategory(ArrayList<String> livros){
         for (String livro: livros){
             Insert insert =  new Insert(this);
-            Category category =  new Category();
-            category.setCategoryName(livro);
-            insert.saveCategoryFireStore(category);
+            Categorias categorias =  new Categorias();
+            categorias.setCategoryName(livro);
+            insert.saveCategoryFireStore(categorias);
         }
         getDatabase();
     }

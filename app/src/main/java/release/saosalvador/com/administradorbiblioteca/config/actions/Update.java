@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import release.saosalvador.com.administradorbiblioteca.config.ToHashMap;
-import release.saosalvador.com.administradorbiblioteca.model.Category;
+import release.saosalvador.com.administradorbiblioteca.model.Categorias;
 
 public class Update {
 
@@ -23,13 +23,13 @@ public class Update {
     }
     /**
      * salva a categoria após a edição.
-     * @param category objeto do tipo {@link Category}.
+     * @param categorias objeto do tipo {@link Categorias}.
      * @param oldName nome antigo da categoria.
      */
-    public void editCategory(Category category, String oldName){
+    public void editCategory(Categorias categorias, String oldName){
         try {
             Map < String, Object > editCategory = new HashMap < > ();
-            editCategory.putAll(ToHashMap.hashmapToCategory(category));
+            editCategory.putAll(ToHashMap.categoryToHashmap(categorias));
             FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
             firebaseFirestore
                     .collection("categorias")
@@ -38,7 +38,7 @@ public class Update {
             firebaseFirestore =  FirebaseFirestore.getInstance();
             firebaseFirestore
                     .collection("categorias")
-                    .document(category.getCategoryName())
+                    .document(categorias.getCategoryName())
                     .set(editCategory).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {

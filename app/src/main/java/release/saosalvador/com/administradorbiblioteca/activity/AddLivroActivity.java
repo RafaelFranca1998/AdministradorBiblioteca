@@ -30,10 +30,10 @@ import java.util.Objects;
 import release.saosalvador.com.administradorbiblioteca.R;
 import release.saosalvador.com.administradorbiblioteca.config.MyCustomUtil;
 import release.saosalvador.com.administradorbiblioteca.config.actions.Insert;
-import release.saosalvador.com.administradorbiblioteca.model.Category;
+import release.saosalvador.com.administradorbiblioteca.model.Categorias;
 import release.saosalvador.com.administradorbiblioteca.model.Livro;
 
-public class AddBookActivity extends AppCompatActivity {
+public class AddLivroActivity extends AppCompatActivity {
 
     private String caminhoDoArquivo;
     private String areaSelecionada;
@@ -48,7 +48,7 @@ public class AddBookActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_book);
+        setContentView(R.layout.activity_add_livro);
         //------------------------------------------------------------------------------------------
         RadioGroup radioGroupArea = findViewById(R.id.radio_group_area_add);
         //------------------------------------------------------------------------------------------
@@ -99,25 +99,25 @@ public class AddBookActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (caminhoDoArquivo != null && !caminhoDoArquivo.equals("")) {
                     try {
-                        Global.Init(AddBookActivity.this);
+                        Global.Init(AddLivroActivity.this);
                         Intent intent = new Intent();
-                        intent.setClass(AddBookActivity.this, PDFViewAct.class);
+                        intent.setClass(AddLivroActivity.this, PDFViewAct.class);
                         intent.putExtra("PDFPath", caminhoDoArquivo);
                         startActivity(intent);
                     } catch (NullPointerException e) {
-                        Toast.makeText(AddBookActivity.this, R.string.invalid_path_error, Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddLivroActivity.this, R.string.invalid_path_error, Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }else {
-                    Toast.makeText(AddBookActivity.this, R.string.invalid_path_error, Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddLivroActivity.this, R.string.invalid_path_error, Toast.LENGTH_LONG).show();
                 }
             }
         });
 
+        //-----------------------------------------TOOLBAR------------------------------------------
         Toolbar toolbar = findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -138,15 +138,19 @@ public class AddBookActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * metodo adicionar livro.
+     */
     private void addBook(){
         try {
+
             String nomedolivro = editTextLivroNome.getText().toString() ;
             Livro livro = new Livro();
-            if (nomedolivro.contains("=")||nomedolivro.contains(",")
+            if (nomedolivro.contains("=")||nomedolivro.contains(",")//checa o nome do livro.
                     ||nomedolivro.contains("$")||nomedolivro.contains("#")
                     ||nomedolivro.contains("[")||nomedolivro.contains("]"))
                 throw  new IllegalArgumentException();
-            //--------------------------------------------------------------------------------------
+            //--------------------------Informações do livro----------------------------------------
             livro.setNome(nomedolivro);
             livro.setAutor(MyCustomUtil.removeLines(editTextLivroAutor.getText().toString()));
             livro.setArea(areaSelecionada);
@@ -155,13 +159,14 @@ public class AddBookActivity extends AppCompatActivity {
             livro.setAno(editTextLivroAno.getText().toString());
             livro.setIdLivro(MyCustomUtil.codeBase64(editTextLivroNome.getText().toString()));
             livro.setDataAdicionado(getData());
-            Category category = new Category();
-            category.setCategoryName(editTextLivroCategoria.getText().toString());
-            //--------------------------------------------------------------------------------------
-            Insert insert =  new Insert(AddBookActivity.this);
+            Categorias categorias = new Categorias();
+            categorias.setCategoryName(editTextLivroCategoria.getText().toString());
+            categorias.setCategory(editTextLivroCategoria.getText().toString().toLowerCase());
+            //-----------------------Insere no banco de dados---------------------------------------
+            Insert insert =  new Insert(AddLivroActivity.this);
             insert.salvarLivro(livro,caminhoDoArquivo);
-            insert.saveCategoryFireStore(category);
-            insert.saveInfoFireStore(livro, category);
+            insert.saveCategoryFireStore(categorias);
+            insert.saveInfoFireStore(livro, categorias);
             insert.addOnSuccessUploadListener(new Insert.OnSuccessUploadListener() {
                 @Override
                 public void onCompleteInsert(UploadTask.TaskSnapshot taskSnapshot) {

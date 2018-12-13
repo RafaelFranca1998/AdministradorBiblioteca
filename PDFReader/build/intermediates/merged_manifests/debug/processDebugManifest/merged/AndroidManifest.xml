@@ -32,7 +32,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <categorias android:name="android.intent.categorias.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
