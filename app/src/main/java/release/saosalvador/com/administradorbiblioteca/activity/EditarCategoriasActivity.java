@@ -75,7 +75,7 @@ public class EditarCategoriasActivity extends AppCompatActivity {
         Bundle extra = getIntent().getExtras();
         if (extra!= null){
             Log.e("Debug: ","Não está null");
-            nomeCategoria = extra.getString("categorias");
+            nomeCategoria = extra.getString("category");
         }
 
         buttonUpdate.setOnClickListener(new View.OnClickListener() {

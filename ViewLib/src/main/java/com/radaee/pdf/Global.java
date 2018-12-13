@@ -358,7 +358,7 @@ public class Global
 	 * navigation mode, 0:thumbnail view 1:seekbar view
 	 */
 	public static int navigationMode = 1;
-	public static boolean debug_mode = true;
+	public static boolean debug_mode = false;
 	public static boolean highlight_annotation = true;
 	public static boolean save_thumb_in_cache = true;
 	/**
