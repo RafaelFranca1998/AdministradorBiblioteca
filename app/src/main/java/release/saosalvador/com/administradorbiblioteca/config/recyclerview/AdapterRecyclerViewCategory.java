@@ -107,6 +107,8 @@ public class AdapterRecyclerViewCategory extends RecyclerView.Adapter<AdapterRec
             try {
                 if (url == null){
                     viewHolder.imgCategory.setImageResource(R.drawable.ic_add);
+                    mViewHolder.progressBar.setVisibility(View.GONE);
+                    mViewHolder.imgCategory.setVisibility(View.VISIBLE);
                 }else {
                     StorageReference storageReference =
                             FirebaseStorage.getInstance().getReferenceFromUrl(url);

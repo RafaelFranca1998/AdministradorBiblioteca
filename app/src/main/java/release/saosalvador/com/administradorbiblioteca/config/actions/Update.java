@@ -35,6 +35,7 @@ public class Update {
                     .collection("categorias")
                     .document(oldName)
                     .delete();
+
             firebaseFirestore =  FirebaseFirestore.getInstance();
             firebaseFirestore
                     .collection("categorias")
